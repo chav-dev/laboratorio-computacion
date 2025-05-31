@@ -38,6 +38,36 @@ public class Local {
         System.out.println(bitacora);
         return bitacora;
     }
+    
+    public int calcPCRota(){
+        int countRota = 0;
+        for (int i = 0; i < computadoras.size(); i++) {
+            if(computadoras.get(i).getEstado().equalsIgnoreCase("Rota")){
+                countRota++;
+            }
+        }
+        return countRota;
+    }
+    
+    public int calcPCOcupada(){
+        int countOcupada = 0;
+        for (int i = 0; i < computadoras.size(); i++) {
+            if(computadoras.get(i).getEstado().equalsIgnoreCase("Ocupada")){
+                countOcupada++;
+            }
+        }
+        return countOcupada;
+    }
+    
+    public int calcPCLibre(){
+        int countLibre = 0;
+        for (int i = 0; i < computadoras.size(); i++) {
+            if(computadoras.get(i).getEstado().equalsIgnoreCase("Libre")){
+                countLibre++;
+            }
+        }
+        return countLibre;
+    }
 
     @Override
     public String toString() {
