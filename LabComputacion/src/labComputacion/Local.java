@@ -30,10 +30,13 @@ public class Local {
         this.computadoras = computadoras;
     }
     
-    public Date calcTiempoUso(){
+    public String mostrarBitacora(){
+        String bitacora = "";
         for (int i = 0; i < computadoras.size(); i++) {
-            computadoras.get(i)
+            bitacora += (i+1)+computadoras.get(i).mostrarBitacora();
         }
+        System.out.println(bitacora);
+        return bitacora;
     }
 
     @Override
