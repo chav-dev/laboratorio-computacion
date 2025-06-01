@@ -4,7 +4,7 @@
  */
 package labComputacion;
 
-import java.util.Date;
+import java.time.Duration;
 
 /**
  *
@@ -12,8 +12,7 @@ import java.util.Date;
  */
 public class LocalColectInvest extends Local{
 
-    public LocalColectInvest(String nombre, Date tiempoUso, String labor, int cantPC) {
-        super(nombre,tiempoUso,labor,cantPC);
+    public LocalColectInvest(String nombre, Duration tiempoUso, String labor, int cantPC) {
+        super(nombre, tiempoUso, labor, cantPC);
     }
-    
 }

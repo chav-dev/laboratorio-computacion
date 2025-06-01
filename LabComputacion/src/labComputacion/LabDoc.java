@@ -1,6 +1,6 @@
 package labComputacion;
 
-import java.util.Date;
+import java.time.Duration;
 
 /**
  *
@@ -8,8 +8,9 @@ import java.util.Date;
  */
 public class LabDoc extends LocalLab {
 
-    public LabDoc(String nombre, Date tiempoUso, String labor, int cantPC) {
+    public LabDoc(String nombre, Duration tiempoUso, String labor, int cantPC) {
         super(nombre, tiempoUso, labor, cantPC);
     }
+
     
 }
