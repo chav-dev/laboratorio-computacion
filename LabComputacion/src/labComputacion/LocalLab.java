@@ -1,14 +1,14 @@
 package labComputacion;
 
-import java.util.Date;
+import java.time.Duration;
 
 /**
  *
  * @author Chavelys
  */
-public class LocalLab extends Local {
-    
-    public LocalLab(String nombre, Date tiempoUso, String labor, int cantPC) {
-        super(nombre, tiempoUso, labor, cantPC);
+public abstract class LocalLab extends Local {
+
+    public LocalLab(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
+        super(nombre, tiempoUso, labor, cantPC, bitacoraLocal);
     }
 }

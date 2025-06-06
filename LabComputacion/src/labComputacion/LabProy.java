@@ -1,6 +1,6 @@
 package labComputacion;
 
-import java.util.Date;
+import java.time.Duration;
 
 /**
  *
@@ -8,8 +8,7 @@ import java.util.Date;
  */
 public class LabProy extends LocalLab {
 
-    public LabProy(String nombre, Date tiempoUso, String labor, int cantPC) {
-        super(nombre, tiempoUso, labor, cantPC);
+    public LabProy(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
+        super(nombre, tiempoUso, labor, cantPC, bitacoraLocal);
     }
-    
 }
