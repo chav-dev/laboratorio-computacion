@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package labComputacion;
 
 import java.util.ArrayList;
@@ -30,6 +26,7 @@ public class Bitacora {
     //     }
     //     return (suma * 100) / tiempoUso;
     // }
+    
     //method: calcular el mejor y peor porc de aprovechamiento
 
     public ArrayList<Double> getEntradas() {
@@ -55,7 +52,4 @@ public class Bitacora {
     public void setPersonas(ArrayList<Persona> personas) {
         this.personas = personas;
     }
-
-
-    
 }

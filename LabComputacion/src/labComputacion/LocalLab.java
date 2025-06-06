@@ -1,7 +1,4 @@
 package labComputacion;
-
-import java.time.Duration;
-
 /**
  *
  * @author Chavelys
