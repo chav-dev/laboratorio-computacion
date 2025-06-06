@@ -8,8 +8,8 @@ import java.time.Duration;
  */
 public class LabDoc extends LocalLab {
 
-    public LabDoc(String nombre, Duration tiempoUso, String labor, int cantPC) {
-        super(nombre, tiempoUso, labor, cantPC);
+    public LabDoc(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
+        super(nombre, tiempoUso, labor, cantPC, bitacoraLocal);
     }
 
     

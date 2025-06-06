@@ -8,7 +8,7 @@ import java.time.Duration;
  */
 public class LabProy extends LocalLab {
 
-    public LabProy(String nombre, Duration tiempoUso, String labor, int cantPC) {
-        super(nombre, tiempoUso, labor, cantPC);
+    public LabProy(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
+        super(nombre, tiempoUso, labor, cantPC, bitacoraLocal);
     }
 }

@@ -6,9 +6,9 @@ import java.time.Duration;
  *
  * @author Chavelys
  */
-public class LocalLab extends Local {
+public abstract class LocalLab extends Local {
 
-    public LocalLab(String nombre, Duration tiempoUso, String labor, int cantPC) {
-        super(nombre, tiempoUso, labor, cantPC);
+    public LocalLab(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
+        super(nombre, tiempoUso, labor, cantPC, bitacoraLocal);
     }
 }

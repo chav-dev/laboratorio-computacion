@@ -4,7 +4,7 @@ package labComputacion;
  *
  * @author Chavelys
  */
-public class Persona {
+public abstract class Persona {
     protected String nombre;
     protected int solapin;
 
