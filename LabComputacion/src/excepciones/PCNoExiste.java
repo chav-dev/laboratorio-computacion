@@ -4,9 +4,9 @@ package excepciones;
  *
  * @author Chavelys
  */
-public class PCNoExiste extends Exception{
+public class PcNoExiste extends Exception{
 
-    public PCNoExiste(String m) {
+    public PcNoExiste(String m) {
         super(m);
     }
     
