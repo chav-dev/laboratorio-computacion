@@ -137,4 +137,22 @@ public abstract class Local {
     public void setCantPC(int cantPc) {
         this.cantPc = cantPc;
     }
+
+    public ArrayList<Computadora> getComputadoras() {
+        return computadoras;
+    }
+
+    public void setComputadoras(ArrayList<Computadora> computadoras) {
+        this.computadoras = computadoras;
+    }
+
+    public Bitacora getBitacoraLocal() {
+        return bitacoraLocal;
+    }
+
+    public void setBitacoraLocal(Bitacora bitacoraLocal) {
+        this.bitacoraLocal = bitacoraLocal;
+    }
+    
+    
 }

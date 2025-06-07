@@ -23,8 +23,8 @@ public class Bitacora {
         this.salidas = salidas;
         this.personas = personas;
     }
-    
-    public void addElemento(Persona persona, String entrada, String salida){
+
+    public void addElemento(Persona persona, String entrada, String salida) {
         entradas.add(entrada);
         salidas.add(salida);
         personas.add(persona);
@@ -39,27 +39,47 @@ public class Bitacora {
         return bitacora;
     }
 
-    public double calcTiempoUso(){
+    public double calcTiempoUso() {
         double tiempo = 0;
-        
+
         for (int i = 0; i < entradas.size(); i++) {
             String horaEntrada = entradas.get(i).split(":")[0];
             String horaSalida = salidas.get(i).split(":")[0];
-            if(entradas.get(i).contains("pm") && salidas.get(i).contains("am")){        
+            if (entradas.get(i).contains("pm") && salidas.get(i).contains("am")) {
                 tiempo = 12.0 - (Double.parseDouble(horaEntrada)) + Double.parseDouble(horaSalida);
-            }else if(entradas.get(i).contains("am") && salidas.get(i).contains("pm")){
+            } else if (entradas.get(i).contains("am") && salidas.get(i).contains("pm")) {
                 tiempo = (Double.parseDouble(horaSalida)) + 12.0 - Double.parseDouble(horaEntrada);
-            }else{
+            } else {
                 tiempo = Double.parseDouble(horaSalida) - Double.parseDouble(horaEntrada);
             }
         }
         return tiempo;
     }
-    
-    public double calcPorcAprov(int tiempoUso) {
-        return (calcTiempoUso() * 100.0) / (double)tiempoUso;
+
+    public double calcTiempoPersona(String nombre) {
+        double tiempo = 0;
+
+        for (int i = 0; i < entradas.size(); i++) {
+            if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
+                String horaEntrada = entradas.get(i).split(":")[0];
+                String horaSalida = salidas.get(i).split(":")[0];
+                if (entradas.get(i).contains("pm") && salidas.get(i).contains("am")) {
+                    tiempo = 12.0 - (Double.parseDouble(horaEntrada)) + Double.parseDouble(horaSalida);
+                } else if (entradas.get(i).contains("am") && salidas.get(i).contains("pm")) {
+                    tiempo = (Double.parseDouble(horaSalida)) + 12.0 - Double.parseDouble(horaEntrada);
+                } else {
+                    tiempo = Double.parseDouble(horaSalida) - Double.parseDouble(horaEntrada);
+                }
+            }
+
+        }
+        return tiempo;
     }
-            
+
+    public double calcPorcAprov(int tiempoUso) {
+        return (calcTiempoUso() * 100.0) / (double) tiempoUso;
+    }
+
     public ArrayList<String> getEntradas() {
         return entradas;
     }

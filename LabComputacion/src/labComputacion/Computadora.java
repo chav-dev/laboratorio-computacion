@@ -1,5 +1,7 @@
 package labComputacion;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Chavelys
