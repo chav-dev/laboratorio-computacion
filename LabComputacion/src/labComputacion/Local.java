@@ -8,41 +8,32 @@ import excepciones.*;
  * @author Chavelys
  */
 public abstract class Local {
-
     protected String nombre;
     protected int tiempoUso;
     protected String labor;
-    protected int cantPC;
+    protected int cantPc;
     protected ArrayList<Computadora> computadoras;
     protected Bitacora bitacoraLocal;
 
-    public Local(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
+    public Local(String nombre, int tiempoUso, String labor, int cantPc, Bitacora bitacoraLocal) {
         this.nombre = nombre;
         this.tiempoUso = tiempoUso;
         this.labor = labor;
-        this.cantPC = cantPC;
-        this.computadoras = new ArrayList<>();;
+        this.cantPc = cantPc;
+        this.computadoras = new ArrayList<>();
         this.bitacoraLocal = bitacoraLocal;
     }
 
-//    public String mostrarBitacora(){
-//        String bitacora = "";
-//        for (int i = 0; i < computadoras.size(); i++) {
-//            bitacora += (i+1)+computadoras.get(i).mostrarBitacora();
-//        }
-//        System.out.println(bitacora);
-//        return bitacora;
-//    }
-    public void addPC(Computadora c) throws PCExiste {
+    public void addPC(Computadora c) throws PcExiste {
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == c.getNumero()) {
-                throw new PCExiste("Ya existe.");
+                throw new PcExiste("Ya existe.");
             }
         }
         computadoras.add(c);
     }
 
-    public void deletePC(int num) throws PCNoExiste {
+    public void deletePC(int num) throws PcNoExiste {
         boolean existe = false;
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == num) {
@@ -52,7 +43,7 @@ public abstract class Local {
             }
         }
         if (!existe) {
-            throw new PCNoExiste("Esa computadora no existe.");
+            throw new PcNoExiste("Esa computadora no existe.");
         }
     }
 
@@ -66,11 +57,11 @@ public abstract class Local {
         return pcRotas;
     }
     
-    public int calcPCRota() {
+    public int cantPcRota() {
         return pcRotas().size();
     }
 
-    public int calcPCOcupada() {
+    public int cantPcOcupada() {
         int countOcupada = 0;
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equalsIgnoreCase("Ocupada")) {
@@ -80,7 +71,7 @@ public abstract class Local {
         return countOcupada;
     }
 
-    public int calcPCLibre() {
+    public int cantPcLibre() {
         int countLibre = 0;
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equalsIgnoreCase("Libre")) {
@@ -88,56 +79,31 @@ public abstract class Local {
             }
         }
         return countLibre;
+    } 
+    
+    public String buscarpersona(String nombre){
+        int nroPc = 0;
+        String tipoLocal = "";
+        double tiempo = 0;
+        String name= "";
+        
+        for(int i = 0; i < computadoras.size(); i++){
+            Bitacora bitacora = computadoras.get(i).getBitacoraPc();
+            for(int j = 0; j < bitacora.getPersonas().size(); j++){
+                if(bitacora.getPersonas().get(i).getNombre().equals(nombre)){
+                    name = bitacora.getPersonas().get(i).getNombre();
+                    nroPc = computadoras.get(i).getNumero();
+                    tipoLocal = "" + computadoras.get(i).getTipoLocal();
+                    tiempo = bitacora.calcTiempoUso();
+                }
+            }
+        }
+        return "Nombre: " +name+ ", Local: " +tipoLocal+ ", nroPc: " +nroPc+ ", Tiempo: " +tiempo;
     }
-
-//    public Duration calcTiempoUsoLocal() {
-//        ArrayList<AbstractMap.SimpleEntry<LocalTime, LocalTime>> times = new ArrayList<>();
-//        for (Computadora c : computadoras) {
-//            ArrayList<LocalTime> ini = c.getFechaInicio();
-//            ArrayList<LocalTime> fin = c.getFechaFin();
-//
-//            for (int i = 0; i < fin.size(); i++) {
-//                LocalTime start = ini.get(i);
-//                LocalTime end = fin.get(i);
-//                times.add(new SimpleEntry(start, end));
-//            }
-//        }
-//
-//        times.sort(new Comparator<SimpleEntry<LocalTime, LocalTime>>() {
-//            public int compare(SimpleEntry<LocalTime, LocalTime> o1, SimpleEntry<LocalTime, LocalTime> o2) {
-//                if (o1.getKey().compareTo(o2.getKey()) == 0) {
-//                    return o1.getValue().compareTo(o2.getValue());
-//                } else {
-//                    return o1.getKey().compareTo(o2.getKey());
-//                }
-//            }
-//        });
-//
-//        Duration solve = Duration.ZERO;
-//
-//        if (times.size() > 0) {
-//            LocalTime init = times.get(0).getKey();
-//            LocalTime fint = times.get(0).getValue();
-//
-//            for (int i = 1; i < times.size(); i++) {
-//                if (fint.isBefore(times.get(i).getKey())) {
-//                    solve = solve.plus(Duration.between(init, fint));
-//                    fint = times.get(i).getValue();
-//                    init = times.get(i).getKey();
-//                } else {
-//                    if (fint.isBefore(times.get(i).getValue())) {
-//                        fint = times.get(i).getValue();
-//                    }
-//                }
-//            }
-//        }
-//
-//        return solve;
-//    }
 
     @Override
     public String toString() {
-        return "Local{" + "nombre=" + nombre + ", tiempoUso=" + tiempoUso + ", labor=" + labor + ", cantPC=" + cantPC + '}';
+        return "Local{" + "nombre=" + nombre + ", tiempoUso=" + tiempoUso + ", labor=" + labor + ", cantPC=" + cantPc + '}';
     }
 
     public String getNombre() {
@@ -164,11 +130,11 @@ public abstract class Local {
         this.labor = labor;
     }
 
-    public int getCantPC() {
-        return cantPC;
+    public int getCantPc() {
+        return cantPc;
     }
 
-    public void setCantPC(int cantPC) {
-        this.cantPC = cantPC;
+    public void setCantPC(int cantPc) {
+        this.cantPc = cantPc;
     }
 }
