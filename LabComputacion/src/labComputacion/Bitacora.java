@@ -3,8 +3,13 @@ package labComputacion;
 import java.util.ArrayList;
 
 /**
+ * Clase para gestionar el registro de acceso (entradas/salidas) de personas.
+ * Almacena información sobre las horas de entrada/salida y realiza cálculos de
+ * tiempo de uso.
  *
  * @author Chavelys
+ * @author Mel
+ * @author Zaile
  */
 public class Bitacora {
 
@@ -12,24 +17,47 @@ public class Bitacora {
     private ArrayList<String> salidas;
     private ArrayList<Persona> personas;
 
+    /**
+     * Constructor por defecto que inicializa las listas vacías.
+     */
     public Bitacora() {
         this.entradas = new ArrayList<>();
         this.salidas = new ArrayList<>();
         this.personas = new ArrayList<>();
     }
 
+    /**
+     * Constructor que inicializa las listas con datos existentes.
+     *
+     * @param entradas Lista preexistente de horas de entrada
+     * @param salidas Lista preexistente de horas de salida
+     * @param personas Lista preexistente de objetos Persona
+     */
     public Bitacora(ArrayList<String> entradas, ArrayList<String> salidas, ArrayList<Persona> personas) {
         this.entradas = entradas;
         this.salidas = salidas;
         this.personas = personas;
     }
 
+    /**
+     * Agrega un nuevo registro a la bitácora.
+     *
+     * @param persona Objeto Persona asociado al registro
+     * @param entrada Hora de entrada (ej: "09:15 AM")
+     * @param salida Hora de salida (ej: "11:45 AM")
+     */
     public void addElemento(Persona persona, String entrada, String salida) {
+        personas.add(persona);
         entradas.add(entrada);
         salidas.add(salida);
-        personas.add(persona);
     }
 
+    /**
+     * Genera y muestra en consola todos los registros en formato:
+     * "Nombre/Entrada/Salida"
+     *
+     * @return String concatenado con todos los registros
+     */
     public String mostrarBitacora() {
         String bitacora = "";
         for (int i = 0; i < personas.size(); i++) {
@@ -38,43 +66,14 @@ public class Bitacora {
         System.out.println(bitacora);
         return bitacora;
     }
-    
-//    /**
-//     * Convierte una hora en formato HHMM (entero) a formato de 12 horas
-//     * (String).
-//     *
-//     * @param hora Entero que representa la hora en formato HHMM
-//     * @return Hora formateada en sistema de 12 horas (ej: "02:30 PM")
-//     */
-//    private String convertirHora(int hora) {
-//        // Extraer horas y minutos
-//        int horas = hora / 100;
-//        int minutos = hora % 100;
-//
-//        // Validar rango de horas (0-23)
-//        horas = horas % 24;
-//
-//        // Determinar período (AM/PM)
-//        String periodo = "";
-//        if (horas < 12) {
-//            periodo = "AM";
-//        } else {
-//            periodo = "PM";
-//        }
-//
-//        // Convertir a formato de 12 horas
-//        int horas12 = horas % 12;
-//        if (horas12 == 0) {
-//            horas12 = 12; // 0 horas se convierte en 12 AM
-//        }
-//
-//        // Formatear como "HH:MM AM/PM" con dos dígitos
-//        return String.format("%02d:%02d %s", horas12, minutos, periodo);
-//    }
 
+    /**
+     * Calcula el tiempo total de uso acumulado.
+     *
+     * @return Sumatoria de tiempos de uso en horas
+     */
     public double calcTiempoUso() {
         double tiempo = 0;
-
         for (int i = 0; i < entradas.size(); i++) {
             String horaEntrada = entradas.get(i).split(":")[0];
             String horaSalida = salidas.get(i).split(":")[0];
@@ -89,9 +88,15 @@ public class Bitacora {
         return tiempo;
     }
 
+    /**
+     * Calcula tiempo de uso para una persona específica (contiene mismos
+     * errores que calcTiempoUso).
+     *
+     * @param nombre Nombre de la persona a buscar
+     * @return Tiempo acumulado en horas (cálculo problemático)
+     */
     public double calcTiempoPersona(String nombre) {
         double tiempo = 0;
-
         for (int i = 0; i < entradas.size(); i++) {
             if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
                 String horaEntrada = entradas.get(i).split(":")[0];
@@ -104,35 +109,70 @@ public class Bitacora {
                     tiempo = Double.parseDouble(horaSalida) - Double.parseDouble(horaEntrada);
                 }
             }
-
         }
         return tiempo;
     }
 
+    /**
+     * Calcula porcentaje de tiempo usado respecto a un tiempo de referencia.
+     *
+     * @param tiempoUso Tiempo total de referencia en horas
+     * @return Porcentaje calculado
+     */
     public double calcPorcAprov(int tiempoUso) {
         return (calcTiempoUso() * 100.0) / (double) tiempoUso;
     }
 
+    /**
+     * Obtiene la lista completa de entradas.
+     *
+     * @return ArrayList de cadenas con horas de entrada
+     */
     public ArrayList<String> getEntradas() {
         return entradas;
     }
 
+    /**
+     * Reemplaza la lista actual de entradas.
+     *
+     * @param entradas Nueva lista de entradas
+     */
     public void setEntradas(ArrayList<String> entradas) {
         this.entradas = entradas;
     }
 
+    /**
+     * Obtiene la lista completa de salidas.
+     *
+     * @return ArrayList de cadenas con horas de salida
+     */
     public ArrayList<String> getSalidas() {
         return salidas;
     }
 
+    /**
+     * Reemplaza la lista actual de salidas.
+     *
+     * @param salidas Nueva lista de salidas
+     */
     public void setSalidas(ArrayList<String> salidas) {
         this.salidas = salidas;
     }
 
+    /**
+     * Obtiene la lista completa de personas registradas.
+     *
+     * @return ArrayList de objetos Persona
+     */
     public ArrayList<Persona> getPersonas() {
         return personas;
     }
 
+    /**
+     * Reemplaza la lista actual de personas.
+     *
+     * @param personas Nueva lista de objetos Persona
+     */
     public void setPersonas(ArrayList<Persona> personas) {
         this.personas = personas;
     }
