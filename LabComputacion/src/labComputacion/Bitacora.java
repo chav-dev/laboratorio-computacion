@@ -38,6 +38,39 @@ public class Bitacora {
         System.out.println(bitacora);
         return bitacora;
     }
+    
+//    /**
+//     * Convierte una hora en formato HHMM (entero) a formato de 12 horas
+//     * (String).
+//     *
+//     * @param hora Entero que representa la hora en formato HHMM
+//     * @return Hora formateada en sistema de 12 horas (ej: "02:30 PM")
+//     */
+//    private String convertirHora(int hora) {
+//        // Extraer horas y minutos
+//        int horas = hora / 100;
+//        int minutos = hora % 100;
+//
+//        // Validar rango de horas (0-23)
+//        horas = horas % 24;
+//
+//        // Determinar período (AM/PM)
+//        String periodo = "";
+//        if (horas < 12) {
+//            periodo = "AM";
+//        } else {
+//            periodo = "PM";
+//        }
+//
+//        // Convertir a formato de 12 horas
+//        int horas12 = horas % 12;
+//        if (horas12 == 0) {
+//            horas12 = 12; // 0 horas se convierte en 12 AM
+//        }
+//
+//        // Formatear como "HH:MM AM/PM" con dos dígitos
+//        return String.format("%02d:%02d %s", horas12, minutos, periodo);
+//    }
 
     public double calcTiempoUso() {
         double tiempo = 0;
