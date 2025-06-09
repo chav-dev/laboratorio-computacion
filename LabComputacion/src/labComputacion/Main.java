@@ -1,7 +1,6 @@
 package labComputacion;
 
-import excepciones.PcExiste;
-import excepciones.PcNoExiste;
+import excepciones.*;
 
 /**
  *
@@ -9,7 +8,7 @@ import excepciones.PcNoExiste;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws existe {
         Persona p1 = new Estudiante(1, "aaa", 123);
         Persona p2 = new Estudiante(2, "bbb", 321);
         Persona p3 = new EstudianteProy("abc", 2, "ccc", 432);
@@ -43,22 +42,25 @@ public class Main {
             l3.addPC(c3);
             l4.addPC(c4);
             l4.addPC(c5);
-        } catch (PcExiste ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (existe ex) {
+            ex.getMessage();
         }
 
-        f1.addPersona(p1);
-        f1.addPersona(p2);
-        f1.addPersona(p3);
-        f1.addPersona(p4);
-        f1.addPersona(p5);
-        f1.addPersona(p6);
+        try {
+            f1.addPersona(p1);
+            f1.addPersona(p2);
+            f1.addPersona(p3);
+            f1.addPersona(p4);
+            f1.addPersona(p5);
+            f1.addPersona(p6);
 
-        f1.addlocal(l1);
-        f1.addlocal(l2);
-        f1.addlocal(l3);
-        f1.addlocal(l4);
-
+            f1.addLocal(l1);
+            f1.addLocal(l2);
+            f1.addLocal(l3);
+            f1.addLocal(l4);
+        } catch (existe e) {
+            System.out.println(e.getMessage());
+        }
         c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm");
         l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm");
 
@@ -95,7 +97,7 @@ public class Main {
         System.out.println("");
 
         System.out.println("Buscar info de una persona de la facultad");
-        System.out.println("" + f1.buscarInfoPersona("mate"));
+        System.out.println("" + f1.buscarInfoPersona("eee"));
         System.out.println("");
 
         System.out.println("Persona destacada");

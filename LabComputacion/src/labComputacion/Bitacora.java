@@ -68,75 +68,86 @@ public class Bitacora {
     }
 
     /**
-     * Calcula el tiempo total de uso acumulado.
+     * Calcula el tiempo total acumulado de todos los locales
      *
-     * @return Sumatoria de tiempos de uso en horas
+     * @return Sumatoria de tiempos de uso en horas decimales
      */
     public double calcTiempoUso() {
         double tiempoTotal = 0;
+
         for (int i = 0; i < entradas.size(); i++) {
-            String entrada = entradas.get(i);
-            String salida = salidas.get(i);
-
-            // Procesar hora de entrada
-            int posEntrada = entrada.indexOf(':');
-            double horaEntrada = Double.parseDouble(entrada.substring(0, posEntrada));
-            String minEntradaStr = entrada.substring(posEntrada + 1, entrada.length() - 2);
-            double minEntrada = Double.parseDouble(minEntradaStr) / 60.0;
-            double totalEntrada = horaEntrada + minEntrada;
-
-            // Procesar hora de salida
-            int posSalida = salida.indexOf(':');
-            double horaSalida = Double.parseDouble(salida.substring(0, posSalida));
-            String minSalidaStr = salida.substring(posSalida + 1, salida.length() - 2);
-            double minSalida = Double.parseDouble(minSalidaStr) / 60.0;
-            double totalSalida = horaSalida + minSalida;
-
-            // Ajuste para formato 24h
-            if (entrada.endsWith("pm") && horaEntrada != 12) {
-                totalEntrada += 12;
-            }else if (entrada.endsWith("am") && horaEntrada == 12) {
-                totalEntrada = minEntrada;
-            }else if (salida.endsWith("pm") && horaSalida != 12) {
-                totalSalida += 12;
-            }else if (salida.endsWith("am") && horaSalida == 12) {
-                totalSalida = minSalida;
-            }
-
-            // Manejo de intervalos nocturnos
-            if (totalSalida < totalEntrada) {
-                totalSalida += 24.0;
-            }
-
-            // Acumular diferencia
-            tiempoTotal += totalSalida - totalEntrada;
+            tiempoTotal += calcularDiferencia(entradas.get(i), salidas.get(i));
         }
+
         return tiempoTotal;
     }
 
     /**
-     * Calcula tiempo de uso para una persona específica (contiene mismos
-     * errores que calcTiempoUso).
+     * Calcula el tiempo acumulado para una persona específica
      *
      * @param nombre Nombre de la persona a buscar
-     * @return Tiempo acumulado en horas (cálculo problemático)
+     * @return Tiempo total acumulado en horas decimales
      */
     public double calcTiempoPersona(String nombre) {
         double tiempo = 0;
+
         for (int i = 0; i < entradas.size(); i++) {
             if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
-                String horaEntrada = entradas.get(i).split(":")[0];
-                String horaSalida = salidas.get(i).split(":")[0];
-                if (entradas.get(i).contains("pm") && salidas.get(i).contains("am")) {
-                    tiempo = 12.0 - (Double.parseDouble(horaEntrada)) + Double.parseDouble(horaSalida);
-                } else if (entradas.get(i).contains("am") && salidas.get(i).contains("pm")) {
-                    tiempo = (Double.parseDouble(horaSalida)) + 12.0 - Double.parseDouble(horaEntrada);
-                } else {
-                    tiempo = Double.parseDouble(horaSalida) - Double.parseDouble(horaEntrada);
-                }
+                tiempo += calcularDiferencia(entradas.get(i), salidas.get(i));
             }
         }
+
         return tiempo;
+    }
+
+    /**
+     * Calcula la diferencia horaria entre dos marcas de tiempo en formato
+     * "h:mmam/pm"
+     *
+     * @param entrada Hora de inicio en formato "h:mmam/pm"
+     * @param salida Hora de fin en formato "h:mmam/pm"
+     * @return Diferencia horaria en horas decimales
+     */
+    private double calcularDiferencia(String entrada, String salida) {
+
+        // ENTRADA: Procesamiento de la hora de inicio
+        int posEntrada = entrada.indexOf(':');
+        double horaEntrada = Double.parseDouble(entrada.substring(0, posEntrada));
+        String restoEntrada = entrada.substring(posEntrada + 1);  // Obtiene el resto (minutos + am/pm)
+        double minEntrada = Double.parseDouble(restoEntrada.substring(0, restoEntrada.length() - 2)) / 60.0;  // Convierte minutos a fracción horaria
+        double totalEntrada = horaEntrada + minEntrada;  // Combina horas y minutos como decimal
+
+        // SALIDA: Procesamiento de la hora de fin
+        int posSalida = salida.indexOf(':');
+        double horaSalida = Double.parseDouble(salida.substring(0, posSalida));
+        String restoSalida = salida.substring(posSalida + 1);  // Obtiene el resto (minutos + am/pm)
+        double minSalida = Double.parseDouble(restoSalida.substring(0, restoSalida.length() - 2)) / 60.0;  // Convierte minutos a fracción horaria
+        double totalSalida = horaSalida + minSalida; // Combina horas y minutos como decimal
+
+        // CONVERSIÓN A 24 HORAS - ENTRADA
+        if (restoEntrada.toLowerCase().endsWith("pm")) {
+            if (horaEntrada != 12) {
+                totalEntrada += 12;
+            } else if (horaEntrada == 12) {
+                totalEntrada = minEntrada;
+            }
+        }
+
+        // CONVERSIÓN A 24 HORAS - SALIDA
+        if (restoSalida.toLowerCase().endsWith("pm")) {
+            if (horaSalida != 12) {
+                totalSalida += 12;
+            } else if (horaSalida == 12) {
+                totalSalida = minSalida;
+            }
+        }
+
+        // Si la hora de fin es menor que la de inicio, se asume que es del día siguiente
+        if (totalSalida < totalEntrada) {
+            totalSalida += 24.0;  // Suma 24 horas para ajustar al día siguiente
+        }
+
+        return totalSalida - totalEntrada;
     }
 
     /**

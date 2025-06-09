@@ -43,7 +43,7 @@ public class Facultad {
      *
      * @param l Objeto Local a agregar
      */
-    public void addlocal(Local l) throws existe {
+    public void addLocal(Local l) throws existe {
         for (int i = 0; i < locales.size(); i++) {
             if (locales.get(i).getNombre().equalsIgnoreCase(l.getNombre())) {
                 throw new existe("El local " + l.getNombre() + " ya existe");
@@ -70,7 +70,7 @@ public class Facultad {
                 locales.remove(i);
                 break;
             } else {
-                throw new noExiste("El local "+nombre+" no existe");
+                throw new noExiste("El local " + nombre + " no existe");
             }
         }
     }
@@ -114,32 +114,63 @@ public class Facultad {
     }
 
     /**
-     * Busca información detallada de una persona en todos los locales.
+     * Buscar en que local / computadoras trabajó una persona y de tiempo de trabajo
      *
-     * @param nombre Nombre de la persona a buscar (no sensible a mayúsculas)
+     * @param nombre Nombre de la persona a buscar
      * @return String con información de locales, tiempo y computadoras usadas
      */
     public String buscarInfoPersona(String nombre) {
-        String info = "";
-        for (int i = 0; i < locales.size(); i++) {
-            ArrayList<Persona> personas = locales.get(i).getBitacoraLocal().getPersonas();
-            for (int j = 0; j < personas.size(); j++) {
-                if (personas.get(j).getNombre().equalsIgnoreCase(nombre)) {
-                    // Agrega información del local y tiempo total de uso
-                    info += locales.get(i).toString() + " "
-                            + locales.get(i).getBitacoraLocal().calcTiempoPersona(nombre)
-                            + " \nComputadoras: \n";
+        StringBuilder infoBuilder = new StringBuilder();
+        boolean personaEncontrada = false;
 
-                    // Agrega información de computadoras específicas usadas
-                    ArrayList<Computadora> computadoras = locales.get(i).getComputadoras();
-                    for (int k = 0; k < computadoras.size(); k++) {
-                        info += computadoras.get(k).toString() + " "
-                                + computadoras.get(k).getBitacoraPc().calcTiempoPersona(nombre) + "\n";
+        for (int i = 0; i < locales.size(); i++) {
+            Local local = locales.get(i);
+            Bitacora bitacoraLocal = local.getBitacoraLocal();
+            double tiempoEnLocal = bitacoraLocal.calcTiempoPersona(nombre);
+
+            //Verificar si la persona tiene registros en el local
+            if (tiempoEnLocal > 0) {
+                personaEncontrada = true;
+
+                //Agregar información del local
+                infoBuilder.append("Local: ").append(local.getNombre())
+                        .append("\nTiempo total: ")
+                        .append(String.format("%.2f horas", tiempoEnLocal))
+                        .append("\nComputadoras usadas:\n");
+
+                //Buscar computadoras específicas usadas por la persona
+                ArrayList<Computadora> computadoras = local.getComputadoras();
+                boolean computadorasEncontradas = false;
+
+                for (int j = 0; j < computadoras.size(); j++) {
+                    Computadora comp = computadoras.get(j);
+                    double tiempoEnPC = comp.getBitacoraPc().calcTiempoPersona(nombre);
+
+                    //Mostrar solo computadoras con tiempo de uso > 0
+                    if (tiempoEnPC > 0) {
+                        computadorasEncontradas = true;
+                        infoBuilder.append(" - ").append(String.valueOf(comp.getNumero()))
+                                .append(": ")
+                                .append(String.format("%.2f horas", tiempoEnPC))
+                                .append("\n");
                     }
                 }
+
+                //Manejar caso sin computadoras específicas
+                if (!computadorasEncontradas) {
+                    infoBuilder.append(" (No se registraron computadoras específicas)\n");
+                }
+
+                infoBuilder.append("\n");
             }
         }
-        return info;
+
+        //Manejar persona no encontrada
+        if (!personaEncontrada) {
+            infoBuilder.append("La persona '").append(nombre).append("' no fue encontrada en ningún local.");
+        }
+
+        return infoBuilder.toString();
     }
 
     /**

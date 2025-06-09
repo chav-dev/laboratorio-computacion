@@ -22,7 +22,7 @@ public class Computadora {
      * @param numero Número identificatorio único dentro del local
      * @param bitacoraPc Bitácora asociada para registro de actividades
      */
-    public Computadora(String estado, int numero, Bitacora bitacoraPc) {
+    public Computadora(String estado, int numero, Local l1, Bitacora bitacoraPc) {
         this.estado = estado;
         this.numero = numero;
         this.bitacoraPc = bitacoraPc;
