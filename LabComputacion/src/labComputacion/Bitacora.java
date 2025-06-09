@@ -78,7 +78,7 @@ public class Bitacora {
             String horaEntrada = entradas.get(i).split(":")[0];
             String horaSalida = salidas.get(i).split(":")[0];
             if (entradas.get(i).contains("pm") && salidas.get(i).contains("am")) {
-                tiempo = 12.0 - (Double.parseDouble(horaEntrada)) + Double.parseDouble(horaSalida);
+                tiempo = (Double.parseDouble(horaEntrada) + 12) - Double.parseDouble(horaSalida);
             } else if (entradas.get(i).contains("am") && salidas.get(i).contains("pm")) {
                 tiempo = (Double.parseDouble(horaSalida)) + 12.0 - Double.parseDouble(horaEntrada);
             } else {
