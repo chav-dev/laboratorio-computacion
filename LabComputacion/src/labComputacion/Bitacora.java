@@ -73,19 +73,45 @@ public class Bitacora {
      * @return Sumatoria de tiempos de uso en horas
      */
     public double calcTiempoUso() {
-        double tiempo = 0;
+        double tiempoTotal = 0;
         for (int i = 0; i < entradas.size(); i++) {
-            String horaEntrada = entradas.get(i).split(":")[0];
-            String horaSalida = salidas.get(i).split(":")[0];
-            if (entradas.get(i).contains("pm") && salidas.get(i).contains("am")) {
-                tiempo = (Double.parseDouble(horaEntrada) + 12) - Double.parseDouble(horaSalida);
-            } else if (entradas.get(i).contains("am") && salidas.get(i).contains("pm")) {
-                tiempo = (Double.parseDouble(horaSalida)) + 12.0 - Double.parseDouble(horaEntrada);
-            } else {
-                tiempo = Double.parseDouble(horaSalida) - Double.parseDouble(horaEntrada);
+            String entrada = entradas.get(i);
+            String salida = salidas.get(i);
+
+            // Procesar hora de entrada
+            int posEntrada = entrada.indexOf(':');
+            double horaEntrada = Double.parseDouble(entrada.substring(0, posEntrada));
+            String minEntradaStr = entrada.substring(posEntrada + 1, entrada.length() - 2);
+            double minEntrada = Double.parseDouble(minEntradaStr) / 60.0;
+            double totalEntrada = horaEntrada + minEntrada;
+
+            // Procesar hora de salida
+            int posSalida = salida.indexOf(':');
+            double horaSalida = Double.parseDouble(salida.substring(0, posSalida));
+            String minSalidaStr = salida.substring(posSalida + 1, salida.length() - 2);
+            double minSalida = Double.parseDouble(minSalidaStr) / 60.0;
+            double totalSalida = horaSalida + minSalida;
+
+            // Ajuste para formato 24h
+            if (entrada.endsWith("pm") && horaEntrada != 12) {
+                totalEntrada += 12;
+            }else if (entrada.endsWith("am") && horaEntrada == 12) {
+                totalEntrada = minEntrada;
+            }else if (salida.endsWith("pm") && horaSalida != 12) {
+                totalSalida += 12;
+            }else if (salida.endsWith("am") && horaSalida == 12) {
+                totalSalida = minSalida;
             }
+
+            // Manejo de intervalos nocturnos
+            if (totalSalida < totalEntrada) {
+                totalSalida += 24.0;
+            }
+
+            // Acumular diferencia
+            tiempoTotal += totalSalida - totalEntrada;
         }
-        return tiempo;
+        return tiempoTotal;
     }
 
     /**

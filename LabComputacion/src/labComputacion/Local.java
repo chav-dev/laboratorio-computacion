@@ -46,11 +46,11 @@ public abstract class Local {
      * @param c Computadora a agregar
      * @throws PcExiste Si ya existe una PC con el mismo número
      */
-    public void addPC(Computadora c) throws PcExiste {
+    public void addPC(Computadora c) throws existe {
         // Verificar si ya existe una PC con ese número
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == c.getNumero()) {
-                throw new PcExiste("Ya existe una computadora con el numero " + c.getNumero());
+                throw new existe("Ya existe una computadora con el numero " + c.getNumero());
             }
         }
         // Agregar la computadora si no existe
@@ -63,7 +63,7 @@ public abstract class Local {
      * @param num Número de la computadora a eliminar
      * @throws PcNoExiste Si no existe una PC con ese número
      */
-    public void deletePC(int num) throws PcNoExiste {
+    public void deletePC(int num) throws noExiste {
         // Buscar la computadora por su número
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == num) {
@@ -71,7 +71,7 @@ public abstract class Local {
                 break;
             } else {
                 // Lanzar excepción si no se encontró
-                throw new PcNoExiste("No existe computadora con numero " + num);
+                throw new noExiste("No existe computadora con numero " + num);
             }
         }
     }

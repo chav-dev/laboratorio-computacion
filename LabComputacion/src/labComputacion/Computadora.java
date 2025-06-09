@@ -2,7 +2,7 @@ package labComputacion;
 
 /**
  * Representa una computadora física en el sistema de gestión de laboratorios.
- * Mantiene información sobre su estado, número de identificación, localización
+ * Mantiene información sobre su estado, número de identificación
  * y su bitácora asociada para registrar actividades.
  *
  * @author Chavelys
@@ -13,21 +13,18 @@ public class Computadora {
     private String estado; //Ocupada, Libre o Rota
     private int numero;
     private Bitacora bitacoraPc;
-    private Local tipoLocal;
-
+    
     /**
      * Construye una nueva instancia de Computadora con la configuración
      * especificada.
      *
      * @param estado Estado inicial de la computadora
      * @param numero Número identificatorio único dentro del local
-     * @param tipoLocal Laboratorio o local donde está ubicada la computadora
      * @param bitacoraPc Bitácora asociada para registro de actividades
      */
-    public Computadora(String estado, int numero, Local tipoLocal, Bitacora bitacoraPc) {
+    public Computadora(String estado, int numero, Bitacora bitacoraPc) {
         this.estado = estado;
         this.numero = numero;
-        this.tipoLocal = tipoLocal;
         this.bitacoraPc = bitacoraPc;
     }
 
@@ -38,7 +35,7 @@ public class Computadora {
      */
     @Override
     public String toString() {
-        return "Computadora{" + "estado=" + estado + ", numero=" + numero + ", tipoLocal=" + tipoLocal + '}';
+        return "Computadora{" + "estado=" + estado + ", numero=" + numero + '}';
     }
 
     // Métodos de acceso (getters y setters)
@@ -94,23 +91,5 @@ public class Computadora {
      */
     public void setBitacoraPc(Bitacora bitacoraPc) {
         this.bitacoraPc = bitacoraPc;
-    }
-
-    /**
-     * Obtiene el local donde está ubicada la computadora.
-     *
-     * @return Instancia de Local que representa la ubicación física
-     */
-    public Local getTipoLocal() {
-        return tipoLocal;
-    }
-
-    /**
-     * Establece o actualiza la ubicación física de la computadora.
-     *
-     * @param tipoLocal Nuevo local a asignar
-     */
-    public void setTipoLocal(Local tipoLocal) {
-        this.tipoLocal = tipoLocal;
     }
 }
