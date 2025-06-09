@@ -1,0 +1,115 @@
+package labComputacion;
+
+import excepciones.*;
+
+/**
+ *
+ * @author Chavelys
+ */
+public class Main {
+
+    public static void main(String[] args) throws existe {
+        Persona p1 = new Estudiante(1, "aaa", 123);
+        Persona p2 = new Estudiante(2, "bbb", 321);
+        Persona p3 = new EstudianteProy("abc", 2, "ccc", 432);
+        Persona p4 = new EstudianteProy("mnb", 4, "ddd", 876);
+        Persona p5 = new Profesor("mate", "eee", 987);
+        Persona p6 = new Profesor("prog", "fff", 654);
+        Bitacora b1 = new Bitacora();
+        Bitacora b2 = new Bitacora();
+        Bitacora b3 = new Bitacora();
+        Bitacora b4 = new Bitacora();
+        Bitacora b5 = new Bitacora();
+        Bitacora b6 = new Bitacora();
+        Bitacora b7 = new Bitacora();
+        Bitacora b8 = new Bitacora();
+        Bitacora b9 = new Bitacora();
+        Local l1 = new LabDoc("lll", 24, "Estudiar", 4, b1);
+        Local l2 = new LocalColectInvest("sss", 20, "a", 10, b2);
+        Local l3 = new LabProy("ttt", 16, "proyectos", 14, b3);
+        Local l4 = new LabDoc("ooo", 24, "ed", 20, b4);
+        Computadora c1 = new Computadora("Rota", 1, l1, b5);
+        Computadora c2 = new Computadora("Libre", 32, l2, b6);
+        Computadora c3 = new Computadora("Ocupada", 54, l3, b7);
+        Computadora c4 = new Computadora("Libre", 65, l4, b8);
+        Computadora c5 = new Computadora("rota", 45, l2, b9);
+
+        //Adds
+        Facultad f1 = new Facultad();
+        try {
+            l1.addPC(c1);
+            l2.addPC(c2);
+            l3.addPC(c3);
+            l4.addPC(c4);
+            l4.addPC(c5);
+        } catch (existe ex) {
+            ex.getMessage();
+        }
+
+        try {
+            f1.addPersona(p1);
+            f1.addPersona(p2);
+            f1.addPersona(p3);
+            f1.addPersona(p4);
+            f1.addPersona(p5);
+            f1.addPersona(p6);
+
+            f1.addLocal(l1);
+            f1.addLocal(l2);
+            f1.addLocal(l3);
+            f1.addLocal(l4);
+        } catch (existe e) {
+            System.out.println(e.getMessage());
+        }
+        c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm");
+        l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm");
+
+        c4.getBitacoraPc().addElemento(p6, "11:00 am", "2:00 pm");
+        l4.getBitacoraLocal().addElemento(p6, "11:00 am", "2:00 pm");
+        c4.getBitacoraPc().addElemento(p1, "2:00 pm", "6:00 pm");
+        l4.getBitacoraLocal().addElemento(p1, "2:00 pm", "6:00 pm");
+
+        System.out.println("Bitacora local 2");
+        l2.getBitacoraLocal().mostrarBitacora();
+        System.out.println("");
+
+        System.out.println("Bitacora local 4");
+        l4.getBitacoraLocal().mostrarBitacora();
+        System.out.println("");
+
+        System.out.println("Bitacora pc 4");
+        c4.getBitacoraPc().mostrarBitacora();
+        System.out.println("");
+
+        System.out.println("Tiempo de uso local 4");
+        double tuso = l4.getBitacoraLocal().calcTiempoUso();
+        System.out.println("" + tuso);
+        System.out.println("");
+
+        System.out.println("Tiempo de uso de la persona 5 en la pc 2");
+        double tusop = c2.getBitacoraPc().calcTiempoPersona("eee");
+        System.out.println("" + tusop);
+        System.out.println("");
+
+        System.out.println("Porciento de aprovechamiento local 4");
+        double pca = l4.getBitacoraLocal().calcPorcAprov(l4.getTiempoUso());
+        System.out.println("" + pca);
+        System.out.println("");
+
+        System.out.println("Buscar info de una persona de la facultad");
+        System.out.println("" + f1.buscarInfoPersona("eee"));
+        System.out.println("");
+
+        System.out.println("Persona destacada");
+        System.out.println("" + f1.buscarPersona());
+        System.out.println("");
+
+        System.out.println("Mejor Porciento");
+        System.out.println("" + f1.mejorPorc());
+        System.out.println("");
+
+        System.out.println("Peor Porciento");
+        System.out.println("" + f1.peorPorc());
+        System.out.println("");
+    }
+}
