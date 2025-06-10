@@ -1,9 +1,6 @@
 package Visual;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -16,6 +13,11 @@ public class Visual extends javax.swing.JFrame {
      */
     public Visual() {
         initComponents();
+        if(localesButton.isSelected()){
+            tituloLabel.setText("Locales");
+        }else if(pcButton.isSelected()){
+            tituloLabel.setText("Computadoras");
+        }
 
     }
 
@@ -28,18 +30,287 @@ public class Visual extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        tituloLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jDialog2 = new javax.swing.JDialog();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jDialog3 = new javax.swing.JDialog();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jLabel14 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
+        facultadButton = new javax.swing.JButton();
+        localesButton = new javax.swing.JButton();
+        pcButton = new javax.swing.JButton();
+        salirButtonFrame = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+
+        jDialog1.setResizable(false);
+        jDialog1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton5.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Mostrar");
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jDialog1.getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 130, 30));
+
+        jButton6.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Salir");
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jDialog1.getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, -1, 30));
+
+        jButton7.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Agregar");
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jDialog1.getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, 30));
+
+        jButton8.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Eliminar");
+        jButton8.setBorderPainted(false);
+        jButton8.setContentAreaFilled(false);
+        jDialog1.getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 130, 30));
+
+        jButton9.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("Calcular");
+        jButton9.setBorderPainted(false);
+        jButton9.setContentAreaFilled(false);
+        jDialog1.getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 130, 30));
+
+        tituloLabel.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
+        tituloLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jDialog1.getContentPane().add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 150, 90));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5 botones.jpg"))); // NOI18N
+        jDialog1.getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 732, 431));
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jDialog1.getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 430));
+
+        jDialog2.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Agregar computadora");
+        jDialog2.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 520, -1));
+
+        jLabel6.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Número:");
+        jDialog2.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 70, -1));
+
+        jFormattedTextField1.setBackground(new java.awt.Color(187, 211, 228));
+        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jDialog2.getContentPane().add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, 20));
+
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Estado:");
+        jDialog2.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 60, -1));
+
+        jComboBox1.setBackground(new java.awt.Color(187, 211, 228));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupada", "Rota" }));
+        jComboBox1.setSelectedIndex(-1);
+        jDialog2.getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 180, -1));
+
+        jLabel8.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Local:");
+        jDialog2.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 50, -1));
+
+        jComboBox2.setBackground(new java.awt.Color(187, 211, 228));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colectivo de Investigación", "Laboratorio Docente", "Laboratorio de Proyecto" }));
+        jComboBox2.setSelectedIndex(-1);
+        jDialog2.getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 180, -1));
+
+        jButton1.setBackground(new java.awt.Color(187, 211, 228));
+        jButton1.setText("Aceptar");
+        jDialog2.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(187, 211, 228));
+        jButton2.setText("Cancelar");
+        jDialog2.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, -1, -1));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 628, 354));
+
+        jDialog2.getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
+
+        jDialog3.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Agregar Local");
+        jDialog3.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Nombre:");
+        jDialog3.getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, -1));
+
+        jTextField1.setBackground(new java.awt.Color(187, 211, 228));
+        jDialog3.getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 130, -1));
+
+        jLabel12.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Tiempo de uso:");
+        jDialog3.getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+
+        jFormattedTextField2.setBackground(new java.awt.Color(187, 211, 228));
+        jDialog3.getContentPane().add(jFormattedTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 130, -1));
+
+        jLabel13.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Tipo:");
+        jDialog3.getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Investigación");
+        jDialog3.getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton2.setText("Laboratorio");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+        jDialog3.getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
+
+        buttonGroup2.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton3.setText("Docente");
+        jRadioButton3.setEnabled(false);
+        jDialog3.getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, -1, 20));
+
+        buttonGroup2.add(jRadioButton4);
+        jRadioButton4.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton4.setText("Proyecto");
+        jRadioButton4.setEnabled(false);
+        jDialog3.getContentPane().add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Tipo de laboratorio:");
+        jDialog3.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, 20));
+
+        jButton3.setBackground(new java.awt.Color(187, 211, 228));
+        jButton3.setText("Aceptar");
+        jDialog3.getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
+
+        jButton4.setBackground(new java.awt.Color(187, 211, 228));
+        jButton4.setText("Cancelar");
+        jDialog3.getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
+        jDialog3.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jDialog3.getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe Script", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Computer Lab");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 320, 240));
+
+        facultadButton.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        facultadButton.setForeground(new java.awt.Color(255, 255, 255));
+        facultadButton.setText("Facultad");
+        facultadButton.setBorderPainted(false);
+        facultadButton.setContentAreaFilled(false);
+        facultadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facultadButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(facultadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 150, 40));
+
+        localesButton.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        localesButton.setForeground(new java.awt.Color(255, 255, 255));
+        localesButton.setText("Locales");
+        localesButton.setBorderPainted(false);
+        localesButton.setContentAreaFilled(false);
+        localesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                localesButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(localesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 160, -1));
+
+        pcButton.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        pcButton.setForeground(new java.awt.Color(255, 255, 255));
+        pcButton.setText("Computadoras");
+        pcButton.setBorderPainted(false);
+        pcButton.setContentAreaFilled(false);
+        pcButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pcButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pcButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 180, 50));
+
+        salirButtonFrame.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        salirButtonFrame.setForeground(new java.awt.Color(255, 255, 255));
+        salirButtonFrame.setText("Salir");
+        salirButtonFrame.setBorderPainted(false);
+        salirButtonFrame.setContentAreaFilled(false);
+        salirButtonFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirButtonFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(salirButtonFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 150, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/descargar (1).jpeg"))); // NOI18N
         jLabel2.setText("Computer Lab");
@@ -47,6 +318,27 @@ public class Visual extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void facultadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facultadButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_facultadButtonActionPerformed
+
+    private void localesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localesButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_localesButtonActionPerformed
+
+    private void pcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pcButtonActionPerformed
+
+    private void salirButtonFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonFrameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salirButtonFrameActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,7 +376,50 @@ public class Visual extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton facultadButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
+    private javax.swing.JDialog jDialog3;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton localesButton;
+    private javax.swing.JButton pcButton;
+    private javax.swing.JButton salirButtonFrame;
+    private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 }
