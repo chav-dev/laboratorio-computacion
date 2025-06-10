@@ -1,9 +1,7 @@
-package labComputacion;
+package clases;
 
 /**
- * Representa un estudiante asociado a un proyecto específico, heredando las características
- * básicas de un Estudiante. Esta especialización incluye información sobre el proyecto
- * en el que el estudiante está involucrado.
+ * Representa un estudiante asociado a un proyecto específico, heredando las características básicas de un Estudiante.
  * 
  * @author Chavelys
  * @author Mel

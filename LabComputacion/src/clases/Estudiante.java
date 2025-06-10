@@ -1,9 +1,7 @@
-package labComputacion;
+package clases;
 
 /**
- * Representa a un estudiante en el sistema, heredando las propiedades básicas
- * de una Persona. Esta clase añade información específica sobre el año académico
- * en que se encuentra el estudiante.
+ * Representa a un estudiante en el sistema, heredando las propiedades básicas de una Persona. 
  * 
  * @author Chavelys
  * @author Mel

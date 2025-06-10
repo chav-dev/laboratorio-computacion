@@ -6,12 +6,12 @@ package excepciones;
  * @author Mel
  * @author Zaile
  */
-public class existe extends Exception {
+public class ExisteException extends Exception {
 
     /**
      * @param mensaje Descripción detallada del error
      */
-    public existe(String mensaje) {
+    public ExisteException(String mensaje) {
         super(mensaje);
     }
 }

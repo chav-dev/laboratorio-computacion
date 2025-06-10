@@ -1,4 +1,4 @@
-package labComputacion;
+package clases;
 
 import excepciones.*;
 import java.util.ArrayList;
@@ -29,13 +29,30 @@ public class Facultad {
      *
      * @param p Objeto Persona a agregar
      */
-    public void addPersona(Persona p) throws existe {
+    public void addPersona(Persona p) throws ExisteException {
         for (int i = 0; i < personas.size(); i++) {
             if (personas.get(i).getNombre().equalsIgnoreCase(p.getNombre())) {
-                throw new existe(p.getNombre() + " ya existe");
+                throw new ExisteException(p.getNombre() + " ya existe");
             }
         }
         personas.add(p);
+    }
+    
+    /**
+     * Elimina una persona de la lista por su nombre.
+     * 
+     * @param nombre Nombre de la persona a eliminar
+     * @throws NoExisteException Si no existe una persona con ese nombre
+     */
+    public void deletePersona(String nombre) throws NoExisteException {
+        for (int i = 0; i < personas.size(); i++) {
+            if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
+                personas.remove(i);
+                return; // Sale del método inmediatamente después de eliminar
+            }
+        }
+        // Solo llega aquí si no encontró ninguna coincidencia
+        throw new NoExisteException(nombre + " no existe");
     }
 
     /**
@@ -43,34 +60,29 @@ public class Facultad {
      *
      * @param l Objeto Local a agregar
      */
-    public void addLocal(Local l) throws existe {
+    public void addLocal(Local l) throws ExisteException {
         for (int i = 0; i < locales.size(); i++) {
             if (locales.get(i).getNombre().equalsIgnoreCase(l.getNombre())) {
-                throw new existe("El local " + l.getNombre() + " ya existe");
+                throw new ExisteException("El local " + l.getNombre() + " ya existe");
             }
         }
         locales.add(l);
     }
 
-    public void deletePersona(String nombre) throws noExiste {
-        for (int i = 0; i < personas.size(); i++) {
-            if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
-                personas.remove(i);
-                break;
-            } else {
-                // Lanzar excepción si no se encontró
-                throw new noExiste(nombre + " no existe");
-            }
-        }
-    }
-
-    public void deleteLocal(String nombre) throws noExiste {
+    /**
+     * Elimina un local de la lista por su nombre.
+     * 
+     * @param nombre Nombre del local a eliminar (no distingue
+     *               mayúsculas/minúsculas)
+     * @throws NoExisteException Si no existe un local con el nombre especificado
+     */
+    public void deleteLocal(String nombre) throws NoExisteException {
         for (int i = 0; i < locales.size(); i++) {
             if (locales.get(i).getNombre().equalsIgnoreCase(nombre)) {
                 locales.remove(i);
                 break;
             } else {
-                throw new noExiste("El local " + nombre + " no existe");
+                throw new NoExisteException("El local " + nombre + " no existe");
             }
         }
     }
@@ -134,9 +146,9 @@ public class Facultad {
 
                 //Agregar información del local
                 infoBuilder.append("Local: ").append(local.getNombre())
-                        .append("\nTiempo total: ")
-                        .append(String.format("%.2f horas", tiempoEnLocal))
-                        .append("\nComputadoras usadas:\n");
+                           .append("\nTiempo total: ")
+                           .append(String.format("%.2f horas", tiempoEnLocal))
+                           .append("\nComputadoras usadas:\n");
 
                 //Buscar computadoras específicas usadas por la persona
                 ArrayList<Computadora> computadoras = local.getComputadoras();
@@ -150,9 +162,9 @@ public class Facultad {
                     if (tiempoEnPC > 0) {
                         computadorasEncontradas = true;
                         infoBuilder.append(" - ").append(String.valueOf(comp.getNumero()))
-                                .append(": ")
-                                .append(String.format("%.2f horas", tiempoEnPC))
-                                .append("\n");
+                                   .append(": ")
+                                   .append(String.format("%.2f horas", tiempoEnPC))
+                                   .append("\n");
                     }
                 }
 
@@ -202,9 +214,7 @@ public class Facultad {
                 finalLocal = local;
             }
         }
-        return "Nombre de la persona: " + persona
-                + " Tiempo: " + mejorTiempo
-                + " Locales: " + finalLocal + "\n";
+        return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
     }
 
     /**

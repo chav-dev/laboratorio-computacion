@@ -1,11 +1,10 @@
-package labComputacion;
+package clases;
 
 import java.util.ArrayList;
 
 /**
  * Clase para gestionar el registro de acceso (entradas/salidas) de personas.
- * Almacena información sobre las horas de entrada/salida y realiza cálculos de
- * tiempo de uso.
+ * Almacena información sobre las horas de entrada/salida y realiza cálculos de tiempo de uso.
  *
  * @author Chavelys
  * @author Mel
@@ -53,11 +52,44 @@ public class Bitacora {
     }
 
     /**
-     * Genera y muestra en consola todos los registros en formato:
-     * "Nombre/Entrada/Salida"
+     * Elimina una persona y sus registros asociados (entrada y salida) en la misma posición.
      *
-     * @return String concatenado con todos los registros
+     * @param persona La persona a eliminar.
+     * @return true si se eliminó correctamente, false si no se encontró.
+     * @throws IllegalArgumentException si la persona es null.
      */
+    public boolean deleteElemento(Persona persona) {
+        // Validar que la persona no sea null
+        if (persona == null) {
+            throw new IllegalArgumentException("La persona no puede ser null.");
+        }
+
+        // Buscar el índice de la persona
+        int indicePersona = -1;
+        for (int i = 0; i < personas.size(); i++) {
+            if (personas.get(i).equals(persona)) {
+                indicePersona = i;
+                break; // Si encontramos el índice, salimos del bucle
+            }
+        }
+        
+        // Si no existe, retornar false
+        if (indicePersona == -1) {
+            return false;
+        }
+
+        personas.remove(indicePersona);
+        entradas.remove(indicePersona);
+        salidas.remove(indicePersona);
+
+        return true;
+    }
+    
+        /**
+         * Genera y muestra en consola todos los registros en formato: "Nombre/Entrada/Salida"
+         *
+         * @return String concatenado con todos los registros
+         */
     public String mostrarBitacora() {
         String bitacora = "";
         for (int i = 0; i < personas.size(); i++) {
@@ -101,8 +133,7 @@ public class Bitacora {
     }
 
     /**
-     * Calcula la diferencia horaria entre dos marcas de tiempo en formato
-     * "h:mmam/pm"
+     * Calcula la diferencia horaria entre dos marcas de tiempo en formato "h:mmam/pm"
      *
      * @param entrada Hora de inicio en formato "h:mmam/pm"
      * @param salida Hora de fin en formato "h:mmam/pm"

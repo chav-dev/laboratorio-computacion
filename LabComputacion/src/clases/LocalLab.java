@@ -1,9 +1,8 @@
-package labComputacion;
+package clases;
 
 /**
  * Representa un laboratorio de computación como tipo especializado de local.
- * Esta clase abstracta hereda las características básicas de un local y define
- * funcionalidades específicas para laboratorios de computación.
+ * Esta clase abstracta hereda las características básicas de un local y define funcionalidades específicas para laboratorios de computación.
  * 
  * @author Chavelys
  * @author Mel

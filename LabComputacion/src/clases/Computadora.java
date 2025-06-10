@@ -1,9 +1,7 @@
-package labComputacion;
+package clases;
 
 /**
  * Representa una computadora física en el sistema de gestión de laboratorios.
- * Mantiene información sobre su estado, número de identificación
- * y su bitácora asociada para registrar actividades.
  *
  * @author Chavelys
  * @author Mel
@@ -15,8 +13,7 @@ public class Computadora {
     private Bitacora bitacoraPc;
     
     /**
-     * Construye una nueva instancia de Computadora con la configuración
-     * especificada.
+     * Construye una nueva instancia de Computadora con la configuración especificada.
      *
      * @param estado Estado inicial de la computadora
      * @param numero Número identificatorio único dentro del local

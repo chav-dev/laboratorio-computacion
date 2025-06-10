@@ -1,4 +1,4 @@
-package labComputacion;
+package clases;
 
 /**
  * Representa un profesor que hereda de la clase Persona.

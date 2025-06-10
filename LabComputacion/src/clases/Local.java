@@ -1,12 +1,11 @@
-package labComputacion;
+package clases;
 
 import java.util.ArrayList;
 import excepciones.*;
 
 /**
  * Clase abstracta que representa un local genérico en el sistema de gestión.
- * Contiene información básica sobre el local, sus computadoras y bitácora
- * asociada. Esta clase sirve como base para locales especializados como
+ * Contiene información básica sobre el local, sus computadoras y bitácora asociada. Esta clase sirve como base para locales especializados como 
  * laboratorios y colectivo de investigación.
  *
  * @author Chavelys
@@ -44,13 +43,13 @@ public abstract class Local {
      * Agrega una nueva computadora al local
      *
      * @param c Computadora a agregar
-     * @throws PcExiste Si ya existe una PC con el mismo número
+     * @throws ExisteException Si ya existe una PC con el mismo número
      */
-    public void addPC(Computadora c) throws existe {
+    public void addPC(Computadora c) throws ExisteException {
         // Verificar si ya existe una PC con ese número
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == c.getNumero()) {
-                throw new existe("Ya existe una computadora con el numero " + c.getNumero());
+                throw new ExisteException("Ya existe una computadora con el numero " + c.getNumero());
             }
         }
         // Agregar la computadora si no existe
@@ -61,9 +60,9 @@ public abstract class Local {
      * Elimina una computadora del local
      *
      * @param num Número de la computadora a eliminar
-     * @throws PcNoExiste Si no existe una PC con ese número
+     * @throws NoExisteException Si no existe una PC con ese número
      */
-    public void deletePC(int num) throws noExiste {
+    public void deletePC(int num) throws NoExisteException {
         // Buscar la computadora por su número
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == num) {
@@ -71,7 +70,7 @@ public abstract class Local {
                 break;
             } else {
                 // Lanzar excepción si no se encontró
-                throw new noExiste("No existe computadora con numero " + num);
+                throw new NoExisteException("No existe computadora con numero " + num);
             }
         }
     }
@@ -159,6 +158,7 @@ public abstract class Local {
 //        }
 //        return "Nombre: " +name+ ", Local: " +tipoLocal+ ", Numero de Computadora: " +nroPc+ ", Tiempo: " +tiempo;
 //    }
+    
     /**
      * Representación en String del objeto Local
      *

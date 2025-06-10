@@ -1,9 +1,8 @@
-package labComputacion;
+package clases;
 
 /**
  * Clase que representa un Local de Colectivo de Investigación.
- * Hereda de la clase Local y representa un espacio específico para actividades
- * de investigación colectiva con equipos informáticos.
+ * Hereda de la clase Local y representa un espacio específico para actividades de investigación colectiva con equipos informáticos.
  * 
  * @author Chavelys
  * @author Mel

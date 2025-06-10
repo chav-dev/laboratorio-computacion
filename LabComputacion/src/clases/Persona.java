@@ -1,4 +1,4 @@
-package labComputacion;
+package clases;
 
 /**
  * Clase abstracta que representa a una persona en el sistema.

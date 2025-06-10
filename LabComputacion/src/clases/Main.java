@@ -1,4 +1,4 @@
-package labComputacion;
+package clases;
 
 import excepciones.*;
 
@@ -8,7 +8,7 @@ import excepciones.*;
  */
 public class Main {
 
-    public static void main(String[] args) throws existe {
+    public static void main(String[] args) throws ExisteException {
         Persona p1 = new Estudiante(1, "aaa", 123);
         Persona p2 = new Estudiante(2, "bbb", 321);
         Persona p3 = new EstudianteProy("abc", 2, "ccc", 432);
@@ -42,7 +42,7 @@ public class Main {
             l3.addPC(c3);
             l4.addPC(c4);
             l4.addPC(c5);
-        } catch (existe ex) {
+        } catch (ExisteException ex) {
             ex.getMessage();
         }
 
@@ -58,7 +58,7 @@ public class Main {
             f1.addLocal(l2);
             f1.addLocal(l3);
             f1.addLocal(l4);
-        } catch (existe e) {
+        } catch (ExisteException e) {
             System.out.println(e.getMessage());
         }
         c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm");

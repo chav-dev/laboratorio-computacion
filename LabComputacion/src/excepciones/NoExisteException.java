@@ -5,12 +5,12 @@ package excepciones;
  * @author Mel
  * @author Zaile
  */
-public class noExiste extends Exception {
+public class NoExisteException extends Exception {
 
     /**
      * @param mensaje Descripción detallada del error
      */
-    public noExiste(String mensaje) {
+    public NoExisteException(String mensaje) {
         super(mensaje);
     }
 }
