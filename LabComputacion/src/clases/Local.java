@@ -5,7 +5,8 @@ import excepciones.*;
 
 /**
  * Clase abstracta que representa un local genérico en el sistema de gestión.
- * Contiene información básica sobre el local, sus computadoras y bitácora asociada. Esta clase sirve como base para locales especializados como 
+ * Contiene información básica sobre el local, sus computadoras y bitácora
+ * asociada. Esta clase sirve como base para locales especializados como
  * laboratorios y colectivo de investigación.
  *
  * @author Chavelys
@@ -46,13 +47,12 @@ public abstract class Local {
      * @throws ExisteException Si ya existe una PC con el mismo número
      */
     public void addPC(Computadora c) throws ExisteException {
-        // Verificar si ya existe una PC con ese número
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == c.getNumero()) {
                 throw new ExisteException("Ya existe una computadora con el numero " + c.getNumero());
             }
         }
-        // Agregar la computadora si no existe
+
         computadoras.add(c);
     }
 
@@ -63,15 +63,17 @@ public abstract class Local {
      * @throws NoExisteException Si no existe una PC con ese número
      */
     public void deletePC(int num) throws NoExisteException {
-        // Buscar la computadora por su número
+        boolean enc = false;
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == num) {
+                enc = true;
                 computadoras.remove(i);
                 break;
-            } else {
-                // Lanzar excepción si no se encontró
-                throw new NoExisteException("No existe computadora con numero " + num);
             }
+        }
+
+        if (!enc) {
+            throw new NoExisteException("No existe computadora con numero " + num);
         }
     }
 
@@ -82,7 +84,6 @@ public abstract class Local {
      */
     public ArrayList<Computadora> pcRotas() {
         ArrayList<Computadora> pcRotas = new ArrayList<>();
-        // Recorrer todas las computadoras
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equals("Rota")) {
                 pcRotas.add(computadoras.get(i));
@@ -107,7 +108,6 @@ public abstract class Local {
      */
     public int cantPcOcupada() {
         int countOcupada = 0;
-        // Recorrer todas las computadoras
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equalsIgnoreCase("Ocupada")) {
                 countOcupada++;
@@ -123,7 +123,6 @@ public abstract class Local {
      */
     public int cantPcLibre() {
         int countLibre = 0;
-        // Recorrer todas las computadoras
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equalsIgnoreCase("Libre")) {
                 countLibre++;
@@ -158,7 +157,6 @@ public abstract class Local {
 //        }
 //        return "Nombre: " +name+ ", Local: " +tipoLocal+ ", Numero de Computadora: " +nroPc+ ", Tiempo: " +tiempo;
 //    }
-    
     /**
      * Representación en String del objeto Local
      *

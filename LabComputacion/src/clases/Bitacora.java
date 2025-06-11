@@ -3,8 +3,9 @@ package clases;
 import java.util.ArrayList;
 
 /**
- * Clase para gestionar el registro de acceso (entradas/salidas) de personas.
- * Almacena información sobre las horas de entrada/salida y realiza cálculos de tiempo de uso.
+ * Clase para gestionar el registro de acceso (entradas/salidas/fechas) de personas.
+ * Almacena información sobre las horas de entrada/salida y la fecha y realiza cálculos de
+ * tiempo de uso.
  *
  * @author Chavelys
  * @author Mel
@@ -14,6 +15,7 @@ public class Bitacora {
 
     private ArrayList<String> entradas;
     private ArrayList<String> salidas;
+    private ArrayList<String> fechas;
     private ArrayList<Persona> personas;
 
     /**
@@ -22,6 +24,7 @@ public class Bitacora {
     public Bitacora() {
         this.entradas = new ArrayList<>();
         this.salidas = new ArrayList<>();
+        this.fechas = new ArrayList<>();
         this.personas = new ArrayList<>();
     }
 
@@ -30,11 +33,13 @@ public class Bitacora {
      *
      * @param entradas Lista preexistente de horas de entrada
      * @param salidas Lista preexistente de horas de salida
+     * @param fechas Lista preexistente de fechas
      * @param personas Lista preexistente de objetos Persona
      */
-    public Bitacora(ArrayList<String> entradas, ArrayList<String> salidas, ArrayList<Persona> personas) {
+    public Bitacora(ArrayList<String> entradas, ArrayList<String> salidas, ArrayList<String> fechas, ArrayList<Persona> personas) {
         this.entradas = entradas;
         this.salidas = salidas;
+        this.fechas = fechas;
         this.personas = personas;
     }
 
@@ -44,22 +49,25 @@ public class Bitacora {
      * @param persona Objeto Persona asociado al registro
      * @param entrada Hora de entrada (ej: "09:15 AM")
      * @param salida Hora de salida (ej: "11:45 AM")
+     * @param fecha Fecha (ej: "2025-05-10")
      */
-    public void addElemento(Persona persona, String entrada, String salida) {
+    public void addElemento(Persona persona, String entrada, String salida, String fecha) {
         personas.add(persona);
         entradas.add(entrada);
         salidas.add(salida);
+        fechas.add(fecha);
     }
 
     /**
-     * Elimina una persona y sus registros asociados (entrada y salida) en la misma posición.
+     * Elimina una persona y sus registros asociados (entrada, salida y fecha)
+     * en la misma posición.
      *
      * @param persona La persona a eliminar.
      * @return true si se eliminó correctamente, false si no se encontró.
      * @throws IllegalArgumentException si la persona es null.
      */
     public boolean deleteElemento(Persona persona) {
-        // Validar que la persona no sea null
+        // Validar que la persona no es null
         if (persona == null) {
             throw new IllegalArgumentException("La persona no puede ser null.");
         }
@@ -69,10 +77,10 @@ public class Bitacora {
         for (int i = 0; i < personas.size(); i++) {
             if (personas.get(i).equals(persona)) {
                 indicePersona = i;
-                break; // Si encontramos el índice, salimos del bucle
+                break;
             }
         }
-        
+
         // Si no existe, retornar false
         if (indicePersona == -1) {
             return false;
@@ -81,21 +89,38 @@ public class Bitacora {
         personas.remove(indicePersona);
         entradas.remove(indicePersona);
         salidas.remove(indicePersona);
+        fechas.remove(indicePersona);
 
         return true;
     }
-    
-        /**
-         * Genera y muestra en consola todos los registros en formato: "Nombre/Entrada/Salida"
-         *
-         * @return String concatenado con todos los registros
-         */
+
+    /**
+     * Genera y muestra en consola todos los registros en formato: "Nombre/Fecha/Entrada/Salida"
+     *
+     * @return String concatenado con todos los registros
+     */
     public String mostrarBitacora() {
         String bitacora = "";
         for (int i = 0; i < personas.size(); i++) {
-            bitacora += personas.get(i).getNombre() + "/" + entradas.get(i) + "/" + salidas.get(i) + "\n";
+            bitacora += personas.get(i).getNombre() + "/" + fechas.get(i) + "/" + entradas.get(i) + "/" + salidas.get(i) + "\n";
         }
         System.out.println(bitacora);
+        return bitacora;
+    }
+    
+    /**
+     * Genera y muestra en consola los registros de una fecha en específico
+     *
+     * @return String concatenado con todos los registros de la fecha
+     */
+    public String mostrarBitacoraFecha(String fecha){
+        String bitacora = "Fecha: " + fecha + "\n";
+        
+        for (int i = 0; i < fechas.size(); i++) {
+            if(fechas.get(i).equalsIgnoreCase(fecha)){
+                bitacora += personas.get(i).getNombre() + "/" + entradas.get(i) + "/" + salidas.get(i) + "\n";
+            }
+        }
         return bitacora;
     }
 
@@ -133,49 +158,50 @@ public class Bitacora {
     }
 
     /**
-     * Calcula la diferencia horaria entre dos marcas de tiempo en formato "h:mmam/pm"
+     * Calcula la diferencia horaria entre dos marcas de tiempo en formato
+     * "hh:mm am/pm"
      *
-     * @param entrada Hora de inicio en formato "h:mmam/pm"
-     * @param salida Hora de fin en formato "h:mmam/pm"
+     * @param entrada Hora de inicio en formato "hh:mm am/pm"
+     * @param salida Hora de fin en formato "hh:mm am/pm"
      * @return Diferencia horaria en horas decimales
      */
     private double calcularDiferencia(String entrada, String salida) {
 
-        // ENTRADA: Procesamiento de la hora de inicio
+        //Procesar la hora de inicio
         int posEntrada = entrada.indexOf(':');
         double horaEntrada = Double.parseDouble(entrada.substring(0, posEntrada));
-        String restoEntrada = entrada.substring(posEntrada + 1);  // Obtiene el resto (minutos + am/pm)
-        double minEntrada = Double.parseDouble(restoEntrada.substring(0, restoEntrada.length() - 2)) / 60.0;  // Convierte minutos a fracción horaria
-        double totalEntrada = horaEntrada + minEntrada;  // Combina horas y minutos como decimal
+        String restoEntrada = entrada.substring(posEntrada + 1);
+        double minEntrada = Double.parseDouble(restoEntrada.substring(0, restoEntrada.length() - 2)) / 60.0;
+        double totalEntrada = horaEntrada + minEntrada;
 
-        // SALIDA: Procesamiento de la hora de fin
+        //Procesar la hora de fin
         int posSalida = salida.indexOf(':');
         double horaSalida = Double.parseDouble(salida.substring(0, posSalida));
-        String restoSalida = salida.substring(posSalida + 1);  // Obtiene el resto (minutos + am/pm)
-        double minSalida = Double.parseDouble(restoSalida.substring(0, restoSalida.length() - 2)) / 60.0;  // Convierte minutos a fracción horaria
-        double totalSalida = horaSalida + minSalida; // Combina horas y minutos como decimal
+        String restoSalida = salida.substring(posSalida + 1);
+        double minSalida = Double.parseDouble(restoSalida.substring(0, restoSalida.length() - 2)) / 60.0;
+        double totalSalida = horaSalida + minSalida;
 
-        // CONVERSIÓN A 24 HORAS - ENTRADA
+        //Convertir la hora de entrada a formato 24 horas
         if (restoEntrada.toLowerCase().endsWith("pm")) {
             if (horaEntrada != 12) {
                 totalEntrada += 12;
-            } else if (horaEntrada == 12) {
+            } else {
                 totalEntrada = minEntrada;
             }
         }
 
-        // CONVERSIÓN A 24 HORAS - SALIDA
+        //Convertir la hora de salida a formato 24 horas
         if (restoSalida.toLowerCase().endsWith("pm")) {
             if (horaSalida != 12) {
                 totalSalida += 12;
-            } else if (horaSalida == 12) {
+            } else {
                 totalSalida = minSalida;
             }
         }
 
         // Si la hora de fin es menor que la de inicio, se asume que es del día siguiente
         if (totalSalida < totalEntrada) {
-            totalSalida += 24.0;  // Suma 24 horas para ajustar al día siguiente
+            totalSalida += 24.0;
         }
 
         return totalSalida - totalEntrada;
@@ -225,6 +251,24 @@ public class Bitacora {
      */
     public void setSalidas(ArrayList<String> salidas) {
         this.salidas = salidas;
+    }
+
+    /**
+     * Obtiene la lista completa de fechas.
+     *
+     * @return ArrayList de cadenas con fechas
+     */
+    public ArrayList<String> getFechas() {
+        return fechas;
+    }
+
+    /**
+     * Reemplaza la lista actual de fechas.
+     *
+     * @param fechas Nueva lista de fechas
+     */
+    public void setFechas(ArrayList<String> fechas) {
+        this.fechas = fechas;
     }
 
     /**

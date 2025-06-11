@@ -61,13 +61,13 @@ public class Main {
         } catch (ExisteException e) {
             System.out.println(e.getMessage());
         }
-        c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm");
-        l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm");
+        c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
+        l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
 
-        c4.getBitacoraPc().addElemento(p6, "11:00 am", "2:00 pm");
-        l4.getBitacoraLocal().addElemento(p6, "11:00 am", "2:00 pm");
-        c4.getBitacoraPc().addElemento(p1, "2:00 pm", "6:00 pm");
-        l4.getBitacoraLocal().addElemento(p1, "2:00 pm", "6:00 pm");
+        c4.getBitacoraPc().addElemento(p6, "11:00 am", "2:00 pm","2025-05-06");
+        l4.getBitacoraLocal().addElemento(p6, "11:00 am", "2:00 pm","2025-05-06");
+        c4.getBitacoraPc().addElemento(p1, "2:00 pm", "6:00 pm","2025-05-06");
+        l4.getBitacoraLocal().addElemento(p1, "2:00 pm", "6:00 pm","2025-05-06");
 
         System.out.println("Bitacora local 2");
         l2.getBitacoraLocal().mostrarBitacora();
@@ -111,5 +111,8 @@ public class Main {
         System.out.println("Peor Porciento");
         System.out.println("" + f1.peorPorc());
         System.out.println("");
+        
+        System.out.println("Bitacora de fecha");
+        System.out.println(""+l4.getBitacoraLocal().mostrarBitacoraFecha("2025-05-06"));
     }
 }
