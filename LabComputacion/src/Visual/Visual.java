@@ -265,12 +265,12 @@ public class Visual extends javax.swing.JFrame {
         addLocal.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, 20));
 
         jButton3.setBackground(new java.awt.Color(187, 211, 228));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14));
         jButton3.setText("Aceptar");
         addLocal.getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(187, 211, 228));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14));
         jButton4.setText("Cancelar");
         addLocal.getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
 
