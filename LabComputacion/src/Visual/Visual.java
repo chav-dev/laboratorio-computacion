@@ -241,10 +241,12 @@ public class Visual extends javax.swing.JFrame {
         jDialog3.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, 20));
 
         jButton3.setBackground(new java.awt.Color(187, 211, 228));
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Aceptar");
         jDialog3.getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(187, 211, 228));
+        jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Cancelar");
         jDialog3.getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
 
