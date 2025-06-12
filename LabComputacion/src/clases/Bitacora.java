@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Clase para gestionar el registro de acceso (entradas/salidas/fechas) de personas.
- * Almacena información sobre las horas de entrada/salida y la fecha y realiza cálculos de
- * tiempo de uso.
+ * Almacena información sobre las horas de entrada/salida y la fecha y realiza cálculos de tiempo de uso.
  *
  * @author Chavelys
  * @author Mel
@@ -59,8 +58,7 @@ public class Bitacora {
     }
 
     /**
-     * Elimina una persona y sus registros asociados (entrada, salida y fecha)
-     * en la misma posición.
+     * Elimina una persona y sus registros asociados (entrada, salida y fecha) en la misma posición.
      *
      * @param persona La persona a eliminar.
      * @return true si se eliminó correctamente, false si no se encontró.
@@ -133,7 +131,7 @@ public class Bitacora {
         double tiempoTotal = 0;
 
         for (int i = 0; i < entradas.size(); i++) {
-            tiempoTotal += calcularDiferencia(entradas.get(i), salidas.get(i));
+            tiempoTotal += calcDiferencia(entradas.get(i), salidas.get(i));
         }
 
         return tiempoTotal;
@@ -150,7 +148,7 @@ public class Bitacora {
 
         for (int i = 0; i < entradas.size(); i++) {
             if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
-                tiempo += calcularDiferencia(entradas.get(i), salidas.get(i));
+                tiempo += calcDiferencia(entradas.get(i), salidas.get(i));
             }
         }
 
@@ -158,14 +156,13 @@ public class Bitacora {
     }
 
     /**
-     * Calcula la diferencia horaria entre dos marcas de tiempo en formato
-     * "hh:mm am/pm"
+     * Calcula la diferencia horaria entre dos marcas de tiempo en formato "hh:mm am/pm"
      *
      * @param entrada Hora de inicio en formato "hh:mm am/pm"
      * @param salida Hora de fin en formato "hh:mm am/pm"
      * @return Diferencia horaria en horas decimales
      */
-    private double calcularDiferencia(String entrada, String salida) {
+    private double calcDiferencia(String entrada, String salida) {
 
         //Procesar la hora de inicio
         int posEntrada = entrada.indexOf(':');
