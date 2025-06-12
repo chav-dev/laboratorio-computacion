@@ -44,10 +44,10 @@ public class Facultad {
      * @param nombre Nombre de la persona a eliminar
      * @throws NoExisteException Si no existe una persona con ese nombre
      */
-    public void deletePersona(String nombre) throws NoExisteException {
+    public void deletePersona(String nombre, int solapin) throws NoExisteException {
         boolean enc = false;
         for (int i = 0; i < personas.size(); i++) {
-            if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
+            if (personas.get(i).getNombre().equalsIgnoreCase(nombre) && personas.get(i).getSolapin() == solapin) {
                 personas.remove(i);
                 enc = true;
             }
