@@ -14,11 +14,6 @@ public class Visual extends javax.swing.JFrame {
      */
     public Visual() {
         initComponents();
-        if(localesButton.isSelected()){
-            tituloLabel.setText("Locales");
-        }else if(pcButton.isSelected()){
-            tituloLabel.setText("Computadoras");
-        }
 
     }
 
@@ -34,7 +29,7 @@ public class Visual extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        salirDialog1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -201,6 +196,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel57 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
+        buttonGroup5 = new javax.swing.ButtonGroup();
         jPanel15 = new javax.swing.JPanel();
         salirButtonFrame = new javax.swing.JButton();
         pcButton = new javax.swing.JButton();
@@ -221,18 +217,28 @@ public class Visual extends javax.swing.JFrame {
         jButton5.setContentAreaFilled(false);
         jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 130, 30));
 
-        jButton6.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Salir");
-        jButton6.setBorderPainted(false);
-        jButton6.setContentAreaFilled(false);
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, -1, 30));
+        salirDialog1.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        salirDialog1.setForeground(new java.awt.Color(255, 255, 255));
+        salirDialog1.setText("Salir");
+        salirDialog1.setBorderPainted(false);
+        salirDialog1.setContentAreaFilled(false);
+        salirDialog1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirDialog1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(salirDialog1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, -1, 30));
 
         jButton7.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Agregar");
         jButton7.setBorderPainted(false);
         jButton7.setContentAreaFilled(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, 30));
 
         jButton8.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
@@ -240,6 +246,11 @@ public class Visual extends javax.swing.JFrame {
         jButton8.setText("Eliminar");
         jButton8.setBorderPainted(false);
         jButton8.setContentAreaFilled(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 130, 30));
 
         jButton9.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
@@ -247,11 +258,17 @@ public class Visual extends javax.swing.JFrame {
         jButton9.setText("Calcular");
         jButton9.setBorderPainted(false);
         jButton9.setContentAreaFilled(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 130, 30));
 
         tituloLabel.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         tituloLabel.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel3.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 150, 90));
+        tituloLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 410, 90));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5 botones.jpg"))); // NOI18N
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 760, 450));
@@ -299,7 +316,12 @@ public class Visual extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(187, 211, 228));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Aceptar");
+        jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(187, 211, 228));
@@ -324,7 +346,12 @@ public class Visual extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(187, 211, 228));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Aceptar");
+        jButton3.setText("Agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -407,7 +434,7 @@ public class Visual extends javax.swing.JFrame {
 
         jButton10.setBackground(new java.awt.Color(187, 211, 228));
         jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton10.setText("Aceptar");
+        jButton10.setText("Eliminar");
         jPanel4.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
 
         jTextField2.setBackground(new java.awt.Color(187, 211, 228));
@@ -432,7 +459,7 @@ public class Visual extends javax.swing.JFrame {
         jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
         jFormattedTextField3.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel4.add(jFormattedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, -1));
+        jPanel4.add(jFormattedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 90, -1));
 
         buttonGroup3.add(jRadioButton6);
         jRadioButton6.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -759,7 +786,7 @@ public class Visual extends javax.swing.JFrame {
 
         jButton24.setBackground(new java.awt.Color(187, 211, 228));
         jButton24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton24.setText("Aceptar");
+        jButton24.setText("Agregar");
         jPanel10.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
 
         jFormattedTextField7.setBackground(new java.awt.Color(187, 211, 228));
@@ -917,8 +944,8 @@ public class Visual extends javax.swing.JFrame {
 
         jButton28.setBackground(new java.awt.Color(187, 211, 228));
         jButton28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton28.setText("Aceptar");
-        jPanel12.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, -1, -1));
+        jButton28.setText("Agregar usuario");
+        jPanel12.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -1092,24 +1119,34 @@ public class Visual extends javax.swing.JFrame {
     private void facultadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facultadButtonActionPerformed
         // TODO add your handling code here:
         facultad.pack();
-       
+        this.dispose();
+        this.setVisible(false);
         facultad.setVisible(true);
     }//GEN-LAST:event_facultadButtonActionPerformed
 
     private void localesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localesButtonActionPerformed
         // TODO add your handling code here:
         jDialog1.pack();
-        
+        this.dispose();
+        this.setVisible(false);
         jDialog1.setVisible(true);
+        tituloLabel.setText("Locales");
+        
     }//GEN-LAST:event_localesButtonActionPerformed
 
     private void pcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcButtonActionPerformed
         // TODO add your handling code here:
+        jDialog1.pack();
+        this.dispose();
+        this.setVisible(false);
+        jDialog1.setVisible(true);
+        tituloLabel.setText("Computadoras");
+       
     }//GEN-LAST:event_pcButtonActionPerformed
 
     private void salirButtonFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonFrameActionPerformed
         // TODO add your handling code here:
-         System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_salirButtonFrameActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -1168,6 +1205,52 @@ public class Visual extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField4ActionPerformed
 
+    private void salirDialog1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirDialog1ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        this.dispose();
+        this.setVisible(true);
+    }//GEN-LAST:event_salirDialog1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
+            addLocal.pack();
+            addLocal.setVisible(true);
+        } else {
+            addPC.pack();
+            addPC.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        eliminar.pack();
+        eliminar.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
+            calcAprovLocal.pack();
+            calcAprovLocal.setVisible(true);
+        } else {
+            calcPc.pack();
+            calcPc.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1188,7 +1271,7 @@ public class Visual extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Visual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -1207,6 +1290,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JDialog calcAprovLocal;
     private javax.swing.JDialog calcPc;
     private javax.swing.JDialog deleteElemento;
@@ -1242,7 +1326,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -1376,6 +1459,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JDialog registro;
     private javax.swing.JDialog reporteRotura;
     private javax.swing.JButton salirButtonFrame;
+    private javax.swing.JButton salirDialog1;
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 }
