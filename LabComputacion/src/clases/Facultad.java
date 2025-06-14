@@ -30,6 +30,7 @@ public class Facultad {
      * @param local El objeto Local que se desea agregar.
      * @throws ExisteException Si el local ya existe en la lista.
      */
+
     public void addLocal(Local local) throws ExisteException {
         for (int i = 0; i < locales.size(); i++) {
             if (locales.get(i).getNombre().equalsIgnoreCase(local.getNombre())) {
