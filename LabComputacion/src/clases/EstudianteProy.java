@@ -14,7 +14,7 @@ public class EstudianteProy extends Estudiante {
      * Construye un nuevo estudiante de proyecto con la información especificada.
      * 
      * @param nombreProy Nombre del proyecto de investigación o desarrollo
-     * @param annoDoc Año de estudio del estudiante (ej: 2 para segundo año)
+     * @param annoDoc Año de estudio del estudiante
      * @param nombre Nombre completo del estudiante
      * @param solapin Número de identificación institucional
      */

@@ -17,9 +17,10 @@ public class Computadora {
      *
      * @param estado Estado inicial de la computadora
      * @param numero Número identificatorio único dentro del local
+     * @param local Local en que se encuentra la computadora
      * @param bitacoraPc Bitácora asociada para registro de actividades
      */
-    public Computadora(String estado, int numero, Local l1, Bitacora bitacoraPc) {
+    public Computadora(String estado, int numero, Local local, Bitacora bitacoraPc) {
         this.estado = estado;
         this.numero = numero;
         this.bitacoraPc = bitacoraPc;
@@ -35,7 +36,6 @@ public class Computadora {
         return "Computadora{" + "estado=" + estado + ", numero=" + numero + '}';
     }
 
-    // Métodos de acceso (getters y setters)
     /**
      * Obtiene el estado actual de la computadora.
      *

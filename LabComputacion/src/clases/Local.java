@@ -42,18 +42,17 @@ public abstract class Local {
     /**
      * Agrega una nueva computadora al local
      *
-     * @param c Computadora a agregar
+     * @param comp Computadora a agregar
      * @throws ExisteException Si ya existe una PC con el mismo número
      */
-    public void addPC(Computadora c) throws ExisteException {
-        // Verificar si ya existe una PC con ese número
+    public void addPc(Computadora comp) throws ExisteException {
         for (int i = 0; i < computadoras.size(); i++) {
-            if (computadoras.get(i).getNumero() == c.getNumero()) {
-                throw new ExisteException("Ya existe una computadora con el numero " + c.getNumero());
+            if (computadoras.get(i).getNumero() == comp.getNumero()) {
+                throw new ExisteException("Ya existe una computadora con el numero " + comp.getNumero());
             }
         }
-        // Agregar la computadora si no existe
-        computadoras.add(c);
+
+        computadoras.add(comp);
     }
 
     /**
@@ -62,16 +61,18 @@ public abstract class Local {
      * @param num Número de la computadora a eliminar
      * @throws NoExisteException Si no existe una PC con ese número
      */
-    public void deletePC(int num) throws NoExisteException {
-        // Buscar la computadora por su número
+    public void deletePc(int num) throws NoExisteException {
+        boolean enc = false;
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getNumero() == num) {
+                enc = true;
                 computadoras.remove(i);
                 break;
-            } else {
-                // Lanzar excepción si no se encontró
-                throw new NoExisteException("No existe computadora con numero " + num);
             }
+        }
+
+        if (!enc) {
+            throw new NoExisteException("No existe computadora con numero " + num);
         }
     }
 
@@ -82,7 +83,6 @@ public abstract class Local {
      */
     public ArrayList<Computadora> pcRotas() {
         ArrayList<Computadora> pcRotas = new ArrayList<>();
-        // Recorrer todas las computadoras
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equals("Rota")) {
                 pcRotas.add(computadoras.get(i));
@@ -107,7 +107,6 @@ public abstract class Local {
      */
     public int cantPcOcupada() {
         int countOcupada = 0;
-        // Recorrer todas las computadoras
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equalsIgnoreCase("Ocupada")) {
                 countOcupada++;
@@ -123,7 +122,6 @@ public abstract class Local {
      */
     public int cantPcLibre() {
         int countLibre = 0;
-        // Recorrer todas las computadoras
         for (int i = 0; i < computadoras.size(); i++) {
             if (computadoras.get(i).getEstado().equalsIgnoreCase("Libre")) {
                 countLibre++;
@@ -132,33 +130,6 @@ public abstract class Local {
         return countLibre;
     }
 
-//    /**
-//     * Busca una persona en las bitácoras de las computadoras
-//     * @param nombre Nombre de la persona a buscar
-//     * @return String con información de la persona encontrada
-//     */
-//    public String buscarPersona(String nombre){
-//        int nroPc = 0;
-//        String tipoLocal = "";
-//        double tiempo = 0;
-//        String name= "";
-//        
-//        // Buscar en todas las computadoras
-//        for(int i = 0; i < computadoras.size(); i++){
-//            Bitacora bitacora = computadoras.get(i).getBitacoraPc();
-//            // Buscar en todas las personas de la bitácora
-//            for(int j = 0; j < bitacora.getPersonas().size(); j++){
-//                if(bitacora.getPersonas().get(j).getNombre().equals(nombre)){
-//                    name = bitacora.getPersonas().get(j).getNombre();
-//                    nroPc = computadoras.get(i).getNumero();
-//                    tipoLocal = computadoras.get(i).getTipoLocal().toString();
-//                    tiempo = bitacora.calcTiempoUso();
-//                }
-//            }
-//        }
-//        return "Nombre: " +name+ ", Local: " +tipoLocal+ ", Numero de Computadora: " +nroPc+ ", Tiempo: " +tiempo;
-//    }
-    
     /**
      * Representación en String del objeto Local
      *
