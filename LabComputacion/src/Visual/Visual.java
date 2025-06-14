@@ -210,14 +210,14 @@ public class Visual extends javax.swing.JFrame {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton5.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Mostrar");
+        jButton5.setText("Listar estado");
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 130, 30));
+        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 150, 30));
 
-        salirDialog1.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        salirDialog1.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
         salirDialog1.setForeground(new java.awt.Color(255, 255, 255));
         salirDialog1.setText("Salir");
         salirDialog1.setBorderPainted(false);
@@ -229,7 +229,7 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel3.add(salirDialog1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, -1, 30));
 
-        jButton7.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton7.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Agregar");
         jButton7.setBorderPainted(false);
@@ -239,9 +239,9 @@ public class Visual extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, 30));
+        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, 40));
 
-        jButton8.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Eliminar");
         jButton8.setBorderPainted(false);
@@ -253,7 +253,7 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel3.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 130, 30));
 
-        jButton9.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jButton9.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Calcular");
         jButton9.setBorderPainted(false);
@@ -327,6 +327,11 @@ public class Visual extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(187, 211, 228));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
@@ -760,6 +765,11 @@ public class Visual extends javax.swing.JFrame {
         jButton20.setText("Salir");
         jButton20.setBorderPainted(false);
         jButton20.setContentAreaFilled(false);
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
         jPanel9.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, -1, 40));
 
         jButton19.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
@@ -1250,6 +1260,20 @@ public class Visual extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        // TODO add your handling code here:
+        facultad.setVisible(false);
+        this.dispose();
+        this.setVisible(true);
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        addPC.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
