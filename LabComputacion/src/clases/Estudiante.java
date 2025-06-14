@@ -13,7 +13,7 @@ public class Estudiante extends Persona {
     /**
      * Construye una nueva instancia de Estudiante con la información especificada.
      * 
-     * @param annoDoc Año académico actual del estudiante (debe ser un valor positivo)
+     * @param annoDoc Año académico actual del estudiante
      * @param nombre Nombre completo del estudiante
      * @param solapin Número de identificación institucional
      */
@@ -25,7 +25,7 @@ public class Estudiante extends Persona {
     /**
      * Obtiene el año académico actual del estudiante.
      * 
-     * @return Número representando el año de estudio (ej: 1, 2, 3)
+     * @return Número representando el año de estudio
      */
     public int getAnnoDoc() {
         return annoDoc;
@@ -34,7 +34,7 @@ public class Estudiante extends Persona {
     /**
      * Establece o actualiza el año académico del estudiante.
      * 
-     * @param annoDoc Nuevo año académico a asignar (debe ser un valor positivo)
+     * @param annoDoc Nuevo año académico a asignar
      */
     public void setAnnoDoc(int annoDoc) {
         this.annoDoc = annoDoc;

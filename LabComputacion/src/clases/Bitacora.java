@@ -91,24 +91,11 @@ public class Bitacora {
 
         return true;
     }
-
-    /**
-     * Genera y muestra en consola todos los registros en formato: "Nombre/Fecha/Entrada/Salida"
-     *
-     * @return String concatenado con todos los registros
-     */
-    public String mostrarBitacora() {
-        String bitacora = "";
-        for (int i = 0; i < personas.size(); i++) {
-            bitacora += personas.get(i).getNombre() + "/" + fechas.get(i) + "/" + entradas.get(i) + "/" + salidas.get(i) + "\n";
-        }
-        System.out.println(bitacora);
-        return bitacora;
-    }
     
     /**
      * Genera y muestra en consola los registros de una fecha en específico
      *
+     * @param fecha La fecha de referencia para el cálculo.
      * @return String concatenado con todos los registros de la fecha
      */
     public String mostrarBitacoraFecha(String fecha){

@@ -25,58 +25,25 @@ public class Facultad {
     }
 
     /**
-     * Agrega una persona a la lista de la facultad.
+     * Agrega un nuevo local a la lista, asegurando que no se duplique.
      *
-     * @param p Objeto Persona a agregar
+     * @param local El objeto Local que se desea agregar.
+     * @throws ExisteException Si el local ya existe en la lista.
      */
-    public void addPersona(Persona p) throws ExisteException {
-        for (int i = 0; i < personas.size(); i++) {
-            if (personas.get(i).getNombre().equalsIgnoreCase(p.getNombre())) {
-                throw new ExisteException(p.getNombre() + " ya existe");
-            }
-        }
-        personas.add(p);
-    }
-
-    /**
-     * Elimina una persona de la lista por su nombre.
-     *
-     * @param nombre Nombre de la persona a eliminar
-     * @throws NoExisteException Si no existe una persona con ese nombre
-     */
-    public void deletePersona(String nombre) throws NoExisteException {
-        boolean enc = false;
-        for (int i = 0; i < personas.size(); i++) {
-            if (personas.get(i).getNombre().equalsIgnoreCase(nombre)) {
-                personas.remove(i);
-                enc = true;
-            }
-        }
-        if (!enc) {
-            throw new NoExisteException(nombre + " no existe");
-        }
-    }
-
-    /**
-     * Agrega un local a la lista de la facultad.
-     *
-     * @param l Objeto Local a agregar
-     */
-    public void addLocal(Local l) throws ExisteException {
+    public void addLocal(Local local) throws ExisteException {
         for (int i = 0; i < locales.size(); i++) {
-            if (locales.get(i).getNombre().equalsIgnoreCase(l.getNombre())) {
-                throw new ExisteException("El local " + l.getNombre() + " ya existe");
+            if (locales.get(i).getNombre().equalsIgnoreCase(local.getNombre())) {
+                throw new ExisteException("El local " + local.getNombre() + " ya existe");
             }
         }
-        locales.add(l);
+        locales.add(local);
     }
 
     /**
      * Elimina un local de la lista por su nombre.
      *
      * @param nombre Nombre del local a eliminar
-     * @throws NoExisteException Si no existe un local con el nombre
-     * especificado
+     * @throws NoExisteException Si no existe un local con el nombre especificado
      */
     public void deleteLocal(String nombre) throws NoExisteException {
         boolean enc = false;
@@ -130,8 +97,7 @@ public class Facultad {
     }
 
     /**
-     * Buscar en que local / computadoras trabajó una persona y de tiempo de
-     * trabajo
+     * Buscar en que local / computadoras trabajó una persona y el tiempo de trabajo
      *
      * @param nombre Nombre de la persona a buscar
      * @return String con información de locales, tiempo y computadoras usadas
@@ -149,9 +115,9 @@ public class Facultad {
 
                 //Agregar información del local
                 info.append("Local: ").append(locales.get(i).getNombre())
-                        .append("\nTiempo total: ")
-                        .append(String.format("%.2f horas", tiempoEnLocal))
-                        .append("\nComputadoras usadas:\n");
+                    .append("\nTiempo total: ")
+                    .append(String.format("%.2f horas", tiempoEnLocal))
+                    .append("\nComputadoras usadas:\n");
 
                 //Buscar computadoras específicas usadas por la persona
                 ArrayList<Computadora> computadoras = locales.get(i).getComputadoras();
@@ -164,9 +130,9 @@ public class Facultad {
                     if (tiempoEnPC > 0) {
                         computadorasEncontradas = true;
                         info.append(" - ").append(String.valueOf(computadoras.get(j).getNumero()))
-                                .append(": ")
-                                .append(String.format("%.2f horas", tiempoEnPC))
-                                .append("\n");
+                            .append(": ")
+                            .append(String.format("%.2f horas", tiempoEnPC))
+                            .append("\n");
                     }
                 }
 

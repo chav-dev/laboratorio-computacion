@@ -15,6 +15,7 @@ public class Main {
         Persona p4 = new EstudianteProy("mnb", 4, "ddd", 876);
         Persona p5 = new Profesor("mate", "eee", 987);
         Persona p6 = new Profesor("prog", "fff", 654);
+        
         Bitacora b1 = new Bitacora();
         Bitacora b2 = new Bitacora();
         Bitacora b3 = new Bitacora();
@@ -24,10 +25,12 @@ public class Main {
         Bitacora b7 = new Bitacora();
         Bitacora b8 = new Bitacora();
         Bitacora b9 = new Bitacora();
+        
         Local l1 = new LabDoc("lll", 24, "Estudiar", 4, b1);
         Local l2 = new LocalColectInvest("sss", 20, "a", 10, b2);
         Local l3 = new LabProy("ttt", 16, "proyectos", 14, b3);
         Local l4 = new LabDoc("ooo", 24, "ed", 20, b4);
+        
         Computadora c1 = new Computadora("Rota", 1, l1, b5);
         Computadora c2 = new Computadora("Libre", 32, l2, b6);
         Computadora c3 = new Computadora("Ocupada", 54, l3, b7);
@@ -37,23 +40,16 @@ public class Main {
         //Adds
         Facultad f1 = new Facultad();
         try {
-            l1.addPC(c1);
-            l2.addPC(c2);
-            l3.addPC(c3);
-            l4.addPC(c4);
-            l4.addPC(c5);
+            l1.addPc(c1);
+            l2.addPc(c2);
+            l3.addPc(c3);
+            l4.addPc(c4);
+            l4.addPc(c5);
         } catch (ExisteException ex) {
             ex.getMessage();
         }
 
         try {
-            f1.addPersona(p1);
-            f1.addPersona(p2);
-            f1.addPersona(p3);
-            f1.addPersona(p4);
-            f1.addPersona(p5);
-            f1.addPersona(p6);
-
             f1.addLocal(l1);
             f1.addLocal(l2);
             f1.addLocal(l3);
@@ -70,15 +66,15 @@ public class Main {
         l4.getBitacoraLocal().addElemento(p1, "2:00 pm", "6:00 pm","2025-05-06");
 
         System.out.println("Bitacora local 2");
-        l2.getBitacoraLocal().mostrarBitacora();
+        l2.getBitacoraLocal().mostrarBitacoraFecha("13/03/2025");
         System.out.println("");
 
         System.out.println("Bitacora local 4");
-        l4.getBitacoraLocal().mostrarBitacora();
+        l4.getBitacoraLocal().mostrarBitacoraFecha("12/04/2025");
         System.out.println("");
 
         System.out.println("Bitacora pc 4");
-        c4.getBitacoraPc().mostrarBitacora();
+        c4.getBitacoraPc().mostrarBitacoraFecha("48/02/2025");
         System.out.println("");
 
         System.out.println("Tiempo de uso local 4");
