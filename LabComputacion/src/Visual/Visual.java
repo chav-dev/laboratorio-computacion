@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Visual;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +14,7 @@ public class Visual extends javax.swing.JFrame {
      */
     public Visual() {
         initComponents();
+
     }
 
     /**
@@ -525,7 +521,9 @@ public class Visual extends javax.swing.JFrame {
 
         jButton12.setBackground(new java.awt.Color(187, 211, 228));
         jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         jButton12.setText("Calcular");
+
         jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
         jCheckBox5.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -1062,6 +1060,7 @@ public class Visual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1088,6 +1087,7 @@ public class Visual extends javax.swing.JFrame {
             }
         });
         jPanel15.add(pcButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 180, 50));
+
 
         localesButton.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
         localesButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -1137,8 +1137,158 @@ public class Visual extends javax.swing.JFrame {
             .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void facultadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facultadButtonActionPerformed
+        // TODO add your handling code here:
+        facultad.pack();
+        this.dispose();
+        this.setVisible(false);
+        facultad.setVisible(true);
+    }//GEN-LAST:event_facultadButtonActionPerformed
+
+    private void localesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localesButtonActionPerformed
+        // TODO add your handling code here:
+        jDialog1.pack();
+        this.dispose();
+        this.setVisible(false);
+        jDialog1.setVisible(true);
+        tituloLabel.setText("Locales");
+        
+    }//GEN-LAST:event_localesButtonActionPerformed
+
+    private void pcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcButtonActionPerformed
+        // TODO add your handling code here:
+        jDialog1.pack();
+        this.dispose();
+        this.setVisible(false);
+        jDialog1.setVisible(true);
+        tituloLabel.setText("Computadoras");
+       
+    }//GEN-LAST:event_pcButtonActionPerformed
+
+    private void salirButtonFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonFrameActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_salirButtonFrameActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton6ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton7ActionPerformed
+
+    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField15ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton30ActionPerformed
+
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton32ActionPerformed
+
+    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField13ActionPerformed
+
+    private void jFormattedTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField4ActionPerformed
+
+    private void salirDialog1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirDialog1ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        this.dispose();
+        this.setVisible(true);
+    }//GEN-LAST:event_salirDialog1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
+            addLocal.pack();
+            addLocal.setVisible(true);
+        } else {
+            addPC.pack();
+            addPC.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        eliminar.pack();
+        eliminar.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
+            calcAprovLocal.pack();
+            calcAprovLocal.setVisible(true);
+        } else {
+            calcPc.pack();
+            calcPc.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        // TODO add your handling code here:
+        facultad.setVisible(false);
+        this.dispose();
+        this.setVisible(true);
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        addPC.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1156,15 +1306,11 @@ public class Visual extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Visual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Visual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Visual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Visual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
         //</editor-fold>
 
         /* Create and display the form */
