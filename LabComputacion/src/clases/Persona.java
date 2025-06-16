@@ -24,6 +24,11 @@ public abstract class Persona{
         this.solapin = solapin;
     }
 
+    @Override
+    public String toString() {
+        return "Persona: " + "Nombre " + nombre + ", Solapin " + solapin;
+    }
+
     /**
      * Obtiene el nombre de la persona.
      * 

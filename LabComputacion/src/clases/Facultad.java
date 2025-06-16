@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
@@ -194,24 +195,18 @@ public class Facultad {
         return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
     }
 
-    public void guardarPersonas(String archivo) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(archivo);
-        for (Persona p : personas) {
-            if (p instanceof Profesor) {
-                Profesor profesor = (Profesor) p;
-                pw.println("Profesor;" + profesor.getAsignatura() + ";"
-                        + profesor.getNombre() + ";" + profesor.getSolapin());
-            } else if (p instanceof EstudianteProy) {
-                EstudianteProy estProy = (EstudianteProy) p;
-                pw.println("Estudiante de proyecto;" + estProy.getNombreProy() + ";"
-                        + estProy.getAnnoDoc() + ";" + estProy.getNombre() + ";" + estProy.getSolapin());
-            } else if (p instanceof Estudiante) {
-                Estudiante estudiante = (Estudiante) p;
-                pw.println("Estudiante;" + estudiante.getAnnoDoc() + ";"
-                        + estudiante.getNombre() + ";" + estudiante.getSolapin());
+    public void guardarPersonas(String ruta) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(ruta))) {
+            System.out.println("Personas: ");
+            // Corregido: usa < en lugar de <= para evitar índice fuera de límites
+            for (int i = 0; i < personas.size(); i++) {
+                pw.println(personas.get(i).toString());
             }
+            // Eliminado pw.close() redundante (try-with-resources lo cierra automáticamente)
+            System.out.println("Datos guardados correctamente en: " + ruta);
+        } catch (IOException e) {
+            System.out.println("Error al guardar: " + e.getMessage());
         }
-        pw.close();
     }
 
     public void cargarPersonas(String archivo) throws IOException {
@@ -261,17 +256,17 @@ public class Facultad {
             }
 
             br.close();
-    }catch(FileNotFoundException e){
-        System.out.println("Archivo no encontrado");
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado");
+        }
     }
-}
 
-/**
- * Obtiene la lista completa de locales.
- *
- * @return ArrayList de objetos Local
- */
-public ArrayList<Local> getLocales() {
+    /**
+     * Obtiene la lista completa de locales.
+     *
+     * @return ArrayList de objetos Local
+     */
+    public ArrayList<Local> getLocales() {
         return locales;
     }
 

@@ -9,8 +9,6 @@ import java.io.IOException;
  */
 public class Main {
 
-    private static final String personasFiles = "Personas.txt";
-
     public static void main(String[] args) throws ExisteException, IOException {
         Persona p1 = new Estudiante(1, "aaa", 123);
         Persona p2 = new Estudiante(2, "bbb", 321);
@@ -48,7 +46,7 @@ public class Main {
         f1.getPersonas().add(p4);
         f1.getPersonas().add(p5);
         f1.getPersonas().add(p6);
-        f1.guardarPersonas(personasFiles);
+        f1.guardarPersonas(".//laboratorio-computacion//LabComputacion//Personas.txt");
 
         try {
             l1.addPc(c1);
@@ -122,16 +120,16 @@ public class Main {
         System.out.println("Bitacora de fecha");
         System.out.println("" + l4.getBitacoraLocal().mostrarBitacoraFecha("2025-05-06"));
 
-        Facultad f2 = new Facultad();
-        try {
-            f2.cargarPersonas(personasFiles);
-            System.out.println("Personas cargadas:" + f2.getPersonas().size());
-            for (Persona p : f2.getPersonas()) {
-                System.out.println(p.getClass().getSimpleName() + ": " + p.getNombre());
-            }
-        } catch (IOException e) {
-            System.err.println("Error cargando: " + e.getMessage());
-        }
+//        Facultad f2 = new Facultad();
+//        try {
+//            f2.cargarPersonas(personasFiles);
+//            System.out.println("Personas cargadas:" + f2.getPersonas().size());
+//            for (Persona p : f2.getPersonas()) {
+//                System.out.println(p.getClass().getSimpleName() + ": " + p.getNombre());
+//            }
+//        } catch (IOException e) {
+//            System.err.println("Error cargando: " + e.getMessage());
+//        }
 
     }
 }
