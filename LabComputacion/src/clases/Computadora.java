@@ -1,5 +1,7 @@
 package clases;
 
+import java.io.Serializable;
+
 /**
  * Representa una computadora física en el sistema de gestión de laboratorios.
  *
@@ -7,7 +9,7 @@ package clases;
  * @author Mel
  * @author Zaile
  */
-public class Computadora {
+public class Computadora implements Serializable{
     private String estado; //Ocupada, Libre o Rota
     private int numero;
     private Bitacora bitacoraPc;

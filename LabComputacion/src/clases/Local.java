@@ -2,6 +2,7 @@ package clases;
 
 import java.util.ArrayList;
 import excepciones.*;
+import java.io.Serializable;
 
 /**
  * Clase abstracta que representa un local genérico en el sistema de gestión.
@@ -12,7 +13,7 @@ import excepciones.*;
  * @author Mel
  * @author Zaile
  */
-public abstract class Local {
+public abstract class Local implements Serializable{
 
     protected String nombre;
     protected int tiempoUso;
