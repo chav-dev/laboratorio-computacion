@@ -1,6 +1,7 @@
 package clases;
 
 import excepciones.*;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -11,17 +12,15 @@ import java.util.ArrayList;
  * @author Mel
  * @author Zaile
  */
-public class Facultad {
+public class Facultad implements Serializable {
 
     private ArrayList<Local> locales;
-    private ArrayList<Persona> personas;
 
     /**
-     * Constructor por defecto que inicializa las listas vacías.
+     * Constructor por defecto que inicializa la lista vacía.
      */
     public Facultad() {
         this.locales = new ArrayList<>();
-        this.personas = new ArrayList<>();
     }
 
     /**
@@ -30,7 +29,6 @@ public class Facultad {
      * @param local El objeto Local que se desea agregar.
      * @throws ExisteException Si el local ya existe en la lista.
      */
-
     public void addLocal(Local local) throws ExisteException {
         for (int i = 0; i < locales.size(); i++) {
             if (locales.get(i).getNombre().equalsIgnoreCase(local.getNombre())) {
@@ -44,7 +42,8 @@ public class Facultad {
      * Elimina un local de la lista por su nombre.
      *
      * @param nombre Nombre del local a eliminar
-     * @throws NoExisteException Si no existe un local con el nombre especificado
+     * @throws NoExisteException Si no existe un local con el nombre
+     * especificado
      */
     public void deleteLocal(String nombre) throws NoExisteException {
         boolean enc = false;
@@ -98,7 +97,8 @@ public class Facultad {
     }
 
     /**
-     * Buscar en que local / computadoras trabajó una persona y el tiempo de trabajo
+     * Buscar en que local / computadoras trabajó una persona y el tiempo de
+     * trabajo
      *
      * @param nombre Nombre de la persona a buscar
      * @return String con información de locales, tiempo y computadoras usadas
@@ -116,9 +116,9 @@ public class Facultad {
 
                 //Agregar información del local
                 info.append("Local: ").append(locales.get(i).getNombre())
-                    .append("\nTiempo total: ")
-                    .append(String.format("%.2f horas", tiempoEnLocal))
-                    .append("\nComputadoras usadas:\n");
+                        .append("\nTiempo total: ")
+                        .append(String.format("%.2f horas", tiempoEnLocal))
+                        .append("\nComputadoras usadas:\n");
 
                 //Buscar computadoras específicas usadas por la persona
                 ArrayList<Computadora> computadoras = locales.get(i).getComputadoras();
@@ -131,9 +131,9 @@ public class Facultad {
                     if (tiempoEnPC > 0) {
                         computadorasEncontradas = true;
                         info.append(" - ").append(String.valueOf(computadoras.get(j).getNumero()))
-                            .append(": ")
-                            .append(String.format("%.2f horas", tiempoEnPC))
-                            .append("\n");
+                                .append(": ")
+                                .append(String.format("%.2f horas", tiempoEnPC))
+                                .append("\n");
                     }
                 }
 
@@ -154,36 +154,58 @@ public class Facultad {
         return info.toString();
     }
 
-    /**
-     * Encuentra la persona con mayor tiempo acumulado en todos los locales.
-     *
-     * @return String con nombre de la persona, tiempo total y locales visitados
-     */
     public String buscarPersona() {
         String persona = "";
         int mejorTiempo = 0;
         String finalLocal = "";
 
-        for (int i = 0; i < personas.size(); i++) {
-            int tiempo = 0;
-            String local = "";
+        for (int i = 0; i < locales.size(); i++) {
+            Bitacora bitacora = locales.get(i).getBitacoraLocal();
 
-            for (int j = 0; j < locales.size(); j++) {
-                int tiempoTrab = (int) locales.get(j).getBitacoraLocal().calcTiempoPersona(personas.get(i).getNombre());
-                tiempo += tiempoTrab;
+            for (int j = 0; j < bitacora.getPersonas().size(); j++) {
+                String nombrePersona = bitacora.getPersonas().get(j).getNombre();
+                int tiempoTotal = 0;
+                StringBuilder localesVisitados = new StringBuilder();
 
-                if (tiempoTrab > 0) {
-                    local += locales.get(j).getNombre() + " ";
+                // Calcular tiempo total y locales visitados para esta persona
+                for (int k = 0; k < locales.size(); k++) {
+                    Local local = locales.get(k);
+                    Bitacora bit = local.getBitacoraLocal();
+                    int tiempo = (int) bit.calcTiempoPersona(nombrePersona);
+
+                    if (tiempo > 0) {
+                        tiempoTotal += tiempo;
+                        localesVisitados.append(local.getNombre()).append(" ");
+                    }
+                }
+
+                // Comparar con el mejor tiempo actual
+                if (tiempoTotal > mejorTiempo) {
+                    mejorTiempo = tiempoTotal;
+                    persona = nombrePersona;
+                    finalLocal = localesVisitados.toString();
                 }
             }
-
-            if (tiempo > mejorTiempo) {
-                mejorTiempo = tiempo;
-                persona = personas.get(i).getNombre();
-                finalLocal = local;
-            }
         }
+
         return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
+    }
+
+    public void guardarFacultad(String ruta) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta))) {
+            oos.writeObject(locales);
+        } catch (IOException e) {
+            System.out.println("Error al guardar: " + e.getMessage());
+        }
+    }
+
+    public void cargarFacultad(String archivo) throws IOException, ClassNotFoundException {
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+            locales = (ArrayList<Local>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado");
+        }
     }
 
     /**
@@ -202,23 +224,5 @@ public class Facultad {
      */
     public void setLocales(ArrayList<Local> locales) {
         this.locales = locales;
-    }
-
-    /**
-     * Obtiene la lista completa de personas registradas.
-     *
-     * @return ArrayList de objetos Persona
-     */
-    public ArrayList<Persona> getPersonas() {
-        return personas;
-    }
-
-    /**
-     * Reemplaza la lista actual de personas.
-     *
-     * @param personas Nueva lista de personas
-     */
-    public void setPersonas(ArrayList<Persona> personas) {
-        this.personas = personas;
     }
 }

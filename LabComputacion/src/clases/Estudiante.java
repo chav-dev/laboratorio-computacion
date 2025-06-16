@@ -22,6 +22,11 @@ public class Estudiante extends Persona {
         this.annoDoc = annoDoc;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + ", " + "Año Docente " + annoDoc;
+    }
+
     /**
      * Obtiene el año académico actual del estudiante.
      * 
