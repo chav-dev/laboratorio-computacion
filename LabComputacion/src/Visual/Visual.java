@@ -1,7 +1,9 @@
 package Visual;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import clases.Facultad;
+import clases.Local;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,8 +15,16 @@ public class Visual extends javax.swing.JFrame {
      * Creates new form Visual
      */
     public Visual() {
+        locales = new ArrayList<>();
+        facultad = new Facultad();
+        model = new DefaultTableModel() {
+            public boolean celdaEditable(int fila, int columna) {
+                return false;
+            }
+        };
         initComponents();
-
+        tablaPrincipal.setModel(model);
+        refresh();
     }
 
     /**
@@ -34,16 +44,18 @@ public class Visual extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         tituloLabel = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaPrincipal = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         addPC = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        numAddPc = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        estadoAddPc = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        localAddPc = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -52,14 +64,14 @@ public class Visual extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        proyectoAddLocal = new javax.swing.JRadioButton();
+        docenteAddLocal = new javax.swing.JRadioButton();
+        labAddLocal = new javax.swing.JRadioButton();
+        investigAddLocal = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        tiempoUsoLocal = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nombAddLocal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -69,10 +81,10 @@ public class Visual extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        nombreEliminar = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        numEliminar = new javax.swing.JFormattedTextField();
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jLabel15 = new javax.swing.JLabel();
@@ -80,12 +92,12 @@ public class Visual extends javax.swing.JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         calcAprovLocal = new javax.swing.JDialog();
         jPanel5 = new javax.swing.JPanel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        mejorPorcCalcAprov = new javax.swing.JTextField();
+        peorPorcCalcAprov = new javax.swing.JTextField();
         jButton16 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        peorCalcAprovLocal = new javax.swing.JCheckBox();
+        mejorCalcAprovLocal = new javax.swing.JCheckBox();
         jLabel31 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         calcPc = new javax.swing.JDialog();
@@ -98,15 +110,15 @@ public class Visual extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        _3CalcPc = new javax.swing.JTextField();
+        _2CalcPc = new javax.swing.JTextField();
+        _1CalcPc = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jTextField3 = new javax.swing.JTextField();
+        jCheckBoxPorciento = new javax.swing.JCheckBox();
+        nombreCalcPc = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBoxEstancia = new javax.swing.JCheckBox();
+        jCheckBoxTiempo = new javax.swing.JCheckBox();
         jLabel19 = new javax.swing.JLabel();
         mostrar = new javax.swing.JDialog();
         jPanel7 = new javax.swing.JPanel();
@@ -117,10 +129,10 @@ public class Visual extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         listaPc = new javax.swing.JDialog();
         jPanel8 = new javax.swing.JPanel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        rotasPc = new javax.swing.JTextField();
+        ocupPc = new javax.swing.JTextField();
+        disponiblePc = new javax.swing.JTextField();
+        totalPc = new javax.swing.JTextField();
         jButton18 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         jLabel37 = new javax.swing.JLabel();
@@ -129,7 +141,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        facultad = new javax.swing.JDialog();
+        facultadJD = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jButton23 = new javax.swing.JButton();
@@ -142,15 +154,15 @@ public class Visual extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jButton25 = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
-        jFormattedTextField7 = new javax.swing.JFormattedTextField();
+        annoDocAddElemento = new javax.swing.JFormattedTextField();
         jLabel48 = new javax.swing.JLabel();
-        jFormattedTextField6 = new javax.swing.JFormattedTextField();
+        solapinAddElemento = new javax.swing.JFormattedTextField();
         jLabel46 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        nombreAddElemento = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
-        jFormattedTextField5 = new javax.swing.JFormattedTextField();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
-        jTextField13 = new javax.swing.JTextField();
+        asignaturaAddElemento = new javax.swing.JFormattedTextField();
+        solapinProfAddElemento = new javax.swing.JFormattedTextField();
+        nombreProfAddElemento = new javax.swing.JTextField();
         jLabel44 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
@@ -161,11 +173,11 @@ public class Visual extends javax.swing.JFrame {
         buttonGroup4 = new javax.swing.ButtonGroup();
         deleteElemento = new javax.swing.JDialog();
         jPanel11 = new javax.swing.JPanel();
-        jFormattedTextField9 = new javax.swing.JFormattedTextField();
+        solapinDeleteElemento = new javax.swing.JFormattedTextField();
         jLabel59 = new javax.swing.JLabel();
         jButton27 = new javax.swing.JButton();
         jButton26 = new javax.swing.JButton();
-        jTextField15 = new javax.swing.JTextField();
+        nombreDeleteElemento = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
@@ -192,7 +204,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
-        jFormattedTextField8 = new javax.swing.JFormattedTextField();
+        numPcReporteRotura = new javax.swing.JFormattedTextField();
         jLabel57 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
@@ -215,6 +227,11 @@ public class Visual extends javax.swing.JFrame {
         jButton5.setText("Listar estado");
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 150, 30));
 
         salirDialog1.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
@@ -239,7 +256,7 @@ public class Visual extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, 40));
+        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 388, -1, 30));
 
         jButton8.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,7 +285,28 @@ public class Visual extends javax.swing.JFrame {
         tituloLabel.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         tituloLabel.setForeground(new java.awt.Color(255, 255, 255));
         tituloLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 410, 90));
+        jPanel3.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 410, 70));
+
+        tablaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Tiempo de Uso", "Tipo", "Cantidad de Computadoras"
+            }
+        ));
+        jScrollPane5.setViewportView(tablaPrincipal);
+
+        jPanel3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 500, 160));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5 botones.jpg"))); // NOI18N
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 760, 450));
@@ -290,29 +328,34 @@ public class Visual extends javax.swing.JFrame {
         jLabel6.setText("Número:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 70, -1));
 
-        jFormattedTextField1.setBackground(new java.awt.Color(187, 211, 228));
-        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, 20));
+        numAddPc.setBackground(new java.awt.Color(187, 211, 228));
+        numAddPc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        numAddPc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numAddPcActionPerformed(evt);
+            }
+        });
+        jPanel2.add(numAddPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, 20));
 
         jLabel7.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Estado:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 60, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(187, 211, 228));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupada", "Rota" }));
-        jComboBox1.setSelectedIndex(-1);
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 180, -1));
+        estadoAddPc.setBackground(new java.awt.Color(187, 211, 228));
+        estadoAddPc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupada", "Rota" }));
+        estadoAddPc.setSelectedIndex(-1);
+        jPanel2.add(estadoAddPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 180, -1));
 
         jLabel8.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Local:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 50, -1));
 
-        jComboBox2.setBackground(new java.awt.Color(187, 211, 228));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colectivo de Investigación", "Laboratorio Docente", "Laboratorio de Proyecto" }));
-        jComboBox2.setSelectedIndex(-1);
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 180, -1));
+        localAddPc.setBackground(new java.awt.Color(187, 211, 228));
+        localAddPc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colectivo de Investigación", "Laboratorio Docente", "Laboratorio de Proyecto" }));
+        localAddPc.setSelectedIndex(-1);
+        jPanel2.add(localAddPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 180, -1));
 
         jButton1.setBackground(new java.awt.Color(187, 211, 228));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -347,6 +390,11 @@ public class Visual extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(187, 211, 228));
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(187, 211, 228));
@@ -364,53 +412,62 @@ public class Visual extends javax.swing.JFrame {
         jLabel14.setText("Tipo de laboratorio:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, 20));
 
-        buttonGroup2.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText("Proyecto");
-        jRadioButton4.setEnabled(false);
-        jPanel1.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, -1));
+        buttonGroup2.add(proyectoAddLocal);
+        proyectoAddLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        proyectoAddLocal.setForeground(new java.awt.Color(255, 255, 255));
+        proyectoAddLocal.setText("Proyecto");
+        proyectoAddLocal.setEnabled(false);
+        jPanel1.add(proyectoAddLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, -1));
 
-        buttonGroup2.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("Docente");
-        jRadioButton3.setEnabled(false);
-        jPanel1.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, -1, 20));
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("Laboratorio");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup2.add(docenteAddLocal);
+        docenteAddLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        docenteAddLocal.setForeground(new java.awt.Color(255, 255, 255));
+        docenteAddLocal.setText("Docente");
+        docenteAddLocal.setEnabled(false);
+        docenteAddLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                docenteAddLocalActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, -1, -1));
+        jPanel1.add(docenteAddLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, -1, 20));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Investigación");
-        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, -1, -1));
+        buttonGroup1.add(labAddLocal);
+        labAddLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        labAddLocal.setForeground(new java.awt.Color(255, 255, 255));
+        labAddLocal.setText("Laboratorio");
+        labAddLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                labAddLocalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(labAddLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, -1, -1));
+
+        buttonGroup1.add(investigAddLocal);
+        investigAddLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        investigAddLocal.setForeground(new java.awt.Color(255, 255, 255));
+        investigAddLocal.setText("Investigación");
+        investigAddLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                investigAddLocalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(investigAddLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Tipo:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
-        jFormattedTextField2.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel1.add(jFormattedTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 130, -1));
+        tiempoUsoLocal.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel1.add(tiempoUsoLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 130, -1));
 
         jLabel12.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Tiempo de uso:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 130, -1));
+        nombAddLocal.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel1.add(nombAddLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 130, -1));
 
         jLabel11.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -435,22 +492,32 @@ public class Visual extends javax.swing.JFrame {
         jButton11.setBackground(new java.awt.Color(187, 211, 228));
         jButton11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton11.setText("Cancelar");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
 
         jButton10.setBackground(new java.awt.Color(187, 211, 228));
         jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton10.setText("Eliminar");
-        jPanel4.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
-
-        jTextField2.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setEnabled(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jButton10ActionPerformed(evt);
             }
         });
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 150, -1));
+        jPanel4.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
+
+        nombreEliminar.setBackground(new java.awt.Color(187, 211, 228));
+        nombreEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        nombreEliminar.setEnabled(false);
+        nombreEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreEliminarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(nombreEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 150, -1));
 
         jLabel18.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -463,8 +530,8 @@ public class Visual extends javax.swing.JFrame {
         jLabel17.setText("Número:");
         jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
-        jFormattedTextField3.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel4.add(jFormattedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 90, -1));
+        numEliminar.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel4.add(numEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 90, -1));
 
         buttonGroup3.add(jRadioButton6);
         jRadioButton6.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -498,48 +565,56 @@ public class Visual extends javax.swing.JFrame {
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField8.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        mejorPorcCalcAprov.setBackground(new java.awt.Color(187, 211, 228));
+        mejorPorcCalcAprov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                mejorPorcCalcAprovActionPerformed(evt);
             }
         });
-        jPanel5.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, 20));
+        jPanel5.add(mejorPorcCalcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, 20));
 
-        jTextField7.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        peorPorcCalcAprov.setBackground(new java.awt.Color(187, 211, 228));
+        peorPorcCalcAprov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                peorPorcCalcAprovActionPerformed(evt);
             }
         });
-        jPanel5.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 150, 110, 20));
+        jPanel5.add(peorPorcCalcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 150, 110, 20));
 
         jButton16.setBackground(new java.awt.Color(187, 211, 228));
         jButton16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton16.setText("Cancelar");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, -1, -1));
 
         jButton12.setBackground(new java.awt.Color(187, 211, 228));
         jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         jButton12.setText("Calcular");
-
-        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
-
-        jCheckBox5.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jCheckBox5.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox5.setText("Peor porcentaje");
-        jPanel5.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
-
-        jCheckBox4.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jCheckBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox4.setText("Mejor porcentaje");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
+                jButton12ActionPerformed(evt);
             }
         });
-        jPanel5.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
+
+        peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        peorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
+        peorCalcAprovLocal.setText("Peor porcentaje");
+        jPanel5.add(peorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
+
+        mejorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        mejorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
+        mejorCalcAprovLocal.setText("Mejor porcentaje");
+        mejorCalcAprovLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mejorCalcAprovLocalActionPerformed(evt);
+            }
+        });
+        jPanel5.add(mejorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
         jLabel31.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
@@ -589,49 +664,59 @@ public class Visual extends javax.swing.JFrame {
         jButton15.setBackground(new java.awt.Color(187, 211, 228));
         jButton15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton15.setText("Cancelar");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, -1, -1));
 
         jButton14.setBackground(new java.awt.Color(187, 211, 228));
         jButton14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton14.setText("Aceptar");
+        jButton14.setText("Calcular");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
-        jTextField6.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
+        _3CalcPc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel6.add(_3CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
 
-        jTextField5.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
+        _2CalcPc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel6.add(_2CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
 
-        jTextField4.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, -1));
+        _1CalcPc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel6.add(_1CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Calcular computadora");
         jPanel6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
 
-        jCheckBox3.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setText("Porciento de aprovechamiento");
-        jPanel6.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        jCheckBoxPorciento.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        jCheckBoxPorciento.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxPorciento.setText("Porciento de aprovechamiento");
+        jPanel6.add(jCheckBoxPorciento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
-        jTextField3.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 130, -1));
+        nombreCalcPc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel6.add(nombreCalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 130, -1));
 
         jLabel20.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Nombre:");
         jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 20));
 
-        jCheckBox2.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Estancia");
-        jPanel6.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 40));
+        jCheckBoxEstancia.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        jCheckBoxEstancia.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxEstancia.setText("Estancia");
+        jPanel6.add(jCheckBoxEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 40));
 
-        jCheckBox1.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Tiempo de uso");
-        jPanel6.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 30));
+        jCheckBoxTiempo.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        jCheckBoxTiempo.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxTiempo.setText("Tiempo de uso");
+        jPanel6.add(jCheckBoxTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 30));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pant1.jpg"))); // NOI18N
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -40, 660, 410));
@@ -669,31 +754,41 @@ public class Visual extends javax.swing.JFrame {
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField12.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel8.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 80, -1));
+        rotasPc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel8.add(rotasPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 80, -1));
 
-        jTextField11.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        ocupPc.setBackground(new java.awt.Color(187, 211, 228));
+        ocupPc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                ocupPcActionPerformed(evt);
             }
         });
-        jPanel8.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 80, -1));
+        jPanel8.add(ocupPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 80, -1));
 
-        jTextField10.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel8.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 80, -1));
+        disponiblePc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel8.add(disponiblePc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 80, -1));
 
-        jTextField9.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel8.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 80, -1));
+        totalPc.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel8.add(totalPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 80, -1));
 
         jButton18.setBackground(new java.awt.Color(187, 211, 228));
         jButton18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton18.setText("Cancelar");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, -1, -1));
 
         jButton17.setBackground(new java.awt.Color(187, 211, 228));
         jButton17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton17.setText("Aceptar");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, -1, -1));
 
         jLabel37.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -726,8 +821,8 @@ public class Visual extends javax.swing.JFrame {
 
         listaPc.getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 340));
 
-        facultad.setResizable(false);
-        facultad.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        facultadJD.setResizable(false);
+        facultadJD.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -784,7 +879,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5 botones.jpg"))); // NOI18N
         jPanel9.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 440));
 
-        facultad.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 440));
+        facultadJD.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 440));
 
         addElemento.setResizable(false);
         addElemento.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -794,16 +889,26 @@ public class Visual extends javax.swing.JFrame {
         jButton25.setBackground(new java.awt.Color(187, 211, 228));
         jButton25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton25.setText("Cancelar");
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
         jPanel10.add(jButton25, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
 
         jButton24.setBackground(new java.awt.Color(187, 211, 228));
         jButton24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton24.setText("Agregar");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
         jPanel10.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
 
-        jFormattedTextField7.setBackground(new java.awt.Color(187, 211, 228));
-        jFormattedTextField7.setEnabled(false);
-        jPanel10.add(jFormattedTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 120, -1));
+        annoDocAddElemento.setBackground(new java.awt.Color(187, 211, 228));
+        annoDocAddElemento.setEnabled(false);
+        jPanel10.add(annoDocAddElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 120, -1));
 
         jLabel48.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel48.setForeground(new java.awt.Color(255, 255, 255));
@@ -811,9 +916,9 @@ public class Visual extends javax.swing.JFrame {
         jLabel48.setEnabled(false);
         jPanel10.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 110, -1));
 
-        jFormattedTextField6.setBackground(new java.awt.Color(187, 211, 228));
-        jFormattedTextField6.setEnabled(false);
-        jPanel10.add(jFormattedTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 120, -1));
+        solapinAddElemento.setBackground(new java.awt.Color(187, 211, 228));
+        solapinAddElemento.setEnabled(false);
+        jPanel10.add(solapinAddElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 120, -1));
 
         jLabel46.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(255, 255, 255));
@@ -821,9 +926,14 @@ public class Visual extends javax.swing.JFrame {
         jLabel46.setEnabled(false);
         jPanel10.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 70, -1));
 
-        jTextField14.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField14.setEnabled(false);
-        jPanel10.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, -1));
+        nombreAddElemento.setBackground(new java.awt.Color(187, 211, 228));
+        nombreAddElemento.setEnabled(false);
+        nombreAddElemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreAddElementoActionPerformed(evt);
+            }
+        });
+        jPanel10.add(nombreAddElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, -1));
 
         jLabel45.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(255, 255, 255));
@@ -831,27 +941,27 @@ public class Visual extends javax.swing.JFrame {
         jLabel45.setEnabled(false);
         jPanel10.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
 
-        jFormattedTextField5.setBackground(new java.awt.Color(187, 211, 228));
-        jFormattedTextField5.setEnabled(false);
-        jPanel10.add(jFormattedTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 120, -1));
+        asignaturaAddElemento.setBackground(new java.awt.Color(187, 211, 228));
+        asignaturaAddElemento.setEnabled(false);
+        jPanel10.add(asignaturaAddElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 120, -1));
 
-        jFormattedTextField4.setBackground(new java.awt.Color(187, 211, 228));
-        jFormattedTextField4.setEnabled(false);
-        jFormattedTextField4.addActionListener(new java.awt.event.ActionListener() {
+        solapinProfAddElemento.setBackground(new java.awt.Color(187, 211, 228));
+        solapinProfAddElemento.setEnabled(false);
+        solapinProfAddElemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField4ActionPerformed(evt);
+                solapinProfAddElementoActionPerformed(evt);
             }
         });
-        jPanel10.add(jFormattedTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 120, -1));
+        jPanel10.add(solapinProfAddElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 120, -1));
 
-        jTextField13.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField13.setEnabled(false);
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        nombreProfAddElemento.setBackground(new java.awt.Color(187, 211, 228));
+        nombreProfAddElemento.setEnabled(false);
+        nombreProfAddElemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                nombreProfAddElementoActionPerformed(evt);
             }
         });
-        jPanel10.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 120, -1));
+        jPanel10.add(nombreProfAddElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 120, -1));
 
         jLabel44.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(255, 255, 255));
@@ -903,8 +1013,8 @@ public class Visual extends javax.swing.JFrame {
 
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jFormattedTextField9.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel11.add(jFormattedTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 180, -1));
+        solapinDeleteElemento.setBackground(new java.awt.Color(187, 211, 228));
+        jPanel11.add(solapinDeleteElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 180, -1));
 
         jLabel59.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(255, 255, 255));
@@ -914,20 +1024,30 @@ public class Visual extends javax.swing.JFrame {
         jButton27.setBackground(new java.awt.Color(187, 211, 228));
         jButton27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton27.setText("Cancelar");
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
         jPanel11.add(jButton27, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
 
         jButton26.setBackground(new java.awt.Color(187, 211, 228));
         jButton26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton26.setText("Aceptar");
-        jPanel11.add(jButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
-
-        jTextField15.setBackground(new java.awt.Color(187, 211, 228));
-        jTextField15.addActionListener(new java.awt.event.ActionListener() {
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField15ActionPerformed(evt);
+                jButton26ActionPerformed(evt);
             }
         });
-        jPanel11.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 180, -1));
+        jPanel11.add(jButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
+
+        nombreDeleteElemento.setBackground(new java.awt.Color(187, 211, 228));
+        nombreDeleteElemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreDeleteElementoActionPerformed(evt);
+            }
+        });
+        jPanel11.add(nombreDeleteElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 180, -1));
 
         jLabel50.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(255, 255, 255));
@@ -952,11 +1072,21 @@ public class Visual extends javax.swing.JFrame {
         jButton29.setBackground(new java.awt.Color(187, 211, 228));
         jButton29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton29.setText("Cancelar");
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton29ActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButton29, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, -1, -1));
 
         jButton28.setBackground(new java.awt.Color(187, 211, 228));
         jButton28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton28.setText("Agregar usuario");
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         jTextArea1.setColumns(20);
@@ -1019,6 +1149,11 @@ public class Visual extends javax.swing.JFrame {
         jButton33.setBackground(new java.awt.Color(187, 211, 228));
         jButton33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton33.setText("Cancelar");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
         jPanel14.add(jButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, -1, -1));
 
         jButton32.setBackground(new java.awt.Color(187, 211, 228));
@@ -1041,7 +1176,13 @@ public class Visual extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jTextArea4);
 
         jPanel14.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 360, -1));
-        jPanel14.add(jFormattedTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
+
+        numPcReporteRotura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numPcReporteRoturaActionPerformed(evt);
+            }
+        });
+        jPanel14.add(numPcReporteRotura, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
 
         jLabel57.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(255, 255, 255));
@@ -1060,7 +1201,6 @@ public class Visual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1087,7 +1227,6 @@ public class Visual extends javax.swing.JFrame {
             }
         });
         jPanel15.add(pcButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 180, 50));
-
 
         localesButton.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
         localesButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -1137,16 +1276,15 @@ public class Visual extends javax.swing.JFrame {
             .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void facultadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facultadButtonActionPerformed
         // TODO add your handling code here:
-        facultad.pack();
+        facultadJD.pack();
         this.dispose();
         this.setVisible(false);
-        facultad.setVisible(true);
+        facultadJD.setVisible(true);
     }//GEN-LAST:event_facultadButtonActionPerformed
 
     private void localesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localesButtonActionPerformed
@@ -1156,7 +1294,7 @@ public class Visual extends javax.swing.JFrame {
         this.setVisible(false);
         jDialog1.setVisible(true);
         tituloLabel.setText("Locales");
-        
+
     }//GEN-LAST:event_localesButtonActionPerformed
 
     private void pcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcButtonActionPerformed
@@ -1166,7 +1304,7 @@ public class Visual extends javax.swing.JFrame {
         this.setVisible(false);
         jDialog1.setVisible(true);
         tituloLabel.setText("Computadoras");
-       
+
     }//GEN-LAST:event_pcButtonActionPerformed
 
     private void salirButtonFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonFrameActionPerformed
@@ -1174,33 +1312,36 @@ public class Visual extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_salirButtonFrameActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void labAddLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labAddLocalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+        docenteAddLocal.setEnabled(true);
+        proyectoAddLocal.setEnabled(true);
+
+    }//GEN-LAST:event_labAddLocalActionPerformed
 
     private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton6ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void nombreEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_nombreEliminarActionPerformed
 
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+    private void mejorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorCalcAprovLocalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+    }//GEN-LAST:event_mejorCalcAprovLocalActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void peorPorcCalcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peorPorcCalcAprovActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_peorPorcCalcAprovActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void mejorPorcCalcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorPorcCalcAprovActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_mejorPorcCalcAprovActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void ocupPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ocupPcActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_ocupPcActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
         // TODO add your handling code here:
@@ -1210,25 +1351,29 @@ public class Visual extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton7ActionPerformed
 
-    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
+    private void nombreDeleteElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreDeleteElementoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField15ActionPerformed
+    }//GEN-LAST:event_nombreDeleteElementoActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         // TODO add your handling code here:
+        registro.setVisible(false);
+        reporteRotura.pack();
+        reporteRotura.setVisible(true);
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
         // TODO add your handling code here:
+        limpiar();
     }//GEN-LAST:event_jButton32ActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void nombreProfAddElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreProfAddElementoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_nombreProfAddElementoActionPerformed
 
-    private void jFormattedTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField4ActionPerformed
+    private void solapinProfAddElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solapinProfAddElementoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField4ActionPerformed
+    }//GEN-LAST:event_solapinProfAddElementoActionPerformed
 
     private void salirDialog1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirDialog1ActionPerformed
         // TODO add your handling code here:
@@ -1247,6 +1392,7 @@ public class Visual extends javax.swing.JFrame {
             addPC.pack();
             addPC.setVisible(true);
         }
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -1270,15 +1416,23 @@ public class Visual extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        addLocal.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+        buttonGroup1.clearSelection();
+        buttonGroup2.clearSelection();
+        
+        limpiar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
         // TODO add your handling code here:
-        facultad.setVisible(false);
+        facultadJD.setVisible(false);
         this.dispose();
         this.setVisible(true);
     }//GEN-LAST:event_jButton20ActionPerformed
@@ -1288,7 +1442,140 @@ public class Visual extends javax.swing.JFrame {
         addPC.setVisible(false);
         jDialog1.pack();
         jDialog1.setVisible(true);
+        limpiar();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(false);
+        listado.pack();
+        listado.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        // TODO add your handling code here:
+        listado.setVisible(false);
+        addElemento.pack();
+        addElemento.setVisible(true);
+    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        // TODO add your handling code here:
+        addElemento.setVisible(false);
+        listado.pack();
+        listado.setVisible(true);
+        limpiar();
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+        // TODO add your handling code here:
+        listado.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        eliminar.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+        limpiar();
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        addLocal.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+        buttonGroup1.clearSelection();
+        buttonGroup2.clearSelection();
+        limpiar();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+        calcAprovLocal.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+        limpiar();
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        calcPc.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+        limpiar();
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void numAddPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numAddPcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numAddPcActionPerformed
+
+    private void nombreAddElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreAddElementoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreAddElementoActionPerformed
+
+    private void numPcReporteRoturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numPcReporteRoturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numPcReporteRoturaActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_jButton33ActionPerformed
+
+    private void investigAddLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_investigAddLocalActionPerformed
+        // TODO add your handling code here:
+        docenteAddLocal.setEnabled(false);
+        proyectoAddLocal.setEnabled(false);
+
+    }//GEN-LAST:event_investigAddLocalActionPerformed
+
+    private void docenteAddLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docenteAddLocalActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_docenteAddLocalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1321,10 +1608,69 @@ public class Visual extends javax.swing.JFrame {
         });
     }
 
+    public void refresh() {
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        locales = facultad.getLocales();
+
+        for (int i = 0; i < locales.size(); i++) {
+            String[] datos = new String[4];
+            datos[0] = locales.get(i).getNombre();
+            datos[1] = String.valueOf(locales.get(i).getTiempoUso());
+            datos[2] = locales.get(i).getLabor();
+            datos[3] = String.valueOf(locales.get(i).getCantPc());
+            model.addRow(datos);
+        }
+    }
+
+    private void limpiar() {
+        numAddPc.setText("");
+        tiempoUsoLocal.setText("");
+        nombAddLocal.setText("");
+        nombreEliminar.setText("");
+        numEliminar.setText("");
+        nombreEliminar.setText("");
+        mejorPorcCalcAprov.setText("");
+        peorPorcCalcAprov.setText("");
+        nombreCalcPc.setText("");
+        _1CalcPc.setText("");
+        _2CalcPc.setText("");
+        _3CalcPc.setText("");
+        totalPc.setText("");
+        disponiblePc.setText("");
+        ocupPc.setText("");
+        rotasPc.setText("");
+        nombreAddElemento.setText("");
+        solapinAddElemento.setText("");
+        annoDocAddElemento.setText("");
+        nombreProfAddElemento.setText("");
+        solapinProfAddElemento.setText("");
+        asignaturaAddElemento.setText("");
+        nombreDeleteElemento.setText("");
+        solapinDeleteElemento.setText("");
+        numPcReporteRotura.setText("");
+        estadoAddPc.setSelectedIndex(-1);
+        localAddPc.setSelectedIndex(-1);
+        mejorCalcAprovLocal.setSelected(false);
+        peorCalcAprovLocal.setSelected(false);
+        jCheckBoxTiempo.setSelected(false);
+        jCheckBoxEstancia.setSelected(false);
+        jCheckBoxPorciento.setSelected(false);
+    }
+
+    DefaultTableModel model;
+    ArrayList<Local> locales;
+    Facultad facultad;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField _1CalcPc;
+    private javax.swing.JTextField _2CalcPc;
+    private javax.swing.JTextField _3CalcPc;
     private javax.swing.JDialog addElemento;
     private javax.swing.JDialog addLocal;
     private javax.swing.JDialog addPC;
+    private javax.swing.JFormattedTextField annoDocAddElemento;
+    private javax.swing.JFormattedTextField asignaturaAddElemento;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1333,9 +1679,13 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JDialog calcAprovLocal;
     private javax.swing.JDialog calcPc;
     private javax.swing.JDialog deleteElemento;
+    private javax.swing.JTextField disponiblePc;
+    private javax.swing.JRadioButton docenteAddLocal;
     private javax.swing.JDialog eliminar;
-    private javax.swing.JDialog facultad;
+    private javax.swing.JComboBox<String> estadoAddPc;
     private javax.swing.JButton facultadButton;
+    private javax.swing.JDialog facultadJD;
+    private javax.swing.JRadioButton investigAddLocal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -1368,23 +1718,10 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JCheckBox jCheckBoxEstancia;
+    private javax.swing.JCheckBox jCheckBoxPorciento;
+    private javax.swing.JCheckBox jCheckBoxTiempo;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
-    private javax.swing.JFormattedTextField jFormattedTextField5;
-    private javax.swing.JFormattedTextField jFormattedTextField6;
-    private javax.swing.JFormattedTextField jFormattedTextField7;
-    private javax.swing.JFormattedTextField jFormattedTextField8;
-    private javax.swing.JFormattedTextField jFormattedTextField9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1459,10 +1796,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
@@ -1471,34 +1804,44 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JRadioButton labAddLocal;
     private javax.swing.JDialog listaPc;
     private javax.swing.JDialog listado;
+    private javax.swing.JComboBox<String> localAddPc;
     private javax.swing.JButton localesButton;
+    private javax.swing.JCheckBox mejorCalcAprovLocal;
+    private javax.swing.JTextField mejorPorcCalcAprov;
     private javax.swing.JDialog mostrar;
+    private javax.swing.JTextField nombAddLocal;
+    private javax.swing.JTextField nombreAddElemento;
+    private javax.swing.JTextField nombreCalcPc;
+    private javax.swing.JTextField nombreDeleteElemento;
+    private javax.swing.JTextField nombreEliminar;
+    private javax.swing.JTextField nombreProfAddElemento;
+    private javax.swing.JFormattedTextField numAddPc;
+    private javax.swing.JFormattedTextField numEliminar;
+    private javax.swing.JFormattedTextField numPcReporteRotura;
+    private javax.swing.JTextField ocupPc;
     private javax.swing.JButton pcButton;
+    private javax.swing.JCheckBox peorCalcAprovLocal;
+    private javax.swing.JTextField peorPorcCalcAprov;
+    private javax.swing.JRadioButton proyectoAddLocal;
     private javax.swing.JDialog registro;
     private javax.swing.JDialog reporteRotura;
+    private javax.swing.JTextField rotasPc;
     private javax.swing.JButton salirButtonFrame;
     private javax.swing.JButton salirDialog1;
+    private javax.swing.JFormattedTextField solapinAddElemento;
+    private javax.swing.JFormattedTextField solapinDeleteElemento;
+    private javax.swing.JFormattedTextField solapinProfAddElemento;
+    private javax.swing.JTable tablaPrincipal;
+    private javax.swing.JFormattedTextField tiempoUsoLocal;
     private javax.swing.JLabel tituloLabel;
+    private javax.swing.JTextField totalPc;
     // End of variables declaration//GEN-END:variables
 }
