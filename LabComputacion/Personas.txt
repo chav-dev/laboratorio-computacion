@@ -1,0 +1,6 @@
+Estudiante;1;aaa;123
+Estudiante;2;bbb;321
+Estudiante de proyecto;abc;2;ccc;432
+Estudiante de proyecto;mnb;4;ddd;876
+Profesor;mate;eee;987
+Profesor;prog;fff;654

@@ -9,7 +9,7 @@ package clases;
  * @author Mel
  * @author Zaile
  */
-public abstract class Persona {
+public abstract class Persona{
     protected String nombre;
     protected int solapin;
 

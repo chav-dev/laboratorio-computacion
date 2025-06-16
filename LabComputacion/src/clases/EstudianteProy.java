@@ -22,4 +22,14 @@ public class EstudianteProy extends Estudiante {
         super(annoDoc, nombre, solapin);
         this.nombreProy = nombreProy;
     }
+
+    public String getNombreProy() {
+        return nombreProy;
+    }
+
+    public void setNombreProy(String nombreProy) {
+        this.nombreProy = nombreProy;
+    }
+    
+    
 }

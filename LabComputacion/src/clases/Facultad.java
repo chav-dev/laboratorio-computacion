@@ -1,6 +1,13 @@
 package clases;
 
 import excepciones.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +37,6 @@ public class Facultad {
      * @param local El objeto Local que se desea agregar.
      * @throws ExisteException Si el local ya existe en la lista.
      */
-
     public void addLocal(Local local) throws ExisteException {
         for (int i = 0; i < locales.size(); i++) {
             if (locales.get(i).getNombre().equalsIgnoreCase(local.getNombre())) {
@@ -44,7 +50,8 @@ public class Facultad {
      * Elimina un local de la lista por su nombre.
      *
      * @param nombre Nombre del local a eliminar
-     * @throws NoExisteException Si no existe un local con el nombre especificado
+     * @throws NoExisteException Si no existe un local con el nombre
+     * especificado
      */
     public void deleteLocal(String nombre) throws NoExisteException {
         boolean enc = false;
@@ -98,7 +105,8 @@ public class Facultad {
     }
 
     /**
-     * Buscar en que local / computadoras trabajó una persona y el tiempo de trabajo
+     * Buscar en que local / computadoras trabajó una persona y el tiempo de
+     * trabajo
      *
      * @param nombre Nombre de la persona a buscar
      * @return String con información de locales, tiempo y computadoras usadas
@@ -116,9 +124,9 @@ public class Facultad {
 
                 //Agregar información del local
                 info.append("Local: ").append(locales.get(i).getNombre())
-                    .append("\nTiempo total: ")
-                    .append(String.format("%.2f horas", tiempoEnLocal))
-                    .append("\nComputadoras usadas:\n");
+                        .append("\nTiempo total: ")
+                        .append(String.format("%.2f horas", tiempoEnLocal))
+                        .append("\nComputadoras usadas:\n");
 
                 //Buscar computadoras específicas usadas por la persona
                 ArrayList<Computadora> computadoras = locales.get(i).getComputadoras();
@@ -131,9 +139,9 @@ public class Facultad {
                     if (tiempoEnPC > 0) {
                         computadorasEncontradas = true;
                         info.append(" - ").append(String.valueOf(computadoras.get(j).getNumero()))
-                            .append(": ")
-                            .append(String.format("%.2f horas", tiempoEnPC))
-                            .append("\n");
+                                .append(": ")
+                                .append(String.format("%.2f horas", tiempoEnPC))
+                                .append("\n");
                     }
                 }
 
@@ -186,12 +194,84 @@ public class Facultad {
         return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
     }
 
-    /**
-     * Obtiene la lista completa de locales.
-     *
-     * @return ArrayList de objetos Local
-     */
-    public ArrayList<Local> getLocales() {
+    public void guardarPersonas(String archivo) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(archivo);
+        for (Persona p : personas) {
+            if (p instanceof Profesor) {
+                Profesor profesor = (Profesor) p;
+                pw.println("Profesor;" + profesor.getAsignatura() + ";"
+                        + profesor.getNombre() + ";" + profesor.getSolapin());
+            } else if (p instanceof EstudianteProy) {
+                EstudianteProy estProy = (EstudianteProy) p;
+                pw.println("Estudiante de proyecto;" + estProy.getNombreProy() + ";"
+                        + estProy.getAnnoDoc() + ";" + estProy.getNombre() + ";" + estProy.getSolapin());
+            } else if (p instanceof Estudiante) {
+                Estudiante estudiante = (Estudiante) p;
+                pw.println("Estudiante;" + estudiante.getAnnoDoc() + ";"
+                        + estudiante.getNombre() + ";" + estudiante.getSolapin());
+            }
+        }
+        pw.close();
+    }
+
+    public void cargarPersonas(String archivo) throws IOException {
+        personas.clear();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            int lineaNum = 0;
+
+            while ((linea = br.readLine()) != null) {
+                lineaNum++;
+                linea = linea.trim();
+
+                String[] partes = linea.split(";");
+
+                switch (partes[0]) {
+                    case "Profesor" -> {
+                        if (partes.length >= 4) {
+                            String asig = partes[1];
+                            String nombre = partes[2];
+                            int solapin = Integer.parseInt(partes[3]);
+                            Profesor p = new Profesor(asig, nombre, solapin);
+                        }
+                        break;
+                    }
+                    case "Estudiante" -> {
+                        if (partes.length >= 4) {
+                            int annoDoc = Integer.parseInt(partes[1]);
+                            String nombre = partes[2];
+                            int solapin = Integer.parseInt(partes[3]);
+                            Estudiante e = new Estudiante(annoDoc, nombre, solapin);
+                        }
+                        break;
+                    }
+                    case "Estudiante de proyecto" -> {
+                        if (partes.length >= 5) {
+                            String nombreProy = partes[1];
+                            int annoDoc = Integer.parseInt(partes[2]);
+                            String nombre = partes[3];
+                            int solapin = Integer.parseInt(partes[4]);
+                            EstudianteProy estproy = new EstudianteProy(nombreProy, annoDoc, nombre, solapin);
+                        }
+                        break;
+                    }
+
+                }
+            }
+
+            br.close();
+    }catch(FileNotFoundException e){
+        System.out.println("Archivo no encontrado");
+    }
+}
+
+/**
+ * Obtiene la lista completa de locales.
+ *
+ * @return ArrayList de objetos Local
+ */
+public ArrayList<Local> getLocales() {
         return locales;
     }
 
