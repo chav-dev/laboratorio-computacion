@@ -1,5 +1,6 @@
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @author Mel
  * @author Zaile
  */
-public class Bitacora {
+public class Bitacora implements Serializable{
 
     private ArrayList<String> entradas;
     private ArrayList<String> salidas;

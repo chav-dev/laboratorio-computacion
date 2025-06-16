@@ -1,5 +1,7 @@
 package clases;
 
+import java.io.Serializable;
+
 /**
  * Clase abstracta que representa a una persona en el sistema.
  * Contiene información básica común a todas las personas como nombre y número de solapín.
@@ -9,7 +11,7 @@ package clases;
  * @author Mel
  * @author Zaile
  */
-public abstract class Persona{
+public abstract class Persona implements Serializable{
     protected String nombre;
     protected int solapin;
 

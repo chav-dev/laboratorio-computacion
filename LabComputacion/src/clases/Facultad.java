@@ -1,14 +1,7 @@
 package clases;
 
 import excepciones.*;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -19,17 +12,15 @@ import java.util.ArrayList;
  * @author Mel
  * @author Zaile
  */
-public class Facultad {
+public class Facultad implements Serializable {
 
     private ArrayList<Local> locales;
-    private ArrayList<Persona> personas;
 
     /**
-     * Constructor por defecto que inicializa las listas vacías.
+     * Constructor por defecto que inicializa la lista vacía.
      */
     public Facultad() {
         this.locales = new ArrayList<>();
-        this.personas = new ArrayList<>();
     }
 
     /**
@@ -163,99 +154,55 @@ public class Facultad {
         return info.toString();
     }
 
-    /**
-     * Encuentra la persona con mayor tiempo acumulado en todos los locales.
-     *
-     * @return String con nombre de la persona, tiempo total y locales visitados
-     */
     public String buscarPersona() {
         String persona = "";
         int mejorTiempo = 0;
         String finalLocal = "";
 
-        for (int i = 0; i < personas.size(); i++) {
-            int tiempo = 0;
-            String local = "";
+        for (int i = 0; i < locales.size(); i++) {
+            Bitacora bitacora = locales.get(i).getBitacoraLocal();
 
-            for (int j = 0; j < locales.size(); j++) {
-                int tiempoTrab = (int) locales.get(j).getBitacoraLocal().calcTiempoPersona(personas.get(i).getNombre());
-                tiempo += tiempoTrab;
+            for (int j = 0; j < bitacora.getPersonas().size(); j++) {
+                String nombrePersona = bitacora.getPersonas().get(j).getNombre();
+                int tiempoTotal = 0;
+                StringBuilder localesVisitados = new StringBuilder();
 
-                if (tiempoTrab > 0) {
-                    local += locales.get(j).getNombre() + " ";
+                // Calcular tiempo total y locales visitados para esta persona
+                for (int k = 0; k < locales.size(); k++) {
+                    Local local = locales.get(k);
+                    Bitacora bit = local.getBitacoraLocal();
+                    int tiempo = (int) bit.calcTiempoPersona(nombrePersona);
+
+                    if (tiempo > 0) {
+                        tiempoTotal += tiempo;
+                        localesVisitados.append(local.getNombre()).append(" ");
+                    }
+                }
+
+                // Comparar con el mejor tiempo actual
+                if (tiempoTotal > mejorTiempo) {
+                    mejorTiempo = tiempoTotal;
+                    persona = nombrePersona;
+                    finalLocal = localesVisitados.toString();
                 }
             }
-
-            if (tiempo > mejorTiempo) {
-                mejorTiempo = tiempo;
-                persona = personas.get(i).getNombre();
-                finalLocal = local;
-            }
         }
+
         return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
     }
 
-    public void guardarPersonas(String ruta) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(ruta))) {
-            System.out.println("Personas: ");
-            // Corregido: usa < en lugar de <= para evitar índice fuera de límites
-            for (int i = 0; i < personas.size(); i++) {
-                pw.println(personas.get(i).toString());
-            }
-            // Eliminado pw.close() redundante (try-with-resources lo cierra automáticamente)
-            System.out.println("Datos guardados correctamente en: " + ruta);
+    public void guardarFacultad(String ruta) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta))) {
+            oos.writeObject(locales);
         } catch (IOException e) {
             System.out.println("Error al guardar: " + e.getMessage());
         }
     }
 
-    public void cargarPersonas(String archivo) throws IOException {
-        personas.clear();
+    public void cargarFacultad(String archivo) throws IOException, ClassNotFoundException {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            int lineaNum = 0;
-
-            while ((linea = br.readLine()) != null) {
-                lineaNum++;
-                linea = linea.trim();
-
-                String[] partes = linea.split(";");
-
-                switch (partes[0]) {
-                    case "Profesor" -> {
-                        if (partes.length >= 4) {
-                            String asig = partes[1];
-                            String nombre = partes[2];
-                            int solapin = Integer.parseInt(partes[3]);
-                            Profesor p = new Profesor(asig, nombre, solapin);
-                        }
-                        break;
-                    }
-                    case "Estudiante" -> {
-                        if (partes.length >= 4) {
-                            int annoDoc = Integer.parseInt(partes[1]);
-                            String nombre = partes[2];
-                            int solapin = Integer.parseInt(partes[3]);
-                            Estudiante e = new Estudiante(annoDoc, nombre, solapin);
-                        }
-                        break;
-                    }
-                    case "Estudiante de proyecto" -> {
-                        if (partes.length >= 5) {
-                            String nombreProy = partes[1];
-                            int annoDoc = Integer.parseInt(partes[2]);
-                            String nombre = partes[3];
-                            int solapin = Integer.parseInt(partes[4]);
-                            EstudianteProy estproy = new EstudianteProy(nombreProy, annoDoc, nombre, solapin);
-                        }
-                        break;
-                    }
-
-                }
-            }
-
-            br.close();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+            locales = (ArrayList<Local>) ois.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado");
         }
@@ -277,23 +224,5 @@ public class Facultad {
      */
     public void setLocales(ArrayList<Local> locales) {
         this.locales = locales;
-    }
-
-    /**
-     * Obtiene la lista completa de personas registradas.
-     *
-     * @return ArrayList de objetos Persona
-     */
-    public ArrayList<Persona> getPersonas() {
-        return personas;
-    }
-
-    /**
-     * Reemplaza la lista actual de personas.
-     *
-     * @param personas Nueva lista de personas
-     */
-    public void setPersonas(ArrayList<Persona> personas) {
-        this.personas = personas;
     }
 }

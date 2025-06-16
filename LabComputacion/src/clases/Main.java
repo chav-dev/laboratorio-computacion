@@ -2,6 +2,8 @@ package clases;
 
 import excepciones.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,14 +42,11 @@ public class Main {
 
         //Adds
         Facultad f1 = new Facultad();
-        f1.getPersonas().add(p1);
-        f1.getPersonas().add(p2);
-        f1.getPersonas().add(p3);
-        f1.getPersonas().add(p4);
-        f1.getPersonas().add(p5);
-        f1.getPersonas().add(p6);
-        f1.guardarPersonas(".//laboratorio-computacion//LabComputacion//Personas.txt");
-
+//        try {
+//            f1.cargarFacultad("./datos.dat");
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try {
             l1.addPc(c1);
             l2.addPc(c2);
@@ -55,7 +54,7 @@ public class Main {
             l4.addPc(c4);
             l4.addPc(c5);
         } catch (ExisteException ex) {
-            ex.getMessage();
+            System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");;
         }
 
         try {
@@ -63,8 +62,9 @@ public class Main {
             f1.addLocal(l2);
             f1.addLocal(l3);
             f1.addLocal(l4);
+            f1.guardarFacultad("C:/Universidad/1er Año/2do Semestre/POO/Proyectos/Proyecto Final/laboratorio-computacion/LabComputacion/Personas.txt");
         } catch (ExisteException e) {
-            System.out.println(e.getMessage());
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
         }
         c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
         l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
@@ -130,6 +130,5 @@ public class Main {
 //        } catch (IOException e) {
 //            System.err.println("Error cargando: " + e.getMessage());
 //        }
-
     }
 }
