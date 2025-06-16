@@ -39,6 +39,15 @@ public abstract class Local {
         this.bitacoraLocal = bitacoraLocal;
     }
 
+    public Local(String nombre, int tiempoUso, String labor, int cantPc) {
+        this.nombre = nombre;
+        this.tiempoUso = tiempoUso;
+        this.labor = labor;
+        this.cantPc = cantPc;
+    }
+    
+    
+
     /**
      * Agrega una nueva computadora al local
      *

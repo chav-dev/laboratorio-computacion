@@ -1,13 +1,25 @@
 package Visual;
 
+import clases.Computadora;
 import clases.Facultad;
+import clases.LabDoc;
+import clases.LabProy;
 import clases.Local;
+import clases.LocalColectInvest;
+import excepciones.ExisteException;
+import java.io.File;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Chavelys
+ * @author Mel
+ * @author Zaile
  */
 public class Visual extends javax.swing.JFrame {
 
@@ -15,13 +27,27 @@ public class Visual extends javax.swing.JFrame {
      * Creates new form Visual
      */
     public Visual() {
-        locales = new ArrayList<>();
         facultad = new Facultad();
+//        if(new File("./datos.dat").isFile()){
+//            facultad.cargarFacultad("./datos.dat");
+//        }
+
+        locales = new ArrayList<>();
+
         model = new DefaultTableModel() {
             public boolean celdaEditable(int fila, int columna) {
                 return false;
             }
         };
+
+        model.addColumn("Nombre");
+        model.addColumn("Tiempo de Uso");
+        model.addColumn("Tipo");
+        model.addColumn("Cantidad de Computadoras");
+        
+        formato = NumberFormat.getInstance();
+        formato.setGroupingUsed(false);
+
         initComponents();
         tablaPrincipal.setModel(model);
         refresh();
@@ -42,7 +68,7 @@ public class Visual extends javax.swing.JFrame {
         salirDialog1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        calcularJD = new javax.swing.JButton();
         tituloLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaPrincipal = new javax.swing.JTable();
@@ -61,32 +87,34 @@ public class Visual extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         addLocal = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        cancelarLocal = new javax.swing.JButton();
+        agregarLocal = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         proyectoAddLocal = new javax.swing.JRadioButton();
         docenteAddLocal = new javax.swing.JRadioButton();
         labAddLocal = new javax.swing.JRadioButton();
         investigAddLocal = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
-        tiempoUsoLocal = new javax.swing.JFormattedTextField();
+        tiempoUsoLocal = new javax.swing.JFormattedTextField(formato);
         jLabel12 = new javax.swing.JLabel();
         nombAddLocal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        cantComp = new javax.swing.JFormattedTextField(formato);
         jLabel9 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         eliminar = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        elimCancelar = new javax.swing.JButton();
+        eliminarButton = new javax.swing.JButton();
         nombreEliminar = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        numEliminar = new javax.swing.JFormattedTextField();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        numEliminar = new javax.swing.JFormattedTextField(formato);
+        radioLocal = new javax.swing.JRadioButton();
+        radioComputadora = new javax.swing.JRadioButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         buttonGroup3 = new javax.swing.ButtonGroup();
@@ -95,7 +123,7 @@ public class Visual extends javax.swing.JFrame {
         mejorPorcCalcAprov = new javax.swing.JTextField();
         peorPorcCalcAprov = new javax.swing.JTextField();
         jButton16 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        calcAprovechamiento = new javax.swing.JButton();
         peorCalcAprovLocal = new javax.swing.JCheckBox();
         mejorCalcAprovLocal = new javax.swing.JCheckBox();
         jLabel31 = new javax.swing.JLabel();
@@ -270,17 +298,17 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel3.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 130, 30));
 
-        jButton9.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Calcular");
-        jButton9.setBorderPainted(false);
-        jButton9.setContentAreaFilled(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        calcularJD.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
+        calcularJD.setForeground(new java.awt.Color(255, 255, 255));
+        calcularJD.setText("Calcular");
+        calcularJD.setBorderPainted(false);
+        calcularJD.setContentAreaFilled(false);
+        calcularJD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                calcularJDActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 130, 30));
+        jPanel3.add(calcularJD, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 130, 30));
 
         tituloLabel.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         tituloLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -303,7 +331,16 @@ public class Visual extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Tiempo de Uso", "Tipo", "Cantidad de Computadoras"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tablaPrincipal.getColumnModel().getColumn(2).setPreferredWidth(15);
         jScrollPane5.setViewportView(tablaPrincipal);
 
         jPanel3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 500, 160));
@@ -387,25 +424,25 @@ public class Visual extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton4.setBackground(new java.awt.Color(187, 211, 228));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setText("Cancelar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cancelarLocal.setBackground(new java.awt.Color(187, 211, 228));
+        cancelarLocal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cancelarLocal.setText("Cancelar");
+        cancelarLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cancelarLocalActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
+        jPanel1.add(cancelarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
 
-        jButton3.setBackground(new java.awt.Color(187, 211, 228));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Agregar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        agregarLocal.setBackground(new java.awt.Color(187, 211, 228));
+        agregarLocal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        agregarLocal.setText("Agregar");
+        agregarLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                agregarLocalActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
+        jPanel1.add(agregarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -459,6 +496,11 @@ public class Visual extends javax.swing.JFrame {
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
         tiempoUsoLocal.setBackground(new java.awt.Color(187, 211, 228));
+        tiempoUsoLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiempoUsoLocalActionPerformed(evt);
+            }
+        });
         jPanel1.add(tiempoUsoLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 130, -1));
 
         jLabel12.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -477,7 +519,20 @@ public class Visual extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Agregar Local");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
+
+        jLabel60.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jLabel60.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel60.setText("Cantidad de computadoras:");
+        jPanel1.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+
+        cantComp.setBackground(new java.awt.Color(187, 211, 228));
+        cantComp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantCompActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cantComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 130, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
@@ -489,25 +544,25 @@ public class Visual extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton11.setBackground(new java.awt.Color(187, 211, 228));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton11.setText("Cancelar");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        elimCancelar.setBackground(new java.awt.Color(187, 211, 228));
+        elimCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        elimCancelar.setText("Cancelar");
+        elimCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                elimCancelarActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
+        jPanel4.add(elimCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
 
-        jButton10.setBackground(new java.awt.Color(187, 211, 228));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton10.setText("Eliminar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        eliminarButton.setBackground(new java.awt.Color(187, 211, 228));
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        eliminarButton.setText("Eliminar");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                eliminarButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
+        jPanel4.add(eliminarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
 
         nombreEliminar.setBackground(new java.awt.Color(187, 211, 228));
         nombreEliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -533,22 +588,22 @@ public class Visual extends javax.swing.JFrame {
         numEliminar.setBackground(new java.awt.Color(187, 211, 228));
         jPanel4.add(numEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 90, -1));
 
-        buttonGroup3.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jRadioButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton6.setText("Local");
-        jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup3.add(radioLocal);
+        radioLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        radioLocal.setForeground(new java.awt.Color(255, 255, 255));
+        radioLocal.setText("Local");
+        radioLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton6ActionPerformed(evt);
+                radioLocalActionPerformed(evt);
             }
         });
-        jPanel4.add(jRadioButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 80, -1));
+        jPanel4.add(radioLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 80, -1));
 
-        buttonGroup3.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton5.setText("Computadora");
-        jPanel4.add(jRadioButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
+        buttonGroup3.add(radioComputadora);
+        radioComputadora.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        radioComputadora.setForeground(new java.awt.Color(255, 255, 255));
+        radioComputadora.setText("Computadora");
+        jPanel4.add(radioComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -591,15 +646,15 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel5.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, -1, -1));
 
-        jButton12.setBackground(new java.awt.Color(187, 211, 228));
-        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton12.setText("Calcular");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        calcAprovechamiento.setBackground(new java.awt.Color(187, 211, 228));
+        calcAprovechamiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        calcAprovechamiento.setText("Calcular");
+        calcAprovechamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                calcAprovechamientoActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
+        jPanel5.add(calcAprovechamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
         peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         peorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
@@ -1319,9 +1374,9 @@ public class Visual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_labAddLocalActionPerformed
 
-    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
+    private void radioLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioLocalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton6ActionPerformed
+    }//GEN-LAST:event_radioLocalActionPerformed
 
     private void nombreEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEliminarActionPerformed
         // TODO add your handling code here:
@@ -1402,7 +1457,7 @@ public class Visual extends javax.swing.JFrame {
         eliminar.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void calcularJDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularJDActionPerformed
         // TODO add your handling code here:
         jDialog1.setVisible(false);
         if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
@@ -1412,23 +1467,71 @@ public class Visual extends javax.swing.JFrame {
             calcPc.pack();
             calcPc.setVisible(true);
         }
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_calcularJDActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        addPC.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+        
+        if (numAddPc.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Número de computadora es obligatorio");
+            return;
+        }
+        
+        Computadora computadora;
+        if (estadoAddPc.getSelectedIndex() == 1) {
+            computadora = new LocalColectInvest(nombreLocal, tiempoUso, "Colectivo de Investigación", cantPc);
+        } else if (labAddLocal.isSelected() && docenteAddLocal.isSelected()) {
+            local = new LabDoc(nombreLocal, tiempoUso, "Laboratorio Docente", cantPc);
+        } else {
+            local = new LabProy(nombreLocal, tiempoUso, "Laboratorio de Proyecto", cantPc);
+        }
+        try {
+            facultad.addLocal(local);
+        } catch (ExisteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
+        }
+        
         limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void agregarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarLocalActionPerformed
         // TODO add your handling code here:
         addLocal.setVisible(false);
         jDialog1.pack();
         jDialog1.setVisible(true);
         buttonGroup1.clearSelection();
         buttonGroup2.clearSelection();
-        
+
+        if (nombAddLocal.getText().isEmpty() || tiempoUsoLocal.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nombre y tiempo de uso son obligatorios");
+            return;
+        }
+
+        String nombreLocal = nombAddLocal.getText();
+        int tiempoUso = Integer.parseInt(tiempoUsoLocal.getText());
+        int cantPc = Integer.parseInt(cantComp.getText());
+
+        Local local;
+        if (investigAddLocal.isSelected()) {
+            local = new LocalColectInvest(nombreLocal, tiempoUso, "Colectivo de Investigación", cantPc);
+        } else if (labAddLocal.isSelected() && docenteAddLocal.isSelected()) {
+            local = new LabDoc(nombreLocal, tiempoUso, "Laboratorio Docente", cantPc);
+        } else {
+            local = new LabProy(nombreLocal, tiempoUso, "Laboratorio de Proyecto", cantPc);
+        }
+        try {
+            facultad.addLocal(local);
+        } catch (ExisteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
+        }
+        refresh();
         limpiar();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_agregarLocalActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
         // TODO add your handling code here:
@@ -1479,15 +1582,15 @@ public class Visual extends javax.swing.JFrame {
         jDialog1.setVisible(true);
     }//GEN-LAST:event_jButton29ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void elimCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimCancelarActionPerformed
         // TODO add your handling code here:
         eliminar.setVisible(false);
         jDialog1.pack();
         jDialog1.setVisible(true);
         limpiar();
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_elimCancelarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarLocalActionPerformed
         // TODO add your handling code here:
         addLocal.setVisible(false);
         jDialog1.pack();
@@ -1495,7 +1598,7 @@ public class Visual extends javax.swing.JFrame {
         buttonGroup1.clearSelection();
         buttonGroup2.clearSelection();
         limpiar();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_cancelarLocalActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
@@ -1525,15 +1628,28 @@ public class Visual extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_numPcReporteRoturaActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
         // TODO add your handling code here:
-        limpiar();
-    }//GEN-LAST:event_jButton10ActionPerformed
+        eliminar.setVisible(false);
+        jDialog1.pack();
+        jDialog1.setVisible(true);
+//        Local local = ag;
+//        if (radioComputadora.isSelected()) {
+//            local.deletePc(Integer.parseInt(numEliminar.getText()));
+//        }
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
         limpiar();
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_eliminarButtonActionPerformed
+
+    private void calcAprovechamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcAprovechamientoActionPerformed
+        // TODO add your handling code here:
+//        if(mejorCalcAprovLocal.isSelected()){
+//            mejorPorcCalcAprov.setText(facultad.mejorPorc());
+//        }else{
+//            peorPorcCalcAprov.setText(facultad.peorPorc());
+//        }
+        limpiar();
+    }//GEN-LAST:event_calcAprovechamientoActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
@@ -1577,6 +1693,14 @@ public class Visual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_docenteAddLocalActionPerformed
 
+    private void tiempoUsoLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiempoUsoLocalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tiempoUsoLocalActionPerformed
+
+    private void cantCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantCompActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantCompActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1612,15 +1736,15 @@ public class Visual extends javax.swing.JFrame {
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        locales = facultad.getLocales();
+        ArrayList<Local> locales = facultad.getLocales();
 
         for (int i = 0; i < locales.size(); i++) {
-            String[] datos = new String[4];
-            datos[0] = locales.get(i).getNombre();
-            datos[1] = String.valueOf(locales.get(i).getTiempoUso());
-            datos[2] = locales.get(i).getLabor();
-            datos[3] = String.valueOf(locales.get(i).getCantPc());
-            model.addRow(datos);
+            model.addRow(new Object[]{
+                locales.get(i).getNombre(),
+                locales.get(i).getTiempoUso(),
+                locales.get(i).getLabor(),
+                locales.get(i).getCantPc()
+            });
         }
     }
 
@@ -1650,6 +1774,7 @@ public class Visual extends javax.swing.JFrame {
         nombreDeleteElemento.setText("");
         solapinDeleteElemento.setText("");
         numPcReporteRotura.setText("");
+        cantComp.setText("");
         estadoAddPc.setSelectedIndex(-1);
         localAddPc.setSelectedIndex(-1);
         mejorCalcAprovLocal.setSelected(false);
@@ -1659,9 +1784,10 @@ public class Visual extends javax.swing.JFrame {
         jCheckBoxPorciento.setSelected(false);
     }
 
-    DefaultTableModel model;
-    ArrayList<Local> locales;
-    Facultad facultad;
+    private DefaultTableModel model;
+    private Facultad facultad;
+    private ArrayList<Local> locales;
+    private NumberFormat formato;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField _1CalcPc;
     private javax.swing.JTextField _2CalcPc;
@@ -1669,6 +1795,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JDialog addElemento;
     private javax.swing.JDialog addLocal;
     private javax.swing.JDialog addPC;
+    private javax.swing.JButton agregarLocal;
     private javax.swing.JFormattedTextField annoDocAddElemento;
     private javax.swing.JFormattedTextField asignaturaAddElemento;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1677,19 +1804,22 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JDialog calcAprovLocal;
+    private javax.swing.JButton calcAprovechamiento;
     private javax.swing.JDialog calcPc;
+    private javax.swing.JButton calcularJD;
+    private javax.swing.JButton cancelarLocal;
+    private javax.swing.JFormattedTextField cantComp;
     private javax.swing.JDialog deleteElemento;
     private javax.swing.JTextField disponiblePc;
     private javax.swing.JRadioButton docenteAddLocal;
+    private javax.swing.JButton elimCancelar;
     private javax.swing.JDialog eliminar;
+    private javax.swing.JButton eliminarButton;
     private javax.swing.JComboBox<String> estadoAddPc;
     private javax.swing.JButton facultadButton;
     private javax.swing.JDialog facultadJD;
     private javax.swing.JRadioButton investigAddLocal;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
@@ -1708,16 +1838,13 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBoxEstancia;
     private javax.swing.JCheckBox jCheckBoxPorciento;
     private javax.swing.JCheckBox jCheckBoxTiempo;
@@ -1778,6 +1905,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1796,8 +1924,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1831,6 +1957,8 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JCheckBox peorCalcAprovLocal;
     private javax.swing.JTextField peorPorcCalcAprov;
     private javax.swing.JRadioButton proyectoAddLocal;
+    private javax.swing.JRadioButton radioComputadora;
+    private javax.swing.JRadioButton radioLocal;
     private javax.swing.JDialog registro;
     private javax.swing.JDialog reporteRotura;
     private javax.swing.JTextField rotasPc;

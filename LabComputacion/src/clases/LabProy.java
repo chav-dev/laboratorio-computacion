@@ -22,4 +22,8 @@ public class LabProy extends LocalLab {
     public LabProy(String nombre, int tiempoUso, String labor, int cantPC, Bitacora bitacoraLocal) {
         super(nombre, tiempoUso, labor, cantPC, bitacoraLocal);
     }
+    
+    public LabProy(String nombre, int tiempoUso, String labor, int cantPC) {
+        super(nombre, tiempoUso, labor, cantPC);
+    }
 }
