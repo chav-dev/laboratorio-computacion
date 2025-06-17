@@ -42,30 +42,30 @@ public class Main {
 
         //Adds
         Facultad f1 = new Facultad();
+        try {
+            f1.cargarFacultad("./Datos.dat");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        try {
-//            f1.cargarFacultad("./datos.dat");
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//            l1.addPc(c1);
+//            l2.addPc(c2);
+//            l3.addPc(c3);
+//            l4.addPc(c4);
+//            l4.addPc(c5);
+//        } catch (ExisteException ex) {
+//            System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");;
 //        }
-        try {
-            l1.addPc(c1);
-            l2.addPc(c2);
-            l3.addPc(c3);
-            l4.addPc(c4);
-            l4.addPc(c5);
-        } catch (ExisteException ex) {
-            System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");;
-        }
-
-        try {
-            f1.addLocal(l1);
-            f1.addLocal(l2);
-            f1.addLocal(l3);
-            f1.addLocal(l4);
-            f1.guardarFacultad("C:/Universidad/1er Año/2do Semestre/POO/Proyectos/Proyecto Final/laboratorio-computacion/LabComputacion/Personas.txt");
-        } catch (ExisteException e) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
-        }
+//
+//        try {
+//            f1.addLocal(l1);
+//            f1.addLocal(l2);
+//            f1.addLocal(l3);
+//            f1.addLocal(l4);
+//            f1.guardarFacultad("./Datos.dat");
+//        } catch (ExisteException e) {
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
+//        }
         c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
         l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
 
@@ -119,16 +119,5 @@ public class Main {
 
         System.out.println("Bitacora de fecha");
         System.out.println("" + l4.getBitacoraLocal().mostrarBitacoraFecha("2025-05-06"));
-
-//        Facultad f2 = new Facultad();
-//        try {
-//            f2.cargarPersonas(personasFiles);
-//            System.out.println("Personas cargadas:" + f2.getPersonas().size());
-//            for (Persona p : f2.getPersonas()) {
-//                System.out.println(p.getClass().getSimpleName() + ": " + p.getNombre());
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Error cargando: " + e.getMessage());
-//        }
     }
 }
