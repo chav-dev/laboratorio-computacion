@@ -13,6 +13,7 @@ import clases.Profesor;
 import excepciones.ExisteException;
 import excepciones.NoExisteException;
 import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,7 @@ public class Visual extends javax.swing.JFrame {
     public Visual() {
         facultad = new Facultad();
         local = new LocalColectInvest();
-//        if(new File("./datos.dat").isFile()){
-//            facultad.cargarFacultad("./datos.dat");
-//        }
+       
 
         locales = new ArrayList<>();
 
@@ -683,7 +682,7 @@ public class Visual extends javax.swing.JFrame {
                 mejorPorcCalcAprovActionPerformed(evt);
             }
         });
-        jPanel5.add(mejorPorcCalcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, 20));
+        jPanel5.add(mejorPorcCalcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, 30));
 
         peorPorcCalcAprov.setBackground(new java.awt.Color(187, 211, 228));
         peorPorcCalcAprov.addActionListener(new java.awt.event.ActionListener() {
@@ -691,7 +690,7 @@ public class Visual extends javax.swing.JFrame {
                 peorPorcCalcAprovActionPerformed(evt);
             }
         });
-        jPanel5.add(peorPorcCalcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 150, 110, 20));
+        jPanel5.add(peorPorcCalcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 120, 30));
 
         jButton16.setBackground(new java.awt.Color(187, 211, 228));
         jButton16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1697,6 +1696,16 @@ public class Visual extends javax.swing.JFrame {
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         // TODO add your handling code here:
+         if(new File("./datos.dat").isFile()){
+             try {
+                 facultad.cargarFacultad("./Datos.dat");
+             } catch (IOException ex) {
+                 JOptionPane.showMessageDialog(null, "Archivo no encontrado");
+             } catch (ClassNotFoundException ex) {
+                 Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        }
+         
         JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
         reporteRotura.setVisible(false);
         PcRotas.pack();
@@ -1907,15 +1916,19 @@ public class Visual extends javax.swing.JFrame {
         }
 
         if (tipoLocal.equals("Colectivo de Investigación")) {
+            profesorRadio.setEnabled(true);
             annoDocAddElemento.setEnabled(false);
             nomProyecto.setEnabled(false);
             estudianteRadio.setEnabled(false);
             estProyecto.setEnabled(false);
         } else if (tipoLocal.equals("Laboratorio Docente")) {
+            estudianteRadio.setEnabled(true);
+            estProyecto.setEnabled(true);
             nomProyecto.setEnabled(false);
             asignaturaAddElemento.setEnabled(false);
             profesorRadio.setEnabled(false);
         } else if (tipoLocal.equals("Laboratorio de Proyecto")) {
+            estProyecto.setEnabled(true);
             asignaturaAddElemento.setEnabled(false);
             estudianteRadio.setEnabled(false);
             profesorRadio.setEnabled(false);
@@ -2034,7 +2047,6 @@ public class Visual extends javax.swing.JFrame {
             peorPorcCalcAprov.setText(String.valueOf(facultad.peorPorc()));
         }
 
-        limpiar();
     }//GEN-LAST:event_calcAprovechamientoActionPerformed
 
     private void calcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcActionPerformed
@@ -2288,7 +2300,6 @@ public class Visual extends javax.swing.JFrame {
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         // TODO add your handling code here:
         jTextAreaUsuario.setText(facultad.buscarInfoPersona(usuarioTextField.getText()));
-        limpiar();
     }//GEN-LAST:event_buscarButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -2308,7 +2319,7 @@ public class Visual extends javax.swing.JFrame {
     private void buscarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton1ActionPerformed
         // TODO add your handling code here:
         jTextAreaMayorUso.setText(facultad.buscarPersona());
-        limpiar();
+       
     }//GEN-LAST:event_buscarButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -2316,6 +2327,7 @@ public class Visual extends javax.swing.JFrame {
         mejorUso.setVisible(false);
         facultadJD.pack();
         facultadJD.setVisible(true);
+        limpiar();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**

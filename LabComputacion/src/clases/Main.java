@@ -6,7 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * @author Mel
+ * @author Zaile
  * @author Chavelys
  */
 public class Main {
@@ -42,30 +43,30 @@ public class Main {
 
         //Adds
         Facultad f1 = new Facultad();
+//        try {
+//            f1.cargarFacultad("./Datos.dat");
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try {
-            f1.cargarFacultad("./Datos.dat");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            l1.addPc(c1);
+            l2.addPc(c2);
+            l3.addPc(c3);
+            l4.addPc(c4);
+            l4.addPc(c5);
+        } catch (ExisteException ex) {
+            System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
-//        try {
-//            l1.addPc(c1);
-//            l2.addPc(c2);
-//            l3.addPc(c3);
-//            l4.addPc(c4);
-//            l4.addPc(c5);
-//        } catch (ExisteException ex) {
-//            System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");;
-//        }
-//
-//        try {
-//            f1.addLocal(l1);
-//            f1.addLocal(l2);
-//            f1.addLocal(l3);
-//            f1.addLocal(l4);
-//            f1.guardarFacultad("./Datos.dat");
-//        } catch (ExisteException e) {
-//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
-//        }
+
+        try {
+            f1.addLocal(l1);
+            f1.addLocal(l2);
+            f1.addLocal(l3);
+            f1.addLocal(l4);
+            f1.guardarFacultad("./Datos.dat");
+        } catch (ExisteException e) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
+        }
         c2.getBitacoraPc().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
         l2.getBitacoraLocal().addElemento(p5, "12:00 pm", "2:00 pm", "2025-01-15");
 
