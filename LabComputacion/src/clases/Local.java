@@ -6,14 +6,15 @@ import java.io.Serializable;
 
 /**
  * Clase abstracta que representa un local genérico en el sistema de gestión.
- * Contiene información básica sobre el local, sus computadoras y bitácora asociada. Esta clase sirve como base para locales especializados como 
+ * Contiene información básica sobre el local, sus computadoras y bitácora
+ * asociada. Esta clase sirve como base para locales especializados como
  * laboratorios y colectivo de investigación.
  *
  * @author Chavelys
  * @author Mel
  * @author Zaile
  */
-public abstract class Local implements Serializable{
+public abstract class Local implements Serializable {
 
     protected String nombre;
     protected int tiempoUso;
@@ -45,6 +46,11 @@ public abstract class Local implements Serializable{
         this.tiempoUso = tiempoUso;
         this.labor = labor;
         this.cantPc = cantPc;
+        this.computadoras = new ArrayList<>();
+        this.bitacoraLocal = new Bitacora();
+    }
+
+    public Local() {
     }
     
     
@@ -56,13 +62,16 @@ public abstract class Local implements Serializable{
      * @throws ExisteException Si ya existe una PC con el mismo número
      */
     public void addPc(Computadora comp) throws ExisteException {
-        for (int i = 0; i < computadoras.size(); i++) {
-            if (computadoras.get(i).getNumero() == comp.getNumero()) {
-                throw new ExisteException("Ya existe una computadora con el numero " + comp.getNumero());
+        if (computadoras.isEmpty()) {
+            computadoras.add(comp);
+        } else {
+            for (int i = 0; i < computadoras.size(); i++) {
+                if (computadoras.get(i).getNumero() == comp.getNumero()) {
+                    throw new ExisteException("Ya existe una computadora con el numero " + comp.getNumero());
+                }
             }
+            computadoras.add(comp);
         }
-
-        computadoras.add(comp);
     }
 
     /**
@@ -133,7 +142,7 @@ public abstract class Local implements Serializable{
     public int cantPcLibre() {
         int countLibre = 0;
         for (int i = 0; i < computadoras.size(); i++) {
-            if (computadoras.get(i).getEstado().equalsIgnoreCase("Libre")) {
+            if (computadoras.get(i).getEstado().equalsIgnoreCase("Disponible")) {
                 countLibre++;
             }
         }

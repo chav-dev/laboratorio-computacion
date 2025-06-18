@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Computadora implements Serializable{
     private String estado; //Ocupada, Libre o Rota
     private int numero;
+    private Local local1;
     private Bitacora bitacoraPc;
     
     /**
@@ -27,6 +28,21 @@ public class Computadora implements Serializable{
         this.numero = numero;
         this.bitacoraPc = bitacoraPc;
     }
+
+    public Computadora(String estado, int numero, Local local1) {
+        this.estado = estado;
+        this.numero = numero;
+        this.local1 = local1;
+        this.bitacoraPc = new Bitacora();
+    }
+
+    public Computadora(String estado, int numero) {
+        this.estado = estado;
+        this.numero = numero;
+        this.bitacoraPc = new Bitacora();
+    }
+    
+    
 
     /**
      * Representación en cadena de la computadora con formato legible.

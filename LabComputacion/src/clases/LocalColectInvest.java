@@ -26,6 +26,9 @@ public class LocalColectInvest extends Local {
     public LocalColectInvest(String nombre, int tiempoUso, String labor, int cantPC) {
         super(nombre, tiempoUso, labor, cantPC);
     }
+
+    public LocalColectInvest() {
+    }
     
     
 }

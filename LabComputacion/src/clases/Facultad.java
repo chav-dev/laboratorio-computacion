@@ -23,6 +23,12 @@ public class Facultad implements Serializable {
         this.locales = new ArrayList<>();
     }
 
+    public Facultad(ArrayList<Local> locales) {
+        this.locales = locales;
+    }
+    
+    
+
     /**
      * Agrega un nuevo local a la lista, asegurando que no se duplique.
      *
