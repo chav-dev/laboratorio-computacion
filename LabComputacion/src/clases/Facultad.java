@@ -205,9 +205,8 @@ public class Facultad implements Serializable {
         }
     }
 
-    public void cargarFacultad(String archivo) throws IOException, ClassNotFoundException {
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+    public void cargarFacultad(String ruta) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
             locales = (ArrayList<Local>) ois.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado");
