@@ -22,6 +22,18 @@ public class Profesor extends Persona{
         super(nombre, solapin);
         this.asignatura = asignatura;
     }
+    
+     /**
+     * Representación en cadena del profesor con formato legible.
+     *
+     * @return Cadena con la información básica del profesor
+     */
+    @Override
+    public String toString() {
+        return super.toString() + ", " + "Asignatura " + asignatura + '}';
+    }
+    
+    
 
     /**
      * Obtiene la asignatura que imparte el profesor.

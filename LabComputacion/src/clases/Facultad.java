@@ -17,7 +17,7 @@ public class Facultad implements Serializable {
     private ArrayList<Local> locales;
 
     /**
-     * Constructor por defecto que inicializa la lista vacía.
+     * Constructor por defecto que inicializa la lista de locales vacía.
      */
     public Facultad() {
         this.locales = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Facultad implements Serializable {
     }
 
     /**
-     * Agrega un nuevo local a la lista, asegurando que no se duplique.
+     * Agrega un nuevo local a la lista, asegurando que no se duplique por nombre.
      *
      * @param local El objeto Local que se desea agregar.
      * @throws ExisteException Si el local ya existe en la lista.
@@ -63,7 +63,8 @@ public class Facultad implements Serializable {
     }
 
     /**
-     * Encuentra el local con el mejor porcentaje de aprovechamiento.
+     * Encuentra el local con el mejor porcentaje de aprovechamiento. Compara el
+     * porcentaje de aprovechamiento de todos los locales.
      *
      * @return Nombre del local con mejor porcentaje
      */
@@ -82,7 +83,8 @@ public class Facultad implements Serializable {
     }
 
     /**
-     * Encuentra el local con el peor porcentaje de aprovechamiento.
+     * Encuentra el local con el peor porcentaje de aprovechamiento. Compara el
+     * porcentaje de aprovechamiento de todos los locales.
      *
      * @return Nombre del local con peor porcentaje
      */
@@ -101,8 +103,8 @@ public class Facultad implements Serializable {
     }
 
     /**
-     * Buscar en que local / computadoras trabajó una persona y el tiempo de
-     * trabajo
+     * Busca en qué locales/computadoras trabajó una persona y su tiempo de uso.
+     * Genera un reporte detallado por local y computadora.
      *
      * @param nombre Nombre de la persona a buscar
      * @return String con información de locales, tiempo y computadoras usadas
@@ -114,24 +116,24 @@ public class Facultad implements Serializable {
         for (int i = 0; i < locales.size(); i++) {
             double tiempoEnLocal = locales.get(i).getBitacoraLocal().calcTiempoPersona(nombre);
 
-            //Verificar si la persona tiene registros en el local
+            // Verificar si la persona tiene registros en el local
             if (tiempoEnLocal > 0) {
                 enc = true;
 
-                //Agregar información del local
+                // Agregar información del local
                 info.append("Local: ").append(locales.get(i).getNombre())
                         .append("\nTiempo total: ")
                         .append(String.format("%.2f horas", tiempoEnLocal))
                         .append("\nComputadoras usadas:\n");
 
-                //Buscar computadoras específicas usadas por la persona
+                // Buscar computadoras específicas usadas por la persona
                 ArrayList<Computadora> computadoras = locales.get(i).getComputadoras();
                 boolean computadorasEncontradas = false;
 
                 for (int j = 0; j < computadoras.size(); j++) {
                     double tiempoEnPC = computadoras.get(j).getBitacoraPc().calcTiempoPersona(nombre);
 
-                    //Mostrar solo computadoras con tiempo de uso > 0
+                    // Mostrar solo computadoras con tiempo de uso > 0
                     if (tiempoEnPC > 0) {
                         computadorasEncontradas = true;
                         info.append(" - ").append(String.valueOf(computadoras.get(j).getNumero()))
@@ -141,7 +143,7 @@ public class Facultad implements Serializable {
                     }
                 }
 
-                //Manejar caso sin computadoras específicas
+                // Manejar caso sin computadoras específicas
                 if (!computadorasEncontradas) {
                     info.append(" (No se registraron computadoras específicas)\n");
                 }
@@ -150,7 +152,7 @@ public class Facultad implements Serializable {
             }
         }
 
-        //Manejar persona no encontrada
+        // Manejar persona no encontrada
         if (!enc) {
             info.append("La persona '").append(nombre).append("' no fue encontrada en ningún local.");
         }
@@ -158,6 +160,12 @@ public class Facultad implements Serializable {
         return info.toString();
     }
 
+    /**
+     * Busca la persona con mayor tiempo acumulado en todos los locales. Incluye
+     * información sobre los locales visitados.
+     *
+     * @return Cadena con nombre, tiempo total y locales de la persona
+     */
     public String buscarPersona() {
         String persona = "";
         int mejorTiempo = 0;
@@ -195,6 +203,11 @@ public class Facultad implements Serializable {
         return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
     }
 
+    /**
+     * Guarda la lista de locales en un fichero binario mediante serialización.
+     *
+     * @param ruta Ruta del archivo de destino
+     */
     public void guardarFacultad(String ruta) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta))) {
             oos.writeObject(locales);
@@ -203,6 +216,14 @@ public class Facultad implements Serializable {
         }
     }
 
+    /**
+     * Carga la lista de locales desde un archivo serializado.
+     *
+     * @param ruta Ruta del archivo a cargar
+     * @throws IOException Si hay errores de entrada/salida
+     * @throws ClassNotFoundException Si la clase de los objetos serializados no
+     * coincide
+     */
     public void cargarFacultad(String ruta) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
             locales = (ArrayList<Local>) ois.readObject();

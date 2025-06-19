@@ -25,7 +25,12 @@ public abstract class Persona implements Serializable{
         this.nombre = nombre;
         this.solapin = solapin;
     }
-
+    
+    /**
+     * Representación en cadena de la persona con formato legible.
+     *
+     * @return Cadena con la información básica de la persona
+     */
     @Override
     public String toString() {
         return "Persona: " + "Nombre " + nombre + ", Solapin " + solapin;
