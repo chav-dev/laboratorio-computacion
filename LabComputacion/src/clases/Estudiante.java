@@ -22,6 +22,11 @@ public class Estudiante extends Persona {
         this.annoDoc = annoDoc;
     }
 
+    /**
+     * Representación en cadena del estudiante con formato legible.
+     *
+     * @return Cadena con la información básica del estudiante
+     */
     @Override
     public String toString() {
         return super.toString() + ", " + "Año Docente " + annoDoc;
