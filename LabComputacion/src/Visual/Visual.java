@@ -34,6 +34,7 @@ public class Visual extends javax.swing.JFrame {
      * Creates new form Visual
      */
     public Visual() {
+        this.setTitle("Laboratorio de Computacion");
         facultad = new Facultad();
         local = new LocalColectInvest();
 
@@ -155,10 +156,11 @@ public class Visual extends javax.swing.JFrame {
         peorPorcCalcAprov = new javax.swing.JTextField();
         jButton16 = new javax.swing.JButton();
         calcAprovechamiento = new javax.swing.JButton();
-        peorCalcAprovLocal = new javax.swing.JCheckBox();
-        mejorCalcAprovLocal = new javax.swing.JCheckBox();
         jLabel31 = new javax.swing.JLabel();
+        mejorCalcAprovLocal = new javax.swing.JRadioButton();
+        peorCalcAprovLocal = new javax.swing.JRadioButton();
         jLabel30 = new javax.swing.JLabel();
+        buttonGroupCalcAprov = new javax.swing.ButtonGroup();
         calcPc = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
@@ -173,12 +175,13 @@ public class Visual extends javax.swing.JFrame {
         _2CalcPc = new javax.swing.JTextField();
         _1CalcPc = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jCheckBoxPorciento = new javax.swing.JCheckBox();
         nombreEstancia = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jCheckBoxEstancia = new javax.swing.JCheckBox();
-        jCheckBoxTiempo = new javax.swing.JCheckBox();
+        jRadioButtonTiempoUso = new javax.swing.JRadioButton();
+        jRadioButtonEstancia = new javax.swing.JRadioButton();
+        jRadioButtonPorcAprov = new javax.swing.JRadioButton();
         jLabel19 = new javax.swing.JLabel();
+        buttonGroupCalcPc = new javax.swing.ButtonGroup();
         listaPc = new javax.swing.JDialog();
         jPanel8 = new javax.swing.JPanel();
         rotasPc = new javax.swing.JTextField();
@@ -651,7 +654,6 @@ public class Visual extends javax.swing.JFrame {
 
         eliminarLocalCombo.setBackground(new java.awt.Color(187, 211, 228));
         eliminarLocalCombo.setForeground(new java.awt.Color(0, 0, 0));
-        eliminarLocalCombo.setSelectedIndex(-1);
         jPanel4.add(eliminarLocalCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 120, -1));
 
         eliminarPcCombo.setBackground(new java.awt.Color(187, 211, 228));
@@ -704,31 +706,21 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel5.add(calcAprovechamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
-        peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        peorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
-        peorCalcAprovLocal.setText("Peor porcentaje");
-        peorCalcAprovLocal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                peorCalcAprovLocalActionPerformed(evt);
-            }
-        });
-        jPanel5.add(peorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
-
-        mejorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        mejorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
-        mejorCalcAprovLocal.setText("Mejor porcentaje");
-        mejorCalcAprovLocal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mejorCalcAprovLocalActionPerformed(evt);
-            }
-        });
-        jPanel5.add(mejorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
-
         jLabel31.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setText("Calcular  aprovechamiento");
         jPanel5.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 30, 620, -1));
+
+        buttonGroupCalcAprov.add(mejorCalcAprovLocal);
+        mejorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        mejorCalcAprovLocal.setText("Mejor porcentaje");
+        jPanel5.add(mejorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+
+        buttonGroupCalcAprov.add(peorCalcAprovLocal);
+        peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        peorCalcAprovLocal.setText("Peor porcentaje");
+        jPanel5.add(peorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pant1.jpg"))); // NOI18N
         jPanel5.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, -10, 670, 330));
@@ -805,12 +797,8 @@ public class Visual extends javax.swing.JFrame {
         jLabel21.setText("Calcular computadora");
         jPanel6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 40, 580, -1));
 
-        jCheckBoxPorciento.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBoxPorciento.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxPorciento.setText("Porciento de aprovechamiento");
-        jPanel6.add(jCheckBoxPorciento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
-
         nombreEstancia.setBackground(new java.awt.Color(187, 211, 228));
+        nombreEstancia.setEnabled(false);
         nombreEstancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreEstanciaActionPerformed(evt);
@@ -823,15 +811,35 @@ public class Visual extends javax.swing.JFrame {
         jLabel20.setText("Nombre:");
         jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 20));
 
-        jCheckBoxEstancia.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBoxEstancia.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxEstancia.setText("Estancia");
-        jPanel6.add(jCheckBoxEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 40));
+        buttonGroupCalcPc.add(jRadioButtonTiempoUso);
+        jRadioButtonTiempoUso.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        jRadioButtonTiempoUso.setText("Tiempo de uso");
+        jRadioButtonTiempoUso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTiempoUsoActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jRadioButtonTiempoUso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 101, -1, 30));
 
-        jCheckBoxTiempo.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBoxTiempo.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxTiempo.setText("Tiempo de uso");
-        jPanel6.add(jCheckBoxTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 30));
+        buttonGroupCalcPc.add(jRadioButtonEstancia);
+        jRadioButtonEstancia.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        jRadioButtonEstancia.setText("Estancia");
+        jRadioButtonEstancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEstanciaActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jRadioButtonEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+
+        buttonGroupCalcPc.add(jRadioButtonPorcAprov);
+        jRadioButtonPorcAprov.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        jRadioButtonPorcAprov.setText("Porciento de aprovechamiento");
+        jRadioButtonPorcAprov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPorcAprovActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jRadioButtonPorcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pant1.jpg"))); // NOI18N
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -40, 660, 410));
@@ -1642,10 +1650,6 @@ public class Visual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_labAddLocalActionPerformed
 
-    private void mejorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorCalcAprovLocalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mejorCalcAprovLocalActionPerformed
-
     private void peorPorcCalcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peorPorcCalcAprovActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_peorPorcCalcAprovActionPerformed
@@ -2084,17 +2088,13 @@ public class Visual extends javax.swing.JFrame {
 
     private void calcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcActionPerformed
         // TODO add your handling code here:
-        if (jCheckBoxTiempo.isSelected()) {
-            nombreEstancia.setEnabled(false);
+        if (jRadioButtonTiempoUso.isSelected()) {
             _1CalcPc.setText(String.valueOf(local.getBitacoraLocal().calcTiempoUso()));
-        } else if (jCheckBoxEstancia.isSelected()) {
-            nombreEstancia.setEnabled(true);
-            _2CalcPc.setText(String.valueOf(local.getBitacoraLocal().calcTiempoPersona(nombreEstancia.getText())));
-        } else if (jCheckBoxPorciento.isSelected()) {
-            nombreEstancia.setEnabled(false);
+        } else if (jRadioButtonEstancia.isSelected()) {
+            _2CalcPc.setText(String.valueOf((char) local.getBitacoraLocal().calcTiempoPersona(nombreEstancia.getText())));
+        } else if (jRadioButtonPorcAprov.isSelected()) {
             _3CalcPc.setText(String.valueOf(local.getBitacoraLocal().calcPorcAprov(Integer.parseInt(tiempoUsoLocal.getText()))));
         }
-        limpiar();
     }//GEN-LAST:event_calcActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -2367,9 +2367,20 @@ public class Visual extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void peorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peorCalcAprovLocalActionPerformed
+    private void jRadioButtonTiempoUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTiempoUsoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_peorCalcAprovLocalActionPerformed
+        nombreEstancia.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonTiempoUsoActionPerformed
+
+    private void jRadioButtonEstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstanciaActionPerformed
+        // TODO add your handling code here:
+        nombreEstancia.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonEstanciaActionPerformed
+
+    private void jRadioButtonPorcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPorcAprovActionPerformed
+        // TODO add your handling code here:
+        nombreEstancia.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonPorcAprovActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2542,9 +2553,9 @@ public class Visual extends javax.swing.JFrame {
         eliminarPcCombo.setSelectedIndex(-1);
         mejorCalcAprovLocal.setSelected(false);
         peorCalcAprovLocal.setSelected(false);
-        jCheckBoxTiempo.setSelected(false);
-        jCheckBoxEstancia.setSelected(false);
-        jCheckBoxPorciento.setSelected(false);
+        jRadioButtonTiempoUso.setSelected(false);
+        jRadioButtonEstancia.setSelected(false);
+        jRadioButtonPorcAprov.setSelected(false);
         entraInput.setText("");
         salidaInput.setText("");
         fechaInput.setText("");
@@ -2587,6 +2598,8 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroupCalcAprov;
+    private javax.swing.ButtonGroup buttonGroupCalcPc;
     private javax.swing.JButton calc;
     private javax.swing.JDialog calcAprovLocal;
     private javax.swing.JButton calcAprovechamiento;
@@ -2637,9 +2650,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBox jCheckBoxEstancia;
-    private javax.swing.JCheckBox jCheckBoxPorciento;
-    private javax.swing.JCheckBox jCheckBoxTiempo;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2718,6 +2728,9 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRadioButtonEstancia;
+    private javax.swing.JRadioButton jRadioButtonPorcAprov;
+    private javax.swing.JRadioButton jRadioButtonTiempoUso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2732,7 +2745,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JDialog listado;
     private javax.swing.JComboBox<String> localAddPc;
     private javax.swing.JButton localesButton;
-    private javax.swing.JCheckBox mejorCalcAprovLocal;
+    private javax.swing.JRadioButton mejorCalcAprovLocal;
     private javax.swing.JTextField mejorPorcCalcAprov;
     private javax.swing.JDialog mejorUso;
     private javax.swing.JFormattedTextField nomProyecto;
@@ -2748,7 +2761,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField numPcReporteRotura;
     private javax.swing.JTextField ocupPc;
     private javax.swing.JButton pcButton;
-    private javax.swing.JCheckBox peorCalcAprovLocal;
+    private javax.swing.JRadioButton peorCalcAprovLocal;
     private javax.swing.JTextField peorPorcCalcAprov;
     private javax.swing.JLabel perteneceLabel;
     private javax.swing.JRadioButton profesorRadio;
