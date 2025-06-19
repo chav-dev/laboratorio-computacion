@@ -36,7 +36,6 @@ public class Visual extends javax.swing.JFrame {
     public Visual() {
         facultad = new Facultad();
         local = new LocalColectInvest();
-       
 
         locales = new ArrayList<>();
 
@@ -143,11 +142,11 @@ public class Visual extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         elimCancelar = new javax.swing.JButton();
         eliminarButton = new javax.swing.JButton();
-        nombreEliminar = new javax.swing.JTextField();
         nombEliminarLabel = new javax.swing.JLabel();
         numEliminarLabel = new javax.swing.JLabel();
-        numEliminar = new javax.swing.JFormattedTextField(formato);
         jLabel15 = new javax.swing.JLabel();
+        eliminarLocalCombo = new javax.swing.JComboBox<>();
+        eliminarPcCombo = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         buttonGroup3 = new javax.swing.ButtonGroup();
         calcAprovLocal = new javax.swing.JDialog();
@@ -616,7 +615,7 @@ public class Visual extends javax.swing.JFrame {
 
         elimCancelar.setBackground(new java.awt.Color(187, 211, 228));
         elimCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        elimCancelar.setText("Cancelar");
+        elimCancelar.setText("Volver");
         elimCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 elimCancelarActionPerformed(evt);
@@ -634,14 +633,6 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel4.add(eliminarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
 
-        nombreEliminar.setBackground(new java.awt.Color(187, 211, 228));
-        nombreEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreEliminarActionPerformed(evt);
-            }
-        });
-        jPanel4.add(nombreEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 150, -1));
-
         nombEliminarLabel.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         nombEliminarLabel.setForeground(new java.awt.Color(255, 255, 255));
         nombEliminarLabel.setText("Nombre:");
@@ -652,19 +643,20 @@ public class Visual extends javax.swing.JFrame {
         numEliminarLabel.setText("Número:");
         jPanel4.add(numEliminarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, -1));
 
-        numEliminar.setBackground(new java.awt.Color(187, 211, 228));
-        numEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numEliminarActionPerformed(evt);
-            }
-        });
-        jPanel4.add(numEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 90, -1));
-
         jLabel15.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Eliminar");
         jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 60, 600, -1));
+
+        eliminarLocalCombo.setBackground(new java.awt.Color(187, 211, 228));
+        eliminarLocalCombo.setForeground(new java.awt.Color(0, 0, 0));
+        eliminarLocalCombo.setSelectedIndex(-1);
+        jPanel4.add(eliminarLocalCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 120, -1));
+
+        eliminarPcCombo.setBackground(new java.awt.Color(187, 211, 228));
+        eliminarPcCombo.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.add(eliminarPcCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 120, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 605, -1));
@@ -694,7 +686,7 @@ public class Visual extends javax.swing.JFrame {
 
         jButton16.setBackground(new java.awt.Color(187, 211, 228));
         jButton16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton16.setText("Cancelar");
+        jButton16.setText("Volver");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton16ActionPerformed(evt);
@@ -715,6 +707,11 @@ public class Visual extends javax.swing.JFrame {
         peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         peorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
         peorCalcAprovLocal.setText("Peor porcentaje");
+        peorCalcAprovLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                peorCalcAprovLocalActionPerformed(evt);
+            }
+        });
         jPanel5.add(peorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
 
         mejorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
@@ -1645,10 +1642,6 @@ public class Visual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_labAddLocalActionPerformed
 
-    private void nombreEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreEliminarActionPerformed
-
     private void mejorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorCalcAprovLocalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mejorCalcAprovLocalActionPerformed
@@ -1670,6 +1663,7 @@ public class Visual extends javax.swing.JFrame {
         facultadJD.setVisible(false);
         buscarUsuario.pack();
         buscarUsuario.setVisible(true);
+        jTextAreaUsuario.setEditable(false);
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void estudianteRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteRadioActionPerformed
@@ -1696,16 +1690,16 @@ public class Visual extends javax.swing.JFrame {
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         // TODO add your handling code here:
-         if(new File("./datos.dat").isFile()){
-             try {
-                 facultad.cargarFacultad("./Datos.dat");
-             } catch (IOException ex) {
-                 JOptionPane.showMessageDialog(null, "Archivo no encontrado");
-             } catch (ClassNotFoundException ex) {
-                 Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
-             }
+        if (new File("./datos.dat").isFile()) {
+            try {
+                facultad.cargarFacultad("./Datos.dat");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Archivo no encontrado");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-         
+
         JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
         reporteRotura.setVisible(false);
         PcRotas.pack();
@@ -1758,14 +1752,42 @@ public class Visual extends javax.swing.JFrame {
 
         if (tituloLabel.getText().equals("Locales")) {
             numEliminarLabel.setVisible(false);
-            numEliminar.setVisible(false);
+            eliminarLocalCombo.setVisible(true);
             nombEliminarLabel.setVisible(true);
-            nombreEliminar.setVisible(true);
+            eliminarPcCombo.setVisible(false);
+
+            eliminarLocalCombo.removeAllItems();
+            ArrayList<String> nombresAgregados = new ArrayList<>();
+            eliminarLocalCombo.addItem("");
+
+            for (int i = 0; i < facultad.getLocales().size(); i++) {
+                String nombLocal = String.valueOf(facultad.getLocales().get(i).getNombre());
+                if (!nombresAgregados.contains(nombLocal)) {
+
+                    eliminarLocalCombo.addItem(nombLocal);
+                    nombresAgregados.add(nombLocal);
+                }
+            }
         } else {
             numEliminarLabel.setVisible(true);
-            numEliminar.setVisible(true);
+            eliminarLocalCombo.setVisible(false);
             nombEliminarLabel.setVisible(false);
-            nombreEliminar.setVisible(false);
+            eliminarPcCombo.setVisible(true);
+
+            eliminarPcCombo.removeAllItems();
+            ArrayList<String> numerosAgregados = new ArrayList<>();
+            eliminarPcCombo.addItem("");
+
+            for (int i = 0; i < facultad.getLocales().size(); i++) {
+                for (int j = 0; j < facultad.getLocales().get(i).getComputadoras().size(); j++) {
+                    String numComputadora = String.valueOf(facultad.getLocales().get(i).getComputadoras().get(j).getNumero());
+                    if (!numerosAgregados.contains(numComputadora)) {
+
+                        eliminarPcCombo.addItem(numComputadora);
+                        numerosAgregados.add(numComputadora);
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1775,9 +1797,14 @@ public class Visual extends javax.swing.JFrame {
         if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
             calcAprovLocal.pack();
             calcAprovLocal.setVisible(true);
+            mejorPorcCalcAprov.setEditable(false);
+            peorPorcCalcAprov.setEditable(false);
         } else {
             calcPc.pack();
             calcPc.setVisible(true);
+            _1CalcPc.setEditable(false);
+            _2CalcPc.setEditable(false);
+            _3CalcPc.setEditable(false);
         }
     }//GEN-LAST:event_calcularJDActionPerformed
 
@@ -2016,26 +2043,33 @@ public class Visual extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (tituloLabel.getText().equals("Computadoras")) {
+                if (eliminarPcCombo.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Por favor seleccione el numero de la computadora que desea eliminar");
+                }
                 for (int i = 0; i < facultad.getLocales().size(); i++) {
                     for (int j = 0; j < facultad.getLocales().get(i).getComputadoras().size(); j++) {
-                        if (facultad.getLocales().get(i).getComputadoras().get(j).getNumero() == Integer.parseInt(numEliminar.getText())) {
-                            facultad.getLocales().get(i).deletePc(Integer.parseInt(numEliminar.getText()));
-                            JOptionPane.showMessageDialog(null, "La computadora ha sido eliminada");
+                        if (facultad.getLocales().get(i).getComputadoras().get(j).getNumero() == Integer.parseInt((String) eliminarPcCombo.getSelectedItem())) {
+                            facultad.getLocales().get(i).deletePc(Integer.parseInt(String.valueOf(eliminarPcCombo.getSelectedItem())));
+                            JOptionPane.showMessageDialog(null, "La computadora " + eliminarPcCombo.getSelectedItem() + " ha sido eliminada");
                         }
                     }
                 }
+
+                refresh_pc();
+
             } else {
-                facultad.deleteLocal(nombreEliminar.getText());
-                JOptionPane.showMessageDialog(null, "El local ha sido eliminado");
+                if (eliminarLocalCombo.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Por favor seleccione el nombre del local que desea eliminar");
+                }
+                facultad.deleteLocal(String.valueOf(eliminarLocalCombo.getSelectedItem()));
+                JOptionPane.showMessageDialog(null, "El local " + eliminarLocalCombo.getSelectedItem() + " ha sido eliminado");
+
+                refresh_local();
             }
         } catch (NoExisteException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        eliminar.setVisible(false);
-        jDialog1.pack();
-        jDialog1.setVisible(true);
-        refresh_local();
-        refresh_pc();
+
         limpiar();
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
@@ -2046,7 +2080,6 @@ public class Visual extends javax.swing.JFrame {
         } else {
             peorPorcCalcAprov.setText(String.valueOf(facultad.peorPorc()));
         }
-
     }//GEN-LAST:event_calcAprovechamientoActionPerformed
 
     private void calcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcActionPerformed
@@ -2085,7 +2118,6 @@ public class Visual extends javax.swing.JFrame {
 
         Estudiante estudiante = null;
         Profesor profesor = null;
-        int anno = Integer.parseInt(annoDocAddElemento.getText());
         String nombre = nombreAddElemento.getText();
         int solapin = Integer.parseInt(solapinAddElemento.getText());
         String nombreProy = nomProyecto.getText();
@@ -2107,13 +2139,14 @@ public class Visual extends javax.swing.JFrame {
                 if (annoDocAddElemento.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(addElemento, "Año docente es obligatorio", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
                 } else {
+                    int anno = Integer.parseInt(annoDocAddElemento.getText());
                     estudiante = new Estudiante(anno, nombre, solapin);
 
                     if (local != null) {
                         local.getBitacoraLocal().addElemento(estudiante, entrada, salida, fecha);
                         refresh_Bitacora(local);
                         JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
-                    } else {
+                    } else if (pc != null) {
                         pc.getBitacoraPc().addElemento(estudiante, entrada, salida, fecha);
                         refresh_Bitacora(pc);
                         JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
@@ -2131,7 +2164,7 @@ public class Visual extends javax.swing.JFrame {
                         local.getBitacoraLocal().addElemento(profesor, entrada, salida, fecha);
                         refresh_Bitacora(local);
                         JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
-                    } else {
+                    } else if (pc != null) {
                         pc.getBitacoraPc().addElemento(profesor, entrada, salida, fecha);
                         refresh_Bitacora(pc);
                         JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
@@ -2143,14 +2176,17 @@ public class Visual extends javax.swing.JFrame {
                 if (annoDocAddElemento.getText().isEmpty() || nomProyecto.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(addElemento, "Año docente y nombre de proyecto son obligatorios", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
                 } else {
+                    int anno = Integer.parseInt(annoDocAddElemento.getText());
                     estudiante = new EstudianteProy(nombreProy, anno, nombre, solapin);
 
                     if (local != null) {
                         local.getBitacoraLocal().addElemento(estudiante, entrada, salida, fecha);
                         refresh_Bitacora(local);
+                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
                     } else {
                         pc.getBitacoraPc().addElemento(estudiante, entrada, salida, fecha);
                         refresh_Bitacora(pc);
+                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
                     }
                 }
             }
@@ -2196,10 +2232,6 @@ public class Visual extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cantCompActionPerformed
 
-    private void numEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numEliminarActionPerformed
-
     private void nombreEstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEstanciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreEstanciaActionPerformed
@@ -2242,6 +2274,10 @@ public class Visual extends javax.swing.JFrame {
         disponiblePc.setText(String.valueOf(disponibles));
         rotasPc.setText(String.valueOf(rotas));
         totalPc.setText(String.valueOf(ocupadas + disponibles + rotas));
+        ocupPc.setEditable(false);
+        disponiblePc.setEditable(false);
+        rotasPc.setEditable(false);
+        totalPc.setEditable(false);
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void estProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estProyectoActionPerformed
@@ -2314,12 +2350,13 @@ public class Visual extends javax.swing.JFrame {
         facultadJD.setVisible(false);
         mejorUso.pack();
         mejorUso.setVisible(true);
+        jTextAreaMayorUso.setEditable(false);
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void buscarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton1ActionPerformed
         // TODO add your handling code here:
         jTextAreaMayorUso.setText(facultad.buscarPersona());
-       
+
     }//GEN-LAST:event_buscarButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -2329,6 +2366,10 @@ public class Visual extends javax.swing.JFrame {
         facultadJD.setVisible(true);
         limpiar();
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void peorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peorCalcAprovLocalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_peorCalcAprovLocalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2476,9 +2517,6 @@ public class Visual extends javax.swing.JFrame {
         numAddPc.setText("");
         tiempoUsoLocal.setText("");
         nombAddLocal.setText("");
-        nombreEliminar.setText("");
-        numEliminar.setText("");
-        nombreEliminar.setText("");
         mejorPorcCalcAprov.setText("");
         peorPorcCalcAprov.setText("");
         nombreEstancia.setText("");
@@ -2500,6 +2538,8 @@ public class Visual extends javax.swing.JFrame {
         nomProyecto.setText("");
         estadoAddPc.setSelectedIndex(-1);
         localAddPc.setSelectedIndex(-1);
+        eliminarLocalCombo.setSelectedIndex(-1);
+        eliminarPcCombo.setSelectedIndex(-1);
         mejorCalcAprovLocal.setSelected(false);
         peorCalcAprovLocal.setSelected(false);
         jCheckBoxTiempo.setSelected(false);
@@ -2560,6 +2600,8 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton elimCancelar;
     private javax.swing.JDialog eliminar;
     private javax.swing.JButton eliminarButton;
+    private javax.swing.JComboBox<String> eliminarLocalCombo;
+    private javax.swing.JComboBox<String> eliminarPcCombo;
     private javax.swing.JButton eliminarUsuario;
     private javax.swing.JTextField entraInput;
     private javax.swing.JLabel entrada;
@@ -2698,12 +2740,10 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JLabel nombEliminarLabel;
     private javax.swing.JTextField nombreAddElemento;
     private javax.swing.JTextField nombreDeleteElemento;
-    private javax.swing.JTextField nombreEliminar;
     private javax.swing.JTextField nombreEstancia;
     private javax.swing.JLabel nombreEstud;
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JFormattedTextField numAddPc;
-    private javax.swing.JFormattedTextField numEliminar;
     private javax.swing.JLabel numEliminarLabel;
     private javax.swing.JFormattedTextField numPcReporteRotura;
     private javax.swing.JTextField ocupPc;
