@@ -1399,6 +1399,7 @@ public class Visual extends javax.swing.JFrame {
 
         reporteRotura.getContentPane().add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
 
+        acercaDe.setResizable(false);
         acercaDe.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1463,6 +1464,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         acercaDe.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        buscarUsuario.setResizable(false);
         buscarUsuario.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1520,6 +1522,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         buscarUsuario.getContentPane().add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        mejorUso.setResizable(false);
         mejorUso.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1719,7 +1722,7 @@ public class Visual extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         for (String usuario : usuariosAgregados) {
             usuarioCombo.addItem(usuario);
         }
@@ -1749,21 +1752,14 @@ public class Visual extends javax.swing.JFrame {
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         // TODO add your handling code here:
-        if (new File("./datos.dat").isFile()) {
-            try {
-                facultad.cargarFacultad("./Datos.dat");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Archivo no encontrado");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (new File("./Datos.dat").isFile()) {
+            facultad.guardarFacultad("./Datos.dat");
+            JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
+            reporteRotura.setVisible(false);
+            PcRotas.pack();
+            PcRotas.setVisible(true);
+            limpiar();
         }
-
-        JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
-        reporteRotura.setVisible(false);
-        PcRotas.pack();
-        PcRotas.setVisible(true);
-        limpiar();
     }//GEN-LAST:event_exportarActionPerformed
 
     private void salirDialog1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirDialog1ActionPerformed
@@ -2494,7 +2490,7 @@ public class Visual extends javax.swing.JFrame {
 
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         // TODO add your handling code here:
-        if(usuarioCombo.getSelectedIndex() == 0){
+        if (usuarioCombo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe elegir un usuario", "error", JOptionPane.ERROR_MESSAGE);
         }
         jTextAreaUsuario.setText(facultad.buscarInfoPersona((String) usuarioCombo.getSelectedItem()));
