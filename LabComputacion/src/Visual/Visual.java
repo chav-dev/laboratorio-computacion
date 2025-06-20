@@ -232,7 +232,7 @@ public class Visual extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jButton25 = new javax.swing.JButton();
         agregarUsuario = new javax.swing.JButton();
-        annoDocAddElemento = new javax.swing.JFormattedTextField();
+        annoDocAddElemento = new javax.swing.JFormattedTextField(formato);
         annoDocente = new javax.swing.JLabel();
         solapinAddElemento = new javax.swing.JFormattedTextField(formato);
         solapinEstud = new javax.swing.JLabel();
@@ -288,9 +288,9 @@ public class Visual extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
-        numPcReporteRotura = new javax.swing.JFormattedTextField();
         jLabel57 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
+        numPcRotas = new javax.swing.JComboBox<>();
         jLabel55 = new javax.swing.JLabel();
         buttonGroup5 = new javax.swing.ButtonGroup();
         acercaDe = new javax.swing.JDialog();
@@ -1377,18 +1377,13 @@ public class Visual extends javax.swing.JFrame {
         jLabel58.setText("Descripción de la rotura:");
         jPanel14.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
 
+        jTextArea4.setBackground(new java.awt.Color(187, 211, 228));
         jTextArea4.setColumns(20);
+        jTextArea4.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea4.setRows(5);
         jScrollPane4.setViewportView(jTextArea4);
 
         jPanel14.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 360, -1));
-
-        numPcReporteRotura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numPcReporteRoturaActionPerformed(evt);
-            }
-        });
-        jPanel14.add(numPcReporteRotura, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 110, -1));
 
         jLabel57.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(255, 255, 255));
@@ -1400,6 +1395,11 @@ public class Visual extends javax.swing.JFrame {
         jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel56.setText("Reporte rotura");
         jPanel14.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 630, -1));
+
+        numPcRotas.setBackground(new java.awt.Color(187, 211, 228));
+        numPcRotas.setForeground(new java.awt.Color(0, 0, 0));
+        numPcRotas.setToolTipText("");
+        jPanel14.add(numPcRotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 70, -1));
 
         jLabel55.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         jPanel14.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
@@ -1720,18 +1720,15 @@ public class Visual extends javax.swing.JFrame {
         ArrayList<String> usuariosAgregados = new ArrayList<>();
         usuarioCombo.addItem("");
 
-        Object[] columnaDatos = obtenerColumna("Nombre");
+        for (int i = 0; i < facultad.getLocales().size(); i++) {
+            for (int j = 0; j < facultad.getLocales().get(i).getBitacoraLocal().getPersonas().size(); j++) {
+                String usuario = facultad.getLocales().get(i).getBitacoraLocal().getPersonas().get(j).getNombre();
 
-        if (columnaDatos != null) {
-            for (Object dato : columnaDatos) {
-                if (dato != null) {
-                    usuariosAgregados.add(dato.toString());
+                if (!usuariosAgregados.contains(usuario)) {
+                    usuarioCombo.addItem(usuario);
+                    usuariosAgregados.add(usuario);
                 }
             }
-        }
-
-        for (String usuario : usuariosAgregados) {
-            usuarioCombo.addItem(usuario);
         }
     }//GEN-LAST:event_jButton22ActionPerformed
 
@@ -1751,6 +1748,34 @@ public class Visual extends javax.swing.JFrame {
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         // TODO add your handling code here:
+        numPcRotas.removeAllItems();
+
+        List<String> numAgregados = new ArrayList<>();
+
+        for (int i = 0; i < facultad.getLocales().size(); i++) {
+            String nombLocal = facultad.getLocales().get(i).getNombre();
+
+            for (int j = 0; j < facultad.getLocales().get(i).getComputadoras().size(); j++) {
+                Computadora pc = facultad.getLocales().get(i).getComputadoras().get(j);
+
+                if (pc.getEstado().equalsIgnoreCase("Rota")) {
+                    String numeroPc = String.valueOf(pc.getNumero());
+                    numPcRotas.addItem(numeroPc);
+                }
+            }
+
+            // Agregar el nombre del local (sin duplicados) al otro comboBox
+            if (!numAgregados.contains(nombLocal)) {
+                localAddPc.addItem(nombLocal);
+                numAgregados.add(nombLocal);
+            }
+        }
+        
+        if(numAgregados.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No hay computadoras rotas", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         PcRotas.setVisible(false);
         reporteRotura.pack();
         reporteRotura.setVisible(true);
@@ -1758,10 +1783,15 @@ public class Visual extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
+        // TODO add your handling code here:
+        if (numPcRotas.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una de las computadoras", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         try {
-            // TODO add your handling code here:
             PrintWriter pw = new PrintWriter(new FileOutputStream(new File("reportes.txt"), true));
-            pw.append("Numero PC: " + numPcReporteRotura.getText());
+            pw.append("Numero PC: " + numPcRotas.getSelectedItem());
             pw.append("\n");
             pw.append("Reporte: " + jTextArea4.getText());
             pw.append("\n");
@@ -2118,6 +2148,8 @@ public class Visual extends javax.swing.JFrame {
             annoDocente.setVisible(false);
             perteneceLabel.setVisible(false);
             asigProfesor.setVisible(false);
+            entraInput.setEditable(false);
+            fechaInput.setEditable(false);
 
             selectPersona.removeAllItems();
             ArrayList<Persona> personas = pc.getLocal1().getBitacoraLocal().getPersonas();
@@ -2201,10 +2233,6 @@ public class Visual extends javax.swing.JFrame {
     private void nombreAddElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreAddElementoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreAddElementoActionPerformed
-
-    private void numPcReporteRoturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numPcReporteRoturaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numPcReporteRoturaActionPerformed
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
         // TODO add your handling code here:
@@ -2596,15 +2624,15 @@ public class Visual extends javax.swing.JFrame {
         ArrayList<String> entradas = local.getBitacoraLocal().getEntradas();
         ArrayList<String> salidas = local.getBitacoraLocal().getSalidas();
         ArrayList<String> fechas = local.getBitacoraLocal().getFechas();
-        
+
         for (int i = 0; i < registros.size(); i++) {
-            if(registros.get(i).getNombre().equals(personaName)){
+            if (registros.get(i).getNombre().equals(personaName)) {
                 entraInput.setText(entradas.get(i));
                 salidaInput.setText(salidas.get(i));
                 fechaInput.setText(fechas.get(i));
                 break;
             }
-            
+
         }
     }//GEN-LAST:event_selectPersonaActionPerformed
 
@@ -2792,13 +2820,13 @@ public class Visual extends javax.swing.JFrame {
         asignaturaAddElemento.setText("");
         nombreDeleteElemento.setText("");
         solapinDeleteElemento.setText("");
-        numPcReporteRotura.setText("");
         cantComp.setText("");
         nomProyecto.setText("");
         entraInput.setText("");
         salidaInput.setText("");
         fechaInput.setText("");
         jTextArea4.setText("");
+        numPcRotas.setSelectedIndex(-1);
         jTextAreaUsuario.setText("");
         jTextAreaMayorUso.setText("");
         usuarioCombo.setSelectedIndex(-1);
@@ -3009,7 +3037,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JFormattedTextField numAddPc;
     private javax.swing.JLabel numEliminarLabel;
-    private javax.swing.JFormattedTextField numPcReporteRotura;
+    private javax.swing.JComboBox<String> numPcRotas;
     private javax.swing.JTextField ocupPc;
     private javax.swing.JButton pcButton;
     private javax.swing.JRadioButton peorCalcAprovLocal;
