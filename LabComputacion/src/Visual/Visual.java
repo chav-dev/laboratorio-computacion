@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -122,7 +123,7 @@ public class Visual extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        numAddPc = new javax.swing.JFormattedTextField();
+        numAddPc = new javax.swing.JFormattedTextField(formato);
         jLabel7 = new javax.swing.JLabel();
         estadoAddPc = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
@@ -299,11 +300,11 @@ public class Visual extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
         nombreUsuario = new javax.swing.JLabel();
-        usuarioTextField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaUsuario = new javax.swing.JTextArea();
         buscarButton = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        usuarioCombo = new javax.swing.JComboBox<>();
         jLabel46 = new javax.swing.JLabel();
         mejorUso = new javax.swing.JDialog();
         jPanel17 = new javax.swing.JPanel();
@@ -1258,10 +1259,7 @@ public class Visual extends javax.swing.JFrame {
 
         tablaBitacora.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Entrada", "Salida", "Fecha"
@@ -1270,9 +1268,16 @@ public class Visual extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane6.setViewportView(tablaBitacora);
@@ -1394,6 +1399,7 @@ public class Visual extends javax.swing.JFrame {
 
         reporteRotura.getContentPane().add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
 
+        acercaDe.setResizable(false);
         acercaDe.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1458,6 +1464,7 @@ public class Visual extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         acercaDe.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        buscarUsuario.setResizable(false);
         buscarUsuario.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1472,16 +1479,12 @@ public class Visual extends javax.swing.JFrame {
         nombreUsuario.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
         nombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
         nombreUsuario.setText("Nombre:");
-        buscarUsuario.getContentPane().add(nombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
+        buscarUsuario.getContentPane().add(nombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, -1, -1));
 
-        usuarioTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioTextFieldActionPerformed(evt);
-            }
-        });
-        buscarUsuario.getContentPane().add(usuarioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 200, -1));
-
+        jTextAreaUsuario.setBackground(new java.awt.Color(187, 211, 228));
         jTextAreaUsuario.setColumns(20);
+        jTextAreaUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextAreaUsuario.setForeground(new java.awt.Color(0, 0, 0));
         jTextAreaUsuario.setRows(5);
         jScrollPane2.setViewportView(jTextAreaUsuario);
 
@@ -1507,9 +1510,19 @@ public class Visual extends javax.swing.JFrame {
         });
         buscarUsuario.getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, -1, -1));
 
+        usuarioCombo.setBackground(new java.awt.Color(187, 211, 228));
+        usuarioCombo.setForeground(new java.awt.Color(0, 0, 0));
+        usuarioCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioComboActionPerformed(evt);
+            }
+        });
+        buscarUsuario.getContentPane().add(usuarioCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 180, -1));
+
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         buscarUsuario.getContentPane().add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        mejorUso.setResizable(false);
         mejorUso.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1521,7 +1534,10 @@ public class Visual extends javax.swing.JFrame {
         jLabel52.setText("Mayor uso");
         mejorUso.getContentPane().add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 630, -1));
 
+        jTextAreaMayorUso.setBackground(new java.awt.Color(187, 211, 228));
         jTextAreaMayorUso.setColumns(20);
+        jTextAreaMayorUso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextAreaMayorUso.setForeground(new java.awt.Color(0, 0, 0));
         jTextAreaMayorUso.setRows(5);
         jScrollPane3.setViewportView(jTextAreaMayorUso);
 
@@ -1683,11 +1699,33 @@ public class Visual extends javax.swing.JFrame {
     }//GEN-LAST:event_ocupPcActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:*
+        if (tablaBitacora.getModel().getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No ha agregado ningun usuario", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         facultadJD.setVisible(false);
         buscarUsuario.pack();
         buscarUsuario.setVisible(true);
         jTextAreaUsuario.setEditable(false);
+
+        usuarioCombo.removeAllItems();
+        ArrayList<String> usuariosAgregados = new ArrayList<>();
+        usuarioCombo.addItem("");
+
+        Object[] columnaDatos = obtenerColumna("Nombre");
+
+        if (columnaDatos != null) {
+            for (Object dato : columnaDatos) {
+                if (dato != null) {
+                    usuariosAgregados.add(dato.toString());
+                }
+            }
+        }
+
+        for (String usuario : usuariosAgregados) {
+            usuarioCombo.addItem(usuario);
+        }
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void estudianteRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteRadioActionPerformed
@@ -1714,21 +1752,14 @@ public class Visual extends javax.swing.JFrame {
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         // TODO add your handling code here:
-        if (new File("./datos.dat").isFile()) {
-            try {
-                facultad.cargarFacultad("./Datos.dat");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Archivo no encontrado");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (new File("./Datos.dat").isFile()) {
+            facultad.guardarFacultad("./Datos.dat");
+            JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
+            reporteRotura.setVisible(false);
+            PcRotas.pack();
+            PcRotas.setVisible(true);
+            limpiar();
         }
-
-        JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
-        reporteRotura.setVisible(false);
-        PcRotas.pack();
-        PcRotas.setVisible(true);
-        limpiar();
     }//GEN-LAST:event_exportarActionPerformed
 
     private void salirDialog1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirDialog1ActionPerformed
@@ -1817,22 +1848,22 @@ public class Visual extends javax.swing.JFrame {
 
     private void calcularJDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularJDActionPerformed
         // TODO add your handling code here:
-        jDialog1.setVisible(false);
+        System.out.println(tablaBitacora.getModel().getRowCount());
+
         if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
+            if (tablaPrincipal.getModel().getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Debe agregar locales", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+
+            } else if (tablaBitacora.getModel().getRowCount() == 1) {
+                JOptionPane.showMessageDialog(null, "Debe agregar usuarios", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             calcAprovLocal.pack();
             calcAprovLocal.setVisible(true);
             mejorPorcCalcAprov.setEditable(false);
             peorPorcCalcAprov.setEditable(false);
         } else {
-            calcPc.pack();
-            calcPc.setVisible(true);
-            jRadioButtonEstancia.setForeground(Color.white);
-            jRadioButtonPorcAprov.setForeground(Color.white);
-            jRadioButtonTiempoUso.setForeground(Color.white);
-            _1CalcPc.setEditable(false);
-            _2CalcPc.setEditable(false);
-            _3CalcPc.setEditable(false);
-
             DefaultTableModel modelo = (DefaultTableModel) tablaPrincipal.getModel();
             int filaSeleccionada = tablaPrincipal.getSelectedRow();
 
@@ -1860,7 +1891,16 @@ public class Visual extends javax.swing.JFrame {
                     nombresAgregados.add(nombPersona);
                 }
             }
+            calcPc.pack();
+            calcPc.setVisible(true);
+            jRadioButtonEstancia.setForeground(Color.white);
+            jRadioButtonPorcAprov.setForeground(Color.white);
+            jRadioButtonTiempoUso.setForeground(Color.white);
+            _1CalcPc.setEditable(false);
+            _2CalcPc.setEditable(false);
+            _3CalcPc.setEditable(false);
         }
+        jDialog1.setVisible(false);
     }//GEN-LAST:event_calcularJDActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -2448,14 +2488,12 @@ public class Visual extends javax.swing.JFrame {
         acercaDe.setVisible(true);
     }//GEN-LAST:event_aCercaActionPerformed
 
-    private void usuarioTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioTextFieldActionPerformed
-        // TODO add your handling code here:
-        limpiar();
-    }//GEN-LAST:event_usuarioTextFieldActionPerformed
-
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         // TODO add your handling code here:
-        jTextAreaUsuario.setText(facultad.buscarInfoPersona(usuarioTextField.getText()));
+        if (usuarioCombo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe elegir un usuario", "error", JOptionPane.ERROR_MESSAGE);
+        }
+        jTextAreaUsuario.setText(facultad.buscarInfoPersona((String) usuarioCombo.getSelectedItem()));
     }//GEN-LAST:event_buscarButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -2476,7 +2514,6 @@ public class Visual extends javax.swing.JFrame {
     private void buscarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButton1ActionPerformed
         // TODO add your handling code here:
         jTextAreaMayorUso.setText(facultad.buscarPersona());
-
     }//GEN-LAST:event_buscarButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -2504,6 +2541,10 @@ public class Visual extends javax.swing.JFrame {
         nombreEstancia.setEnabled(false);
         tiempoUso.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonPorcAprovActionPerformed
+
+    private void usuarioComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuarioComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2647,6 +2688,29 @@ public class Visual extends javax.swing.JFrame {
         return null;
     }
 
+    private Object[] obtenerColumna(String nameColumna) {
+        DefaultTableModel model = (DefaultTableModel) tablaBitacora.getModel();
+
+        int index = -1;
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            if (model.getColumnName(i).equalsIgnoreCase(nameColumna)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            return new Object[0];
+        }
+
+        Object[] columna = new Object[model.getRowCount()];
+        for (int fila = 0; fila < model.getRowCount(); fila++) {
+            columna[fila] = model.getValueAt(fila, index);
+        }
+
+        return columna;
+    }
+
     private void limpiar() {
         numAddPc.setText("");
         tiempoUsoLocal.setText("");
@@ -2673,9 +2737,9 @@ public class Visual extends javax.swing.JFrame {
         salidaInput.setText("");
         fechaInput.setText("");
         jTextArea4.setText("");
-        usuarioTextField.setText("");
         jTextAreaUsuario.setText("");
         jTextAreaMayorUso.setText("");
+        usuarioCombo.setSelectedIndex(-1);
         estadoAddPc.setSelectedIndex(-1);
         localAddPc.setSelectedIndex(-1);
         nombreEstancia.setSelectedIndex(-1);
@@ -2911,6 +2975,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JLabel tituloLabel;
     private javax.swing.JLabel tituloUsuarios;
     private javax.swing.JTextField totalPc;
-    private javax.swing.JTextField usuarioTextField;
+    private javax.swing.JComboBox<String> usuarioCombo;
     // End of variables declaration//GEN-END:variables
 }
