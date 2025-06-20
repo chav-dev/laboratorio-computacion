@@ -48,7 +48,9 @@ public class Visual extends javax.swing.JFrame {
         locales = new ArrayList<>();
 
         model_local = new DefaultTableModel() {
-            public boolean celdaEditable(int fila, int columna) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
                 return false;
             }
         };
@@ -59,7 +61,9 @@ public class Visual extends javax.swing.JFrame {
         model_local.addColumn("Cantidad de Computadoras");
 
         model_pc = new DefaultTableModel() {
-            public boolean celdaEditable(int fila, int columna) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
                 return false;
             }
         };
@@ -69,7 +73,9 @@ public class Visual extends javax.swing.JFrame {
         model_pc.addColumn("Local");
 
         model_bitacora = new DefaultTableModel() {
-            public boolean celdaEditable(int fila, int columna) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
                 return false;
             }
         };
@@ -80,7 +86,9 @@ public class Visual extends javax.swing.JFrame {
         model_bitacora.addColumn("Fecha");
 
         model_pcRotas = new DefaultTableModel() {
-            public boolean celdaEditable(int fila, int columna) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
                 return false;
             }
         };
@@ -1140,6 +1148,11 @@ public class Visual extends javax.swing.JFrame {
         jPanel10.add(salida, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 70, -1));
 
         selectPersona.setForeground(new java.awt.Color(187, 211, 228));
+        selectPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectPersonaActionPerformed(evt);
+            }
+        });
         jPanel10.add(selectPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, -1));
 
         salidaInput.setBackground(new java.awt.Color(187, 211, 228));
@@ -1747,25 +1760,17 @@ public class Visual extends javax.swing.JFrame {
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         try {
             // TODO add your handling code here:
-            PrintWriter pw = new PrintWriter(new FileOutputStream(new File("reportes.txt"),true));
-            pw.append("Numero PC: "+numPcReporteRotura.getText());
+            PrintWriter pw = new PrintWriter(new FileOutputStream(new File("reportes.txt"), true));
+            pw.append("Numero PC: " + numPcReporteRotura.getText());
             pw.append("\n");
-            pw.append("Reporte: "+jTextArea4.getText());
+            pw.append("Reporte: " + jTextArea4.getText());
             pw.append("\n");
             pw.close();
+            JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico y almacenado en reportes.txt");
             reporteRotura.setVisible(false);
             PcRotas.pack();
             PcRotas.setVisible(true);
             limpiar();
-            /*
-            if (new File("./Datos.dat").isFile()) {
-            facultad.guardarFacultad("./Datos.dat");
-            JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
-            reporteRotura.setVisible(false);
-            PcRotas.pack();
-            PcRotas.setVisible(true);
-            limpiar();
-            }*/
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "No se encontró el archivo y fue imposible crearlo", "Error de escritura", JOptionPane.ERROR_MESSAGE);
             //Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
@@ -1858,15 +1863,15 @@ public class Visual extends javax.swing.JFrame {
 
     private void calcularJDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularJDActionPerformed
         // TODO add your handling code here:
-        System.out.println(tablaBitacora.getModel().getRowCount());
+
+        if (tablaBitacora.getModel().getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe agregar usuarios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (tituloLabel.getText().equalsIgnoreCase("Locales")) {
             if (tablaPrincipal.getModel().getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Debe agregar locales", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-
-            } else if (tablaBitacora.getModel().getRowCount() == 1) {
-                JOptionPane.showMessageDialog(null, "Debe agregar usuarios", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             calcAprovLocal.pack();
@@ -2048,6 +2053,28 @@ public class Visual extends javax.swing.JFrame {
         if (tituloUsuarios.getText().contains("local")) {
             local = encontrarLocal(valor[valor.length - 1]);
             tipoLocal = local.getLabor();
+            nombreEstud.setText("Persona");
+            selectPersona.setVisible(false);
+            nombreAddElemento.setVisible(true);
+            profesorRadio.setVisible(true);
+            annoDocAddElemento.setVisible(true);
+            nomProyecto.setVisible(true);
+            estudianteRadio.setVisible(true);
+            estProyecto.setVisible(true);
+            estudianteRadio.setVisible(true);
+            estProyecto.setVisible(true);
+            nomProyecto.setVisible(true);
+            asignaturaAddElemento.setVisible(true);
+            profesorRadio.setVisible(true);
+            estProyecto.setVisible(true);
+            asignaturaAddElemento.setVisible(true);
+            estudianteRadio.setVisible(true);
+            profesorRadio.setVisible(true);
+            solapinAddElemento.setVisible(true);
+            solapinEstud.setVisible(true);
+            annoDocente.setVisible(true);
+            perteneceLabel.setVisible(true);
+            asigProfesor.setVisible(true);
             if (tipoLocal.equals("Colectivo de Investigación")) {
                 profesorRadio.setEnabled(true);
                 annoDocAddElemento.setEnabled(false);
@@ -2067,6 +2094,7 @@ public class Visual extends javax.swing.JFrame {
                 profesorRadio.setEnabled(false);
             }
         } else {
+            selectPersona.setVisible(true);
             pc = encontrarPc(Integer.parseInt(valor[valor.length - 1]));
             tipoLocal = pc.getLocal1().getLabor();
             nombreEstud.setText("Persona");
@@ -2537,24 +2565,48 @@ public class Visual extends javax.swing.JFrame {
     private void jRadioButtonTiempoUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTiempoUsoActionPerformed
         // TODO add your handling code here:
         nombreEstancia.setEnabled(false);
-       
+
     }//GEN-LAST:event_jRadioButtonTiempoUsoActionPerformed
 
     private void jRadioButtonEstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstanciaActionPerformed
         // TODO add your handling code here:
         nombreEstancia.setEnabled(true);
-        
+
     }//GEN-LAST:event_jRadioButtonEstanciaActionPerformed
 
     private void jRadioButtonPorcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPorcAprovActionPerformed
         // TODO add your handling code here:
         nombreEstancia.setEnabled(false);
-        
+
     }//GEN-LAST:event_jRadioButtonPorcAprovActionPerformed
 
     private void usuarioComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usuarioComboActionPerformed
+
+    private void selectPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPersonaActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tablaPrincipal.getModel();
+        int fila = tablaPrincipal.getSelectedRow();
+        int numPc = (int) model.getValueAt(fila, 0);
+        String personaName = (String) selectPersona.getSelectedItem();
+        Computadora pc = encontrarPc(numPc);
+        Local local = pc.getLocal1();
+        ArrayList<Persona> registros = local.getBitacoraLocal().getPersonas();
+        ArrayList<String> entradas = local.getBitacoraLocal().getEntradas();
+        ArrayList<String> salidas = local.getBitacoraLocal().getSalidas();
+        ArrayList<String> fechas = local.getBitacoraLocal().getFechas();
+        
+        for (int i = 0; i < registros.size(); i++) {
+            if(registros.get(i).getNombre().equals(personaName)){
+                entraInput.setText(entradas.get(i));
+                salidaInput.setText(salidas.get(i));
+                fechaInput.setText(fechas.get(i));
+                break;
+            }
+            
+        }
+    }//GEN-LAST:event_selectPersonaActionPerformed
 
     /**
      * @param args the command line arguments
