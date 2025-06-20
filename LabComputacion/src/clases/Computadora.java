@@ -107,4 +107,14 @@ public class Computadora implements Serializable{
     public void setBitacoraPc(Bitacora bitacoraPc) {
         this.bitacoraPc = bitacoraPc;
     }
+
+    public Local getLocal1() {
+        return local1;
+    }
+
+    public void setLocal1(Local local1) {
+        this.local1 = local1;
+    }
+    
+    
 }
