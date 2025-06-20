@@ -14,7 +14,10 @@ import excepciones.ExisteException;
 import excepciones.NoExisteException;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -192,8 +195,6 @@ public class Visual extends javax.swing.JFrame {
         jRadioButtonEstancia = new javax.swing.JRadioButton();
         jRadioButtonPorcAprov = new javax.swing.JRadioButton();
         nombreEstancia = new javax.swing.JComboBox<>();
-        tiempoLabel = new javax.swing.JLabel();
-        tiempoUso = new javax.swing.JFormattedTextField();
         jLabel19 = new javax.swing.JLabel();
         buttonGroupCalcPc = new javax.swing.ButtonGroup();
         listaPc = new javax.swing.JDialog();
@@ -394,16 +395,7 @@ public class Visual extends javax.swing.JFrame {
 
         tablaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Tiempo de Uso", "Tipo", "Cantidad de Computadoras"
@@ -412,9 +404,16 @@ public class Visual extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaPrincipal.getColumnModel().getColumn(2).setPreferredWidth(15);
@@ -850,16 +849,6 @@ public class Visual extends javax.swing.JFrame {
         nombreEstancia.setBackground(new java.awt.Color(187, 211, 228));
         nombreEstancia.setForeground(new java.awt.Color(0, 0, 0));
         jPanel6.add(nombreEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 130, -1));
-
-        tiempoLabel.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        tiempoLabel.setForeground(new java.awt.Color(255, 255, 255));
-        tiempoLabel.setText("Tiempo Uso Local:");
-        jPanel6.add(tiempoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, 20));
-
-        tiempoUso.setBackground(new java.awt.Color(187, 211, 228));
-        tiempoUso.setForeground(new java.awt.Color(0, 0, 0));
-        tiempoUso.setEnabled(false);
-        jPanel6.add(tiempoUso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 130, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pant1.jpg"))); // NOI18N
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -40, 660, 410));
@@ -1322,15 +1311,20 @@ public class Visual extends javax.swing.JFrame {
 
         tablaPcRotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaPcRotas);
 
         jPanel13.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 180, 140));
@@ -1751,14 +1745,30 @@ public class Visual extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
-        // TODO add your handling code here:
-        if (new File("./Datos.dat").isFile()) {
+        try {
+            // TODO add your handling code here:
+            PrintWriter pw = new PrintWriter(new FileOutputStream(new File("reportes.txt"),true));
+            pw.append("Numero PC: "+numPcReporteRotura.getText());
+            pw.append("\n");
+            pw.append("Reporte: "+jTextArea4.getText());
+            pw.append("\n");
+            pw.close();
+            reporteRotura.setVisible(false);
+            PcRotas.pack();
+            PcRotas.setVisible(true);
+            limpiar();
+            /*
+            if (new File("./Datos.dat").isFile()) {
             facultad.guardarFacultad("./Datos.dat");
             JOptionPane.showMessageDialog(null, "Reporte enviado con éxito a Soporte Técnico");
             reporteRotura.setVisible(false);
             PcRotas.pack();
             PcRotas.setVisible(true);
             limpiar();
+            }*/
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontró el archivo y fue imposible crearlo", "Error de escritura", JOptionPane.ERROR_MESSAGE);
+            //Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_exportarActionPerformed
 
@@ -2235,7 +2245,7 @@ public class Visual extends javax.swing.JFrame {
             _2CalcPc.setText(String.valueOf((int) pc.getBitacoraPc().calcTiempoPersona(persona)));
 
         } else if (jRadioButtonPorcAprov.isSelected()) {
-            int tiempo = Integer.parseInt(tiempoUso.getText());
+            int tiempo = pc.getLocal1().getTiempoUso();
             if (tiempo == 0) {
                 JOptionPane.showMessageDialog(null, "Ingrese el tiempo de uso del local", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -2527,19 +2537,19 @@ public class Visual extends javax.swing.JFrame {
     private void jRadioButtonTiempoUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTiempoUsoActionPerformed
         // TODO add your handling code here:
         nombreEstancia.setEnabled(false);
-        tiempoUso.setEnabled(false);
+       
     }//GEN-LAST:event_jRadioButtonTiempoUsoActionPerformed
 
     private void jRadioButtonEstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstanciaActionPerformed
         // TODO add your handling code here:
         nombreEstancia.setEnabled(true);
-        tiempoUso.setEnabled(false);
+        
     }//GEN-LAST:event_jRadioButtonEstanciaActionPerformed
 
     private void jRadioButtonPorcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPorcAprovActionPerformed
         // TODO add your handling code here:
         nombreEstancia.setEnabled(false);
-        tiempoUso.setEnabled(true);
+        
     }//GEN-LAST:event_jRadioButtonPorcAprovActionPerformed
 
     private void usuarioComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioComboActionPerformed
@@ -2968,8 +2978,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JTable tablaBitacora;
     private javax.swing.JTable tablaPcRotas;
     private javax.swing.JTable tablaPrincipal;
-    private javax.swing.JLabel tiempoLabel;
-    private javax.swing.JFormattedTextField tiempoUso;
     private javax.swing.JLabel tiempoUsoLabel;
     private javax.swing.JFormattedTextField tiempoUsoLocal;
     private javax.swing.JLabel tituloLabel;
