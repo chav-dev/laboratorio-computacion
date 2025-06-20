@@ -154,7 +154,7 @@ public class Facultad implements Serializable {
 
         // Manejar persona no encontrada
         if (!enc) {
-            info.append("La persona '").append(nombre).append("' no fue encontrada en ningún local.");
+            info.append("La persona ").append(nombre).append(" no fue encontrada en ningún local.");
         }
 
         return info.toString();
@@ -200,7 +200,9 @@ public class Facultad implements Serializable {
             }
         }
 
-        return "Nombre de la persona: " + persona + " Tiempo: " + mejorTiempo + " Locales: " + finalLocal + "\n";
+        return "Nombre de la persona: " + persona + 
+                "\nTiempo: " + mejorTiempo + " horas" + 
+                "\nLocales: " + finalLocal + "\n";
     }
 
     /**
