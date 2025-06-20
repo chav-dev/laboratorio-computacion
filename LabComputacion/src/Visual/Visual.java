@@ -1770,12 +1770,12 @@ public class Visual extends javax.swing.JFrame {
                 numAgregados.add(nombLocal);
             }
         }
-        
-        if(numAgregados.isEmpty()){
+
+        if (numAgregados.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay computadoras rotas", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         PcRotas.setVisible(false);
         reporteRotura.pack();
         reporteRotura.setVisible(true);
@@ -1788,7 +1788,11 @@ public class Visual extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una de las computadoras", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
+        if (jTextArea4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe agregar una breve descripcion de la rotura", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(new File("reportes.txt"), true));
             pw.append("Numero PC: " + numPcRotas.getSelectedItem());
@@ -1803,7 +1807,6 @@ public class Visual extends javax.swing.JFrame {
             limpiar();
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "No se encontró el archivo y fue imposible crearlo", "Error de escritura", JOptionPane.ERROR_MESSAGE);
-            //Logger.getLogger(Visual.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_exportarActionPerformed
 
