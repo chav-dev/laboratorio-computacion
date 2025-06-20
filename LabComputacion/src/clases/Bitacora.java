@@ -111,7 +111,7 @@ public class Bitacora implements Serializable{
     }
 
     /**
-     * Calcula el tiempo total acumulado de todos los locales
+     * Calcula el tiempo total acumulado de un local o de una computadora
      *
      * @return Sumatoria de tiempos de uso en horas decimales
      */
@@ -158,37 +158,41 @@ public class Bitacora implements Serializable{
         String restoEntrada = entrada.substring(posEntrada + 1);
         double minEntrada = Double.parseDouble(restoEntrada.substring(0, restoEntrada.length() - 2)) / 60.0;
         double totalEntrada = horaEntrada + minEntrada;
-
+        
         //Procesar la hora de fin
         int posSalida = salida.indexOf(':');
         double horaSalida = Double.parseDouble(salida.substring(0, posSalida));
         String restoSalida = salida.substring(posSalida + 1);
         double minSalida = Double.parseDouble(restoSalida.substring(0, restoSalida.length() - 2)) / 60.0;
         double totalSalida = horaSalida + minSalida;
-
+        
         //Convertir la hora de entrada a formato 24 horas
         if (restoEntrada.toLowerCase().endsWith("pm")) {
             if (horaEntrada != 12) {
                 totalEntrada += 12;
-            } else {
-                totalEntrada = minEntrada;
+            } else if(restoEntrada.toLowerCase().endsWith("am")){
+                if(horaEntrada == 12){
+                    totalEntrada = 0 + minEntrada;
+                }
             }
         }
-
+        
         //Convertir la hora de salida a formato 24 horas
         if (restoSalida.toLowerCase().endsWith("pm")) {
             if (horaSalida != 12) {
                 totalSalida += 12;
-            } else {
-                totalSalida = minSalida;
+            } else if(restoSalida.toLowerCase().endsWith("am")){
+                if(horaSalida == 12){
+                    totalSalida = 0 + minSalida;
+                }
             }
         }
-
+        
         // Si la hora de fin es menor que la de inicio, se asume que es del día siguiente
         if (totalSalida < totalEntrada) {
             totalSalida += 24.0;
         }
-
+        
         return totalSalida - totalEntrada;
     }
 
@@ -199,7 +203,10 @@ public class Bitacora implements Serializable{
      * @return Porcentaje calculado
      */
     public double calcPorcAprov(int tiempoUso) {
-        return (calcTiempoUso() * 100.0) / (double) tiempoUso;
+        if(tiempoUso <= 0){
+            return 0;
+        }
+        return calcTiempoUso() * 100 / tiempoUso;
     }
 
     /**

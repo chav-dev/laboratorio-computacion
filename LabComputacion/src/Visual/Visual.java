@@ -8,12 +8,14 @@ import clases.LabDoc;
 import clases.LabProy;
 import clases.Local;
 import clases.LocalColectInvest;
-import clases.LocalLab;
+import clases.Persona;
 import clases.Profesor;
 import excepciones.ExisteException;
 import excepciones.NoExisteException;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -34,6 +37,7 @@ public class Visual extends javax.swing.JFrame {
      * Creates new form Visual
      */
     public Visual() {
+        this.setTitle("Laboratorio de Computacion");
         facultad = new Facultad();
         local = new LocalColectInvest();
 
@@ -82,6 +86,14 @@ public class Visual extends javax.swing.JFrame {
         formato = NumberFormat.getInstance();
         formato.setGroupingUsed(false);
 
+        formatoHora = new SimpleDateFormat("hh:mm a");
+        formatoHora.setDateFormatSymbols(new DateFormatSymbols() {
+            @Override
+            public String[] getAmPmStrings() {
+                return new String[]{"am", "pm"};
+            }
+        });
+        formatoFecha = new SimpleDateFormat("dd/mm/yyyy");
         initComponents();
 
     }
@@ -155,10 +167,11 @@ public class Visual extends javax.swing.JFrame {
         peorPorcCalcAprov = new javax.swing.JTextField();
         jButton16 = new javax.swing.JButton();
         calcAprovechamiento = new javax.swing.JButton();
-        peorCalcAprovLocal = new javax.swing.JCheckBox();
-        mejorCalcAprovLocal = new javax.swing.JCheckBox();
         jLabel31 = new javax.swing.JLabel();
+        mejorCalcAprovLocal = new javax.swing.JRadioButton();
+        peorCalcAprovLocal = new javax.swing.JRadioButton();
         jLabel30 = new javax.swing.JLabel();
+        buttonGroupCalcAprov = new javax.swing.ButtonGroup();
         calcPc = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
@@ -173,12 +186,15 @@ public class Visual extends javax.swing.JFrame {
         _2CalcPc = new javax.swing.JTextField();
         _1CalcPc = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jCheckBoxPorciento = new javax.swing.JCheckBox();
-        nombreEstancia = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jCheckBoxEstancia = new javax.swing.JCheckBox();
-        jCheckBoxTiempo = new javax.swing.JCheckBox();
+        jRadioButtonTiempoUso = new javax.swing.JRadioButton();
+        jRadioButtonEstancia = new javax.swing.JRadioButton();
+        jRadioButtonPorcAprov = new javax.swing.JRadioButton();
+        nombreEstancia = new javax.swing.JComboBox<>();
+        tiempoLabel = new javax.swing.JLabel();
+        tiempoUso = new javax.swing.JFormattedTextField();
         jLabel19 = new javax.swing.JLabel();
+        buttonGroupCalcPc = new javax.swing.ButtonGroup();
         listaPc = new javax.swing.JDialog();
         jPanel8 = new javax.swing.JPanel();
         rotasPc = new javax.swing.JTextField();
@@ -223,9 +239,10 @@ public class Visual extends javax.swing.JFrame {
         estProyecto = new javax.swing.JRadioButton();
         nomProyecto = new javax.swing.JFormattedTextField();
         salida = new javax.swing.JLabel();
-        entraInput = new javax.swing.JTextField();
-        salidaInput = new javax.swing.JTextField();
-        fechaInput = new javax.swing.JTextField();
+        selectPersona = new javax.swing.JComboBox<>();
+        salidaInput = new javax.swing.JFormattedTextField(formatoHora);
+        fechaInput = new javax.swing.JFormattedTextField(formatoFecha);
+        entraInput = new javax.swing.JFormattedTextField(formatoHora);
         jLabel40 = new javax.swing.JLabel();
         buttonGroup4 = new javax.swing.ButtonGroup();
         deleteElemento = new javax.swing.JDialog();
@@ -651,7 +668,6 @@ public class Visual extends javax.swing.JFrame {
 
         eliminarLocalCombo.setBackground(new java.awt.Color(187, 211, 228));
         eliminarLocalCombo.setForeground(new java.awt.Color(0, 0, 0));
-        eliminarLocalCombo.setSelectedIndex(-1);
         jPanel4.add(eliminarLocalCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 120, -1));
 
         eliminarPcCombo.setBackground(new java.awt.Color(187, 211, 228));
@@ -704,31 +720,21 @@ public class Visual extends javax.swing.JFrame {
         });
         jPanel5.add(calcAprovechamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
-        peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        peorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
-        peorCalcAprovLocal.setText("Peor porcentaje");
-        peorCalcAprovLocal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                peorCalcAprovLocalActionPerformed(evt);
-            }
-        });
-        jPanel5.add(peorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
-
-        mejorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
-        mejorCalcAprovLocal.setForeground(new java.awt.Color(255, 255, 255));
-        mejorCalcAprovLocal.setText("Mejor porcentaje");
-        mejorCalcAprovLocal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mejorCalcAprovLocalActionPerformed(evt);
-            }
-        });
-        jPanel5.add(mejorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
-
         jLabel31.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setText("Calcular  aprovechamiento");
         jPanel5.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 30, 620, -1));
+
+        buttonGroupCalcAprov.add(mejorCalcAprovLocal);
+        mejorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        mejorCalcAprovLocal.setText("Mejor porcentaje");
+        jPanel5.add(mejorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+
+        buttonGroupCalcAprov.add(peorCalcAprovLocal);
+        peorCalcAprovLocal.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        peorCalcAprovLocal.setText("Peor porcentaje");
+        jPanel5.add(peorCalcAprovLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pant1.jpg"))); // NOI18N
         jPanel5.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, -10, 670, 330));
@@ -791,13 +797,13 @@ public class Visual extends javax.swing.JFrame {
         jPanel6.add(calc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
         _3CalcPc.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(_3CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
+        jPanel6.add(_3CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, 68, 26));
 
         _2CalcPc.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(_2CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
+        jPanel6.add(_2CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 68, 26));
 
         _1CalcPc.setBackground(new java.awt.Color(187, 211, 228));
-        jPanel6.add(_1CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, -1));
+        jPanel6.add(_1CalcPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 68, 26));
 
         jLabel21.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -805,33 +811,54 @@ public class Visual extends javax.swing.JFrame {
         jLabel21.setText("Calcular computadora");
         jPanel6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 40, 580, -1));
 
-        jCheckBoxPorciento.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBoxPorciento.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxPorciento.setText("Porciento de aprovechamiento");
-        jPanel6.add(jCheckBoxPorciento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
-
-        nombreEstancia.setBackground(new java.awt.Color(187, 211, 228));
-        nombreEstancia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreEstanciaActionPerformed(evt);
-            }
-        });
-        jPanel6.add(nombreEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 130, -1));
-
         jLabel20.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Nombre:");
-        jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 20));
+        jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, 30));
 
-        jCheckBoxEstancia.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBoxEstancia.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxEstancia.setText("Estancia");
-        jPanel6.add(jCheckBoxEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 40));
+        buttonGroupCalcPc.add(jRadioButtonTiempoUso);
+        jRadioButtonTiempoUso.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButtonTiempoUso.setText("Tiempo de uso");
+        jRadioButtonTiempoUso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTiempoUsoActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jRadioButtonTiempoUso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 101, -1, 30));
 
-        jCheckBoxTiempo.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
-        jCheckBoxTiempo.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBoxTiempo.setText("Tiempo de uso");
-        jPanel6.add(jCheckBoxTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 30));
+        buttonGroupCalcPc.add(jRadioButtonEstancia);
+        jRadioButtonEstancia.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButtonEstancia.setText("Estancia");
+        jRadioButtonEstancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEstanciaActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jRadioButtonEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+
+        buttonGroupCalcPc.add(jRadioButtonPorcAprov);
+        jRadioButtonPorcAprov.setFont(new java.awt.Font("Bodoni MT", 0, 18)); // NOI18N
+        jRadioButtonPorcAprov.setText("Porciento de aprovechamiento");
+        jRadioButtonPorcAprov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPorcAprovActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jRadioButtonPorcAprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        nombreEstancia.setBackground(new java.awt.Color(187, 211, 228));
+        nombreEstancia.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel6.add(nombreEstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 130, -1));
+
+        tiempoLabel.setFont(new java.awt.Font("Bodoni MT", 0, 14)); // NOI18N
+        tiempoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        tiempoLabel.setText("Tiempo Uso Local:");
+        jPanel6.add(tiempoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, 20));
+
+        tiempoUso.setBackground(new java.awt.Color(187, 211, 228));
+        tiempoUso.setForeground(new java.awt.Color(0, 0, 0));
+        tiempoUso.setEnabled(false);
+        jPanel6.add(tiempoUso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 130, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pant1.jpg"))); // NOI18N
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -40, 660, 410));
@@ -1122,19 +1149,20 @@ public class Visual extends javax.swing.JFrame {
         salida.setText("Salida:");
         jPanel10.add(salida, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 70, -1));
 
-        entraInput.setBackground(new java.awt.Color(187, 211, 228));
-        entraInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                entraInputActionPerformed(evt);
-            }
-        });
-        jPanel10.add(entraInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 110, -1));
+        selectPersona.setForeground(new java.awt.Color(187, 211, 228));
+        jPanel10.add(selectPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, -1));
 
         salidaInput.setBackground(new java.awt.Color(187, 211, 228));
+        salidaInput.setForeground(new java.awt.Color(0, 0, 0));
         jPanel10.add(salidaInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 110, -1));
 
         fechaInput.setBackground(new java.awt.Color(187, 211, 228));
+        fechaInput.setForeground(new java.awt.Color(0, 0, 0));
         jPanel10.add(fechaInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 110, -1));
+
+        entraInput.setBackground(new java.awt.Color(187, 211, 228));
+        entraInput.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel10.add(entraInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 110, -1));
 
         jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sola.jpg"))); // NOI18N
         jPanel10.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
@@ -1642,10 +1670,6 @@ public class Visual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_labAddLocalActionPerformed
 
-    private void mejorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorCalcAprovLocalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mejorCalcAprovLocalActionPerformed
-
     private void peorPorcCalcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peorPorcCalcAprovActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_peorPorcCalcAprovActionPerformed
@@ -1802,9 +1826,40 @@ public class Visual extends javax.swing.JFrame {
         } else {
             calcPc.pack();
             calcPc.setVisible(true);
+            jRadioButtonEstancia.setForeground(Color.white);
+            jRadioButtonPorcAprov.setForeground(Color.white);
+            jRadioButtonTiempoUso.setForeground(Color.white);
             _1CalcPc.setEditable(false);
             _2CalcPc.setEditable(false);
             _3CalcPc.setEditable(false);
+
+            DefaultTableModel modelo = (DefaultTableModel) tablaPrincipal.getModel();
+            int filaSeleccionada = tablaPrincipal.getSelectedRow();
+
+            if (filaSeleccionada < 0) {
+                JOptionPane.showMessageDialog(this, "Seleccione una fila primero", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int numero = Integer.parseInt(String.valueOf(modelo.getValueAt(filaSeleccionada, 0)));
+            Computadora pc = encontrarPc(numero);
+
+            if (pc == null) {
+                JOptionPane.showMessageDialog(this, "Computadora no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            nombreEstancia.removeAllItems();
+            nombreEstancia.addItem("");
+            ArrayList<String> nombresAgregados = new ArrayList<>();
+
+            for (int i = 0; i < pc.getBitacoraPc().getPersonas().size(); i++) {
+                String nombPersona = String.valueOf(pc.getBitacoraPc().getPersonas().get(i).getNombre());
+                if (!nombresAgregados.contains(nombPersona)) {
+                    nombreEstancia.addItem(nombPersona);
+                    nombresAgregados.add(nombPersona);
+                }
+            }
         }
     }//GEN-LAST:event_calcularJDActionPerformed
 
@@ -1859,6 +1914,12 @@ public class Visual extends javax.swing.JFrame {
         String nombreLocal = nombAddLocal.getText();
         int tiempoUso = Integer.parseInt(tiempoUsoLocal.getText());
         int cantPc = Integer.parseInt(cantComp.getText());
+
+        if (tiempoUso < 0) {
+            JOptionPane.showMessageDialog(null, "Error en el tiempo de uso", "Error", JOptionPane.ERROR_MESSAGE);
+            tiempoUsoLocal.setText("");
+            return;
+        }
 
         Local local;
         if (!investigAddLocal.isSelected() && !labAddLocal.isSelected()) {
@@ -1937,28 +1998,56 @@ public class Visual extends javax.swing.JFrame {
         if (tituloUsuarios.getText().contains("local")) {
             local = encontrarLocal(valor[valor.length - 1]);
             tipoLocal = local.getLabor();
+            if (tipoLocal.equals("Colectivo de Investigación")) {
+                profesorRadio.setEnabled(true);
+                annoDocAddElemento.setEnabled(false);
+                nomProyecto.setEnabled(false);
+                estudianteRadio.setEnabled(false);
+                estProyecto.setEnabled(false);
+            } else if (tipoLocal.equals("Laboratorio Docente")) {
+                estudianteRadio.setEnabled(true);
+                estProyecto.setEnabled(true);
+                nomProyecto.setEnabled(false);
+                asignaturaAddElemento.setEnabled(false);
+                profesorRadio.setEnabled(false);
+            } else if (tipoLocal.equals("Laboratorio de Proyecto")) {
+                estProyecto.setEnabled(true);
+                asignaturaAddElemento.setEnabled(false);
+                estudianteRadio.setEnabled(false);
+                profesorRadio.setEnabled(false);
+            }
         } else {
             pc = encontrarPc(Integer.parseInt(valor[valor.length - 1]));
-            tipoLocal = "computadora";
-        }
+            tipoLocal = pc.getLocal1().getLabor();
+            nombreEstud.setText("Persona");
+            nombreAddElemento.setVisible(false);
+            profesorRadio.setVisible(false);
+            annoDocAddElemento.setVisible(false);
+            nomProyecto.setVisible(false);
+            estudianteRadio.setVisible(false);
+            estProyecto.setVisible(false);
+            estudianteRadio.setVisible(false);
+            estProyecto.setVisible(false);
+            nomProyecto.setVisible(false);
+            asignaturaAddElemento.setVisible(false);
+            profesorRadio.setVisible(false);
+            estProyecto.setVisible(false);
+            asignaturaAddElemento.setVisible(false);
+            estudianteRadio.setVisible(false);
+            profesorRadio.setVisible(false);
+            solapinAddElemento.setVisible(false);
+            solapinEstud.setVisible(false);
+            annoDocente.setVisible(false);
+            perteneceLabel.setVisible(false);
+            asigProfesor.setVisible(false);
 
-        if (tipoLocal.equals("Colectivo de Investigación")) {
-            profesorRadio.setEnabled(true);
-            annoDocAddElemento.setEnabled(false);
-            nomProyecto.setEnabled(false);
-            estudianteRadio.setEnabled(false);
-            estProyecto.setEnabled(false);
-        } else if (tipoLocal.equals("Laboratorio Docente")) {
-            estudianteRadio.setEnabled(true);
-            estProyecto.setEnabled(true);
-            nomProyecto.setEnabled(false);
-            asignaturaAddElemento.setEnabled(false);
-            profesorRadio.setEnabled(false);
-        } else if (tipoLocal.equals("Laboratorio de Proyecto")) {
-            estProyecto.setEnabled(true);
-            asignaturaAddElemento.setEnabled(false);
-            estudianteRadio.setEnabled(false);
-            profesorRadio.setEnabled(false);
+            selectPersona.removeAllItems();
+            ArrayList<Persona> personas = pc.getLocal1().getBitacoraLocal().getPersonas();
+            selectPersona.addItem("");
+
+            for (int i = 0; i < personas.size(); i++) {
+                selectPersona.addItem(personas.get(i).getNombre());
+            }
         }
 
         if (tituloUsuarios.getText().contains("local")) {
@@ -2084,17 +2173,37 @@ public class Visual extends javax.swing.JFrame {
 
     private void calcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcActionPerformed
         // TODO add your handling code here:
-        if (jCheckBoxTiempo.isSelected()) {
-            nombreEstancia.setEnabled(false);
-            _1CalcPc.setText(String.valueOf(local.getBitacoraLocal().calcTiempoUso()));
-        } else if (jCheckBoxEstancia.isSelected()) {
-            nombreEstancia.setEnabled(true);
-            _2CalcPc.setText(String.valueOf(local.getBitacoraLocal().calcTiempoPersona(nombreEstancia.getText())));
-        } else if (jCheckBoxPorciento.isSelected()) {
-            nombreEstancia.setEnabled(false);
-            _3CalcPc.setText(String.valueOf(local.getBitacoraLocal().calcPorcAprov(Integer.parseInt(tiempoUsoLocal.getText()))));
+        DefaultTableModel modelo = (DefaultTableModel) tablaPrincipal.getModel();
+        int filaSeleccionada = tablaPrincipal.getSelectedRow();
+        int numero = Integer.parseInt(String.valueOf(modelo.getValueAt(filaSeleccionada, 0)));
+        Computadora pc = encontrarPc(numero);
+
+        if (pc == null) {
+            JOptionPane.showMessageDialog(this, "Computadora no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        limpiar();
+
+        if (jRadioButtonTiempoUso.isSelected()) {
+            _1CalcPc.setText(String.valueOf(pc.getBitacoraPc().calcTiempoUso()));
+
+        } else if (jRadioButtonEstancia.isSelected()) {
+            String persona = String.valueOf(nombreEstancia.getSelectedItem());
+            if (persona == null || persona.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Seleccione a una persona", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            _2CalcPc.setText(String.valueOf((int) pc.getBitacoraPc().calcTiempoPersona(persona)));
+
+        } else if (jRadioButtonPorcAprov.isSelected()) {
+            int tiempo = Integer.parseInt(tiempoUso.getText());
+            if (tiempo == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese el tiempo de uso del local", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            _3CalcPc.setText(String.valueOf(pc.getBitacoraPc().calcPorcAprov(tiempo)));
+
+        }
     }//GEN-LAST:event_calcActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -2109,87 +2218,106 @@ public class Visual extends javax.swing.JFrame {
         String[] valor = jLabel41.getText().split(" ");
         Local local = null;
         Computadora pc = null;
-
-        if (jLabel41.getText().contains("local")) {
-            local = encontrarLocal(valor[valor.length - 1]);
-        } else {
-            pc = encontrarPc(Integer.parseInt(valor[valor.length - 1]));
-        }
-
-        Estudiante estudiante = null;
-        Profesor profesor = null;
         String nombre = nombreAddElemento.getText();
-        int solapin = Integer.parseInt(solapinAddElemento.getText());
-        String nombreProy = nomProyecto.getText();
-        String nombreAsig = asignaturaAddElemento.getText();
         String entrada = entraInput.getText();
         String salida = salidaInput.getText();
         String fecha = fechaInput.getText();
 
-        if (nombreAddElemento.getText().isEmpty()
-                || solapinAddElemento.getText().isEmpty()
-                || entraInput.getText().isEmpty()
-                || salidaInput.getText().isEmpty()
-                || fechaInput.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(addElemento, "Nombre, solapín, entrada, salida, fecha son obligatorios", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
-        } else {
+        if (jLabel41.getText().contains("local")) {
+            local = encontrarLocal(valor[valor.length - 1]);
+            Estudiante estudiante = null;
+            Profesor profesor = null;
+            int solapin = Integer.parseInt(solapinAddElemento.getText());
+            String nombreProy = nomProyecto.getText();
+            String nombreAsig = asignaturaAddElemento.getText();
 
-            if (estudianteRadio.isSelected()) {
-
-                if (annoDocAddElemento.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(addElemento, "Año docente es obligatorio", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    int anno = Integer.parseInt(annoDocAddElemento.getText());
-                    estudiante = new Estudiante(anno, nombre, solapin);
-
-                    if (local != null) {
-                        local.getBitacoraLocal().addElemento(estudiante, entrada, salida, fecha);
-                        refresh_Bitacora(local);
-                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
-                    } else if (pc != null) {
-                        pc.getBitacoraPc().addElemento(estudiante, entrada, salida, fecha);
-                        refresh_Bitacora(pc);
-                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
-                    }
-                }
-
-            } else if (profesorRadio.isSelected()) {
-
-                if (asignaturaAddElemento.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(addElemento, "La asignatura es obligatoria", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    profesor = new Profesor(nombreAsig, nombre, solapin);
-
-                    if (local != null) {
-                        local.getBitacoraLocal().addElemento(profesor, entrada, salida, fecha);
-                        refresh_Bitacora(local);
-                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
-                    } else if (pc != null) {
-                        pc.getBitacoraPc().addElemento(profesor, entrada, salida, fecha);
-                        refresh_Bitacora(pc);
-                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
-                    }
-                }
-
+            if (nombreAddElemento.getText().isEmpty()
+                    || solapinAddElemento.getText().isEmpty()
+                    || salidaInput.getText().isEmpty()
+                    || salidaInput.getText().isEmpty()
+                    || fechaInput.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(addElemento, "Nombre, solapín, entrada, salida, fecha son obligatorios", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
             } else {
 
-                if (annoDocAddElemento.getText().isEmpty() || nomProyecto.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(addElemento, "Año docente y nombre de proyecto son obligatorios", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    int anno = Integer.parseInt(annoDocAddElemento.getText());
-                    estudiante = new EstudianteProy(nombreProy, anno, nombre, solapin);
+                if (estudianteRadio.isSelected()) {
 
-                    if (local != null) {
-                        local.getBitacoraLocal().addElemento(estudiante, entrada, salida, fecha);
-                        refresh_Bitacora(local);
-                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                    if (annoDocAddElemento.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(addElemento, "Año docente es obligatorio", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        pc.getBitacoraPc().addElemento(estudiante, entrada, salida, fecha);
-                        refresh_Bitacora(pc);
-                        JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        int anno = Integer.parseInt(annoDocAddElemento.getText());
+
+                        if (anno < 0 || anno > 6) {
+                            JOptionPane.showMessageDialog(null, "Error en el año docente", "Error", JOptionPane.ERROR_MESSAGE);
+                            annoDocAddElemento.setText("");
+                            return;
+                        }
+
+                        estudiante = new Estudiante(anno, nombre, solapin);
+
+                        if (local != null) {
+                            local.getBitacoraLocal().addElemento(estudiante, entrada, salida, fecha);
+                            refresh_Bitacora(local);
+                            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        } else if (pc != null) {
+                            pc.getBitacoraPc().addElemento(estudiante, entrada, salida, fecha);
+                            refresh_Bitacora(pc);
+                            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        }
+                    }
+
+                } else if (profesorRadio.isSelected()) {
+
+                    if (asignaturaAddElemento.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(addElemento, "La asignatura es obligatoria", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        profesor = new Profesor(nombreAsig, nombre, solapin);
+
+                        if (local != null) {
+                            local.getBitacoraLocal().addElemento(profesor, entrada, salida, fecha);
+                            refresh_Bitacora(local);
+                            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        } else if (pc != null) {
+                            pc.getBitacoraPc().addElemento(profesor, entrada, salida, fecha);
+                            refresh_Bitacora(pc);
+                            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        }
+                    }
+
+                } else {
+
+                    if (annoDocAddElemento.getText().isEmpty() || nomProyecto.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(addElemento, "Año docente y nombre de proyecto son obligatorios", "Campos obligatorios", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        int anno = Integer.parseInt(annoDocAddElemento.getText());
+                        estudiante = new EstudianteProy(nombreProy, anno, nombre, solapin);
+
+                        if (local != null) {
+                            local.getBitacoraLocal().addElemento(estudiante, entrada, salida, fecha);
+                            refresh_Bitacora(local);
+                            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        } else {
+                            pc.getBitacoraPc().addElemento(estudiante, entrada, salida, fecha);
+                            refresh_Bitacora(pc);
+                            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
+                        }
                     }
                 }
             }
+        } else {
+            pc = encontrarPc(Integer.parseInt(valor[valor.length - 1]));
+            String name = (String) selectPersona.getSelectedItem();
+            ArrayList<Persona> pers = pc.getLocal1().getBitacoraLocal().getPersonas();
+            Persona persona = null;
+            for (int i = 0; i < pers.size(); i++) {
+                if (pers.get(i).getNombre().equals(name)) {
+                    persona = pers.get(i);
+                    break;
+                }
+            }
+
+            pc.getBitacoraPc().addElemento(persona, entrada, salida, fecha);
+            refresh_Bitacora(pc);
+            JOptionPane.showMessageDialog(addElemento, "Usuario añadido correctamente");
         }
 
         listado.setVisible(false);
@@ -2231,10 +2359,6 @@ public class Visual extends javax.swing.JFrame {
     private void cantCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantCompActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantCompActionPerformed
-
-    private void nombreEstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEstanciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreEstanciaActionPerformed
 
     private void localAddPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localAddPcActionPerformed
         // TODO add your handling code here:
@@ -2289,10 +2413,6 @@ public class Visual extends javax.swing.JFrame {
         asignaturaAddElemento.setEnabled(false);
         nomProyecto.setEnabled(true);
     }//GEN-LAST:event_estProyectoActionPerformed
-
-    private void entraInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entraInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_entraInputActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
         // TODO add your handling code here:
@@ -2367,9 +2487,23 @@ public class Visual extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void peorCalcAprovLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peorCalcAprovLocalActionPerformed
+    private void jRadioButtonTiempoUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTiempoUsoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_peorCalcAprovLocalActionPerformed
+        nombreEstancia.setEnabled(false);
+        tiempoUso.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonTiempoUsoActionPerformed
+
+    private void jRadioButtonEstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstanciaActionPerformed
+        // TODO add your handling code here:
+        nombreEstancia.setEnabled(true);
+        tiempoUso.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonEstanciaActionPerformed
+
+    private void jRadioButtonPorcAprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPorcAprovActionPerformed
+        // TODO add your handling code here:
+        nombreEstancia.setEnabled(false);
+        tiempoUso.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonPorcAprovActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2519,7 +2653,6 @@ public class Visual extends javax.swing.JFrame {
         nombAddLocal.setText("");
         mejorPorcCalcAprov.setText("");
         peorPorcCalcAprov.setText("");
-        nombreEstancia.setText("");
         _1CalcPc.setText("");
         _2CalcPc.setText("");
         _3CalcPc.setText("");
@@ -2536,15 +2669,6 @@ public class Visual extends javax.swing.JFrame {
         numPcReporteRotura.setText("");
         cantComp.setText("");
         nomProyecto.setText("");
-        estadoAddPc.setSelectedIndex(-1);
-        localAddPc.setSelectedIndex(-1);
-        eliminarLocalCombo.setSelectedIndex(-1);
-        eliminarPcCombo.setSelectedIndex(-1);
-        mejorCalcAprovLocal.setSelected(false);
-        peorCalcAprovLocal.setSelected(false);
-        jCheckBoxTiempo.setSelected(false);
-        jCheckBoxEstancia.setSelected(false);
-        jCheckBoxPorciento.setSelected(false);
         entraInput.setText("");
         salidaInput.setText("");
         fechaInput.setText("");
@@ -2552,6 +2676,16 @@ public class Visual extends javax.swing.JFrame {
         usuarioTextField.setText("");
         jTextAreaUsuario.setText("");
         jTextAreaMayorUso.setText("");
+        estadoAddPc.setSelectedIndex(-1);
+        localAddPc.setSelectedIndex(-1);
+        nombreEstancia.setSelectedIndex(-1);
+        eliminarLocalCombo.setSelectedIndex(-1);
+        eliminarPcCombo.setSelectedIndex(-1);
+        mejorCalcAprovLocal.setSelected(false);
+        peorCalcAprovLocal.setSelected(false);
+        jRadioButtonTiempoUso.setSelected(false);
+        jRadioButtonEstancia.setSelected(false);
+        jRadioButtonPorcAprov.setSelected(false);
     }
 
     private DefaultTableModel model_local;
@@ -2561,6 +2695,8 @@ public class Visual extends javax.swing.JFrame {
     private Facultad facultad;
     private ArrayList<Local> locales;
     private NumberFormat formato;
+    SimpleDateFormat formatoHora;
+    SimpleDateFormat formatoFecha;
     private Local local;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog PcRotas;
@@ -2587,6 +2723,8 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroupCalcAprov;
+    private javax.swing.ButtonGroup buttonGroupCalcPc;
     private javax.swing.JButton calc;
     private javax.swing.JDialog calcAprovLocal;
     private javax.swing.JButton calcAprovechamiento;
@@ -2603,7 +2741,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> eliminarLocalCombo;
     private javax.swing.JComboBox<String> eliminarPcCombo;
     private javax.swing.JButton eliminarUsuario;
-    private javax.swing.JTextField entraInput;
+    private javax.swing.JFormattedTextField entraInput;
     private javax.swing.JLabel entrada;
     private javax.swing.JRadioButton estProyecto;
     private javax.swing.JComboBox<String> estadoAddPc;
@@ -2612,7 +2750,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton facultadButton;
     private javax.swing.JDialog facultadJD;
     private javax.swing.JLabel fecha;
-    private javax.swing.JTextField fechaInput;
+    private javax.swing.JFormattedTextField fechaInput;
     private javax.swing.JRadioButton investigAddLocal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton15;
@@ -2637,9 +2775,6 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBox jCheckBoxEstancia;
-    private javax.swing.JCheckBox jCheckBoxPorciento;
-    private javax.swing.JCheckBox jCheckBoxTiempo;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2718,6 +2853,9 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRadioButtonEstancia;
+    private javax.swing.JRadioButton jRadioButtonPorcAprov;
+    private javax.swing.JRadioButton jRadioButtonTiempoUso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2732,7 +2870,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JDialog listado;
     private javax.swing.JComboBox<String> localAddPc;
     private javax.swing.JButton localesButton;
-    private javax.swing.JCheckBox mejorCalcAprovLocal;
+    private javax.swing.JRadioButton mejorCalcAprovLocal;
     private javax.swing.JTextField mejorPorcCalcAprov;
     private javax.swing.JDialog mejorUso;
     private javax.swing.JFormattedTextField nomProyecto;
@@ -2740,7 +2878,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JLabel nombEliminarLabel;
     private javax.swing.JTextField nombreAddElemento;
     private javax.swing.JTextField nombreDeleteElemento;
-    private javax.swing.JTextField nombreEstancia;
+    private javax.swing.JComboBox<String> nombreEstancia;
     private javax.swing.JLabel nombreEstud;
     private javax.swing.JLabel nombreUsuario;
     private javax.swing.JFormattedTextField numAddPc;
@@ -2748,7 +2886,7 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField numPcReporteRotura;
     private javax.swing.JTextField ocupPc;
     private javax.swing.JButton pcButton;
-    private javax.swing.JCheckBox peorCalcAprovLocal;
+    private javax.swing.JRadioButton peorCalcAprovLocal;
     private javax.swing.JTextField peorPorcCalcAprov;
     private javax.swing.JLabel perteneceLabel;
     private javax.swing.JRadioButton profesorRadio;
@@ -2756,15 +2894,18 @@ public class Visual extends javax.swing.JFrame {
     private javax.swing.JDialog reporteRotura;
     private javax.swing.JTextField rotasPc;
     private javax.swing.JLabel salida;
-    private javax.swing.JTextField salidaInput;
+    private javax.swing.JFormattedTextField salidaInput;
     private javax.swing.JButton salirButtonFrame;
     private javax.swing.JButton salirDialog1;
+    private javax.swing.JComboBox<String> selectPersona;
     private javax.swing.JFormattedTextField solapinAddElemento;
     private javax.swing.JFormattedTextField solapinDeleteElemento;
     private javax.swing.JLabel solapinEstud;
     private javax.swing.JTable tablaBitacora;
     private javax.swing.JTable tablaPcRotas;
     private javax.swing.JTable tablaPrincipal;
+    private javax.swing.JLabel tiempoLabel;
+    private javax.swing.JFormattedTextField tiempoUso;
     private javax.swing.JLabel tiempoUsoLabel;
     private javax.swing.JFormattedTextField tiempoUsoLocal;
     private javax.swing.JLabel tituloLabel;
